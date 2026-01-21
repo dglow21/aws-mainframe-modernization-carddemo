@@ -1,0 +1,108 @@
+{
+  "domains": [
+    {
+      "name": "Transaction Processing and Management",
+      "description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, and reporting.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl|COTRN00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl|COTRN01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl|COTRN02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/POSTTRAN.jcl|POSTTRAN.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANREPT.jcl|TRANREPT.jcl|JCL"
+      ]
+    },
+    {
+      "name": "Credit Card Management",
+      "description": "Provides comprehensive credit card lifecycle management including card inquiry, updates, and maintenance operations.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl|COCRDLIC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl|COCRDSLC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDUPC.cbl|COCRDUPC.cbl|COB"
+      ]
+    },
+    {
+      "name": "Account Management",
+      "description": "Handles customer account operations including account inquiry, updates, and balance management.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl|COACTVWC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl|COACTUPC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl|COACCT01.cbl|COB"
+      ]
+    },
+    {
+      "name": "Authorization Processing",
+      "description": "Manages credit card authorization requests including real-time processing, fraud detection, and authorization management.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl|COPAUA0C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS1C.cbl|COPAUS1C.cbl|COB"
+      ]
+    },
+    {
+      "name": "Customer Service and Payments",
+      "description": "Provides customer-facing services including bill payment processing and account balance management.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl|COBIL00C.cbl|COB"
+      ]
+    },
+    {
+      "name": "User Administration and Security",
+      "description": "Manages user accounts, authentication, and access control for the card management system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl|COUSR00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR01C.cbl|COUSR01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl|COUSR02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl|COUSR03C.cbl|COB"
+      ]
+    },
+    {
+      "name": "Reporting and Analytics",
+      "description": "Generates business reports, statements, and analytical outputs for management and customer communication.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CORPT00C.cbl|CORPT00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CREASTMT.JCL|CREASTMT.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TXT2PDF1.JCL|TXT2PDF1.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/PRTCATBL.jcl|PRTCATBL.jcl|JCL"
+      ]
+    },
+    {
+      "name": "System Navigation and Interface",
+      "description": "Provides main menu systems and navigation interfaces for user access to application functions.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl|COMEN01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl|COADM01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/CODATE01.cbl|CODATE01.cbl|COB"
+      ]
+    },
+    {
+      "name": "Data Management and File Operations",
+      "description": "Manages data files, performs data extraction, loading, and maintains data integrity across the system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READACCT.jcl|READACCT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READCARD.jcl|READCARD.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READCUST.jcl|READCUST.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READXREF.jcl|READXREF.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CBEXPORT.jcl|CBEXPORT.jcl|JCL"
+      ]
+    },
+    {
+      "name": "Reference Data Management",
+      "description": "Maintains master reference data including transaction types, categories, and lookup tables used throughout the system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/TRANEXTR.jcl|TRANEXTR.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DISCGRP.jcl|DISCGRP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TCATBALF.jcl|TCATBALF.jcl|JCL"
+      ]
+    },
+    {
+      "name": "System Administration and Infrastructure",
+      "description": "Provides system administration, infrastructure management, and technical support operations.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/CREADB21.jcl|CREADB21.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/MNTTRDB2.jcl|MNTTRDB2.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANIDX.jcl|TRANIDX.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANBKP.jcl|TRANBKP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFCUST.jcl|DEFCUST.jcl|JCL"
+      ]
+    }
+  ]
+}

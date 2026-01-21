@@ -1,0 +1,56 @@
+{
+  "created_on": "2026-01-21",
+  "document_name": "Application Level Business Specifications",
+  "type": "application",
+  "executive_summary": "This mainframe application serves as a comprehensive credit card management and transaction processing system that enables financial institutions to deliver complete card-based payment services to their customers. The system provides end-to-end transaction processing capabilities from real-time authorization through final posting and reporting, while maintaining comprehensive card and account management functions that support both customer service operations and administrative oversight. Key business capabilities include real-time credit card authorization with fraud detection, online and batch transaction processing, comprehensive account and card lifecycle management, customer self-service payment processing, and robust reporting and analytics for business intelligence and regulatory compliance. The application delivers significant business value by automating critical financial processes, reducing operational overhead through self-service capabilities, ensuring regulatory compliance through comprehensive audit trails and reporting, and providing the scalable infrastructure necessary to support high-volume card transaction processing. The system covers essential business domains including transaction processing, customer account management, payment processing, user administration, and business intelligence, with supporting infrastructure for reference data management and system administration. Additional transaction validation and reference data maintenance capabilities, including daily transaction processing and transaction type management, further strengthen the system's ability to ensure data integrity and support comprehensive business operations across the card management ecosystem.",
+  "identified_business_functions": [
+    {
+      "name": "Transaction Processing and Management",
+      "description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, and reporting."
+    },
+    {
+      "name": "Credit Card Management",
+      "description": "Provides comprehensive credit card lifecycle management including card inquiry, updates, and maintenance operations."
+    },
+    {
+      "name": "Account Management",
+      "description": "Handles customer account operations including account inquiry, updates, and balance management."
+    },
+    {
+      "name": "Authorization Processing",
+      "description": "Manages credit card authorization requests including real-time processing, fraud detection, and authorization management."
+    },
+    {
+      "name": "Customer Service and Payments",
+      "description": "Provides customer-facing services including bill payment processing and account balance management."
+    },
+    {
+      "name": "User Administration and Security",
+      "description": "Manages user accounts, authentication, and access control for the card management system."
+    },
+    {
+      "name": "Reporting and Analytics",
+      "description": "Generates business reports, statements, and analytical outputs for management and customer communication."
+    },
+    {
+      "name": "System Navigation and Interface",
+      "description": "Provides main menu systems and navigation interfaces for user access to application functions."
+    },
+    {
+      "name": "Data Management and File Operations",
+      "description": "Manages data files, performs data extraction, loading, and maintains data integrity across the system."
+    },
+    {
+      "name": "Reference Data Management",
+      "description": "Maintains master reference data including transaction types, categories, and lookup tables used throughout the system."
+    },
+    {
+      "name": "System Administration and Infrastructure",
+      "description": "Provides system administration, infrastructure management, and technical support operations."
+    },
+    {
+      "name": "Unassigned",
+      "description": "Files that do not belong to any functional group"
+    }
+  ]
+}

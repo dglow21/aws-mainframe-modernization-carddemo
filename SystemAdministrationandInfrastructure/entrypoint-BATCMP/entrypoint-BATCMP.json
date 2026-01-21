@@ -1,0 +1,54 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "BATCMP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "BATCMP.jcl",
+    "summary": {
+        "overview": "This JCL job compiles a batch COBOL program named BATCHPGM using standardized build procedures. It utilizes the CARDDEMO utility library's BUILDBAT procedure to perform automated compilation with appropriate system resource allocation.",
+        "business_functions": [
+            "Compile COBOL batch program BATCHPGM using automated build procedures",
+            "Execute standardized compilation process through BUILDBAT procedure",
+            "Provide job completion notification to submitting user"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "BATCMP.jcl": [
+            {
+                "program_name": "BATCHPGM",
+                "program_overview": "COBOL batch program being compiled",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "CardDemo Procedure Library (AWS.M2.CARDDEMO.PRC.UTIL)",
+            "original_name": "AWS.M2.CARDDEMO.PRC.UTIL",
+            "business_name": "CardDemo Procedure Library",
+            "type": "PDS",
+            "function": "Procedure library containing JCL procedures and utilities used during the compilation and build process. Provides reusable procedures like BUILDBAT for standardized compilation workflows.",
+            "used_by_programs": [
+                "BATCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "BATCMP.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/BATCMP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    BATCHPGM[\"COBOL batch program being compiled (BATCHPGM) \"]\n"
+}

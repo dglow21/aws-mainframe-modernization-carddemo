@@ -1,0 +1,54 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "REPTFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "REPTFILE.jcl",
+    "summary": {
+        "overview": "This JCL job establishes a Generation Data Group (GDG) infrastructure for managing transaction report files in the CardDemo application. It creates a systematic approach to maintain up to 10 historical versions of transaction reports with automatic cleanup of older versions.",
+        "business_functions": [
+            "Creates Generation Data Group structure for transaction report file management",
+            "Establishes 10-generation limit for maintaining historical transaction report versions",
+            "Enables automatic version control and cleanup for transaction reporting data"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "REPTFILE.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility for defining and managing Generation Data Groups",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Report Files (AWS.M2.CARDDEMO.TRANREPT)",
+            "original_name": "AWS.M2.CARDDEMO.TRANREPT",
+            "business_name": "Transaction Report Files",
+            "type": "GDG",
+            "function": "Stores transaction report files with generation management, maintaining up to 10 versions of transaction reports for historical tracking and version control",
+            "used_by_programs": [
+                "REPTFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "REPTFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/REPTFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility for defining and managing Generation Data Groups (IDCAMS) \"]\n"
+}

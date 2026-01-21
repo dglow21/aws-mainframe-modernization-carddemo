@@ -1,0 +1,92 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANFILE.jcl",
+    "summary": {
+        "overview": "This JCL job sets up the Transaction Master file system for a card demo application by creating VSAM datasets, loading transaction data, and establishing alternate index structures for efficient data access. It manages CICS file operations to ensure proper coordination between online and batch processing.",
+        "business_functions": [
+            "Close CICS transaction files to prepare for maintenance operations",
+            "Delete existing Transaction Master VSAM cluster and alternate index to ensure clean setup",
+            "Create new Transaction Master VSAM Key Sequenced Dataset with 16-byte key and 350-byte fixed record size",
+            "Load transaction data from sequential initialization file into the newly created VSAM dataset",
+            "Define alternate index on Transaction Master with 26-byte key starting at position 304 for non-unique key access",
+            "Create path definition to enable access to Transaction Master data through the alternate index",
+            "Build the alternate index using existing data from the Transaction Master VSAM dataset",
+            "Reopen CICS transaction files to make them available for online processing"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANFILE.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility - Executes CICS commands to manage file operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "Access Method Services - Manages VSAM dataset operations including creation, deletion, loading, and indexing",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Primary transaction master file that stores transaction records with 350-byte fixed length records. Supports shared access across multiple users and provides primary key access starting at position 0 with length 16.",
+            "used_by_programs": [
+                "TRANFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Transaction Alternate Index (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX",
+            "business_name": "Transaction Alternate Index",
+            "type": "VSAM_KSDS",
+            "function": "Alternate index for the transaction master file that provides secondary access path using alternate key starting at position 304 with length 26. Allows non-unique keys and maintains automatic synchronization with the base transaction file.",
+            "used_by_programs": [
+                "TRANFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Daily Transaction Initial Load File (AWS.M2.CARDDEMO.DALYTRAN.PS.INIT)",
+            "original_name": "AWS.M2.CARDDEMO.DALYTRAN.PS.INIT",
+            "business_name": "Daily Transaction Initial Load File",
+            "type": "SEQUENTIAL",
+            "function": "Input source file containing initial transaction data that gets loaded into the VSAM transaction master file during the data population process.",
+            "used_by_programs": [
+                "TRANFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System Display and Search Facility - Executes CICS commands to manage file operations (SDSF) \"]\n    IDCAMS[\"Access Method Services - Manages VSAM dataset operations including creation, deletion, loading, and indexing (IDCAMS) \"]\n"
+}

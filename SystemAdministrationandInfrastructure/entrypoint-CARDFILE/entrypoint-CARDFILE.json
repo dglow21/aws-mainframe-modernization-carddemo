@@ -1,0 +1,158 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CARDFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CARDFILE.jcl",
+    "summary": {
+        "overview": "This JCL job performs a complete rebuild of the card data VSAM files by deleting existing structures, recreating them with proper indexing, and reloading data from a sequential source file. The process ensures data integrity by temporarily closing CICS file access during the rebuild operation and reopening them for normal business operations.",
+        "business_functions": [
+            "Close CICS access to card data files to prevent conflicts during rebuild",
+            "Delete existing VSAM cluster and alternate index for card data",
+            "Create new VSAM cluster for card data with 16-byte primary key and 150-byte records",
+            "Load card data from sequential file into the newly created VSAM cluster",
+            "Define alternate index with 11-byte secondary key for alternative access paths",
+            "Create path definition to enable access through the alternate index structure",
+            "Build the alternate index using existing data from the primary VSAM cluster",
+            "Reopen CICS file access to both card data files for normal operations"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CARDFILE.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility - Executes CICS commands to close and open card data files",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "Access Method Services utility - Manages VSAM dataset operations including delete, create, load, and index building",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Data Master File (AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS",
+            "business_name": "Card Data Master File",
+            "type": "VSAM_KSDS",
+            "function": "Primary storage for card data records with 150-byte fixed records and 16-byte primary key. Serves as the master repository for all card information in the system.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Alternate Index (AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX",
+            "business_name": "Card Data Alternate Index",
+            "type": "VSAM_AIX",
+            "function": "Provides secondary access path to card data using 11-byte alternate keys, enabling flexible data retrieval and supporting non-unique key searches.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Storage Component (AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS.DATA",
+            "business_name": "Card Data Storage Component",
+            "type": "VSAM_KSDS",
+            "function": "Physical data storage component of the card data cluster, automatically managed as part of the VSAM file structure.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Index Component (AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS.INDEX",
+            "business_name": "Card Data Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component providing fast primary key access to card data records, automatically maintained by VSAM.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Source File (AWS.M2.CARDDEMO.CARDDATA.PS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.PS",
+            "business_name": "Card Data Source File",
+            "type": "SEQUENTIAL",
+            "function": "Sequential source file containing card data records that are loaded into the VSAM card data system during data initialization process.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Alternate Index Data Component (AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.DATA",
+            "business_name": "Alternate Index Data Component",
+            "type": "VSAM_AIX",
+            "function": "Physical storage component for alternate index entries, automatically created and maintained to support secondary key access patterns.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Alternate Index Access Component (AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.INDEX",
+            "business_name": "Alternate Index Access Component",
+            "type": "VSAM_AIX",
+            "function": "Index structure for alternate index providing fast access to alternate key entries, automatically maintained by VSAM.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Alternate Access Path (AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.PATH)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.PATH",
+            "business_name": "Card Data Alternate Access Path",
+            "type": "VSAM_PATH",
+            "function": "Logical access path definition that enables applications to access card data through alternate keys, providing flexible data retrieval capabilities.",
+            "used_by_programs": [
+                "CARDFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CARDFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CARDFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System Display and Search Facility - Executes CICS commands to close and open card data files (SDSF) \"]\n    IDCAMS[\"Access Method Services utility - Manages VSAM dataset operations including delete, create, load, and index building (IDCAMS) \"]\n"
+}

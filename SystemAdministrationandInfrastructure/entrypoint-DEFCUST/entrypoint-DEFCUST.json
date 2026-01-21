@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DEFCUST.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DEFCUST.jcl",
+    "summary": {
+        "overview": "This JCL job recreates the customer data storage infrastructure by removing any existing customer data file structure and establishing a new indexed VSAM cluster for efficient customer information storage and retrieval.",
+        "business_functions": [
+            "Delete existing customer data file structure to ensure clean setup",
+            "Create new indexed VSAM cluster for customer data storage with 500-byte fixed records",
+            "Establish 10-byte key indexing system for efficient customer record retrieval",
+            "Configure shared access capabilities allowing multiple users to read customer data simultaneously",
+            "Set up scalable storage allocation with automatic expansion capabilities"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DEFCUST.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM dataset management operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Legacy Customer Data Cluster (AWS.CCDA.CUSTDATA.CLUSTER)",
+            "original_name": "AWS.CCDA.CUSTDATA.CLUSTER",
+            "business_name": "Legacy Customer Data Cluster",
+            "type": "VSAM_KSDS",
+            "function": "Legacy customer data storage cluster that is being removed from the system to prepare for redefinition with updated specifications",
+            "used_by_programs": [
+                "DEFCUST.jcl"
+            ],
+            "accessType": [
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Customer Data Cluster (AWS.CUSTDATA.CLUSTER)",
+            "original_name": "AWS.CUSTDATA.CLUSTER",
+            "business_name": "Customer Data Cluster",
+            "type": "VSAM_KSDS",
+            "function": "Primary customer data storage cluster with 10-character key structure, 500-byte records, supporting shared read access with exclusive updates for customer information management",
+            "used_by_programs": [
+                "DEFCUST.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Customer Data Component (AWS.CUSTDATA.CLUSTER.DATA)",
+            "original_name": "AWS.CUSTDATA.CLUSTER.DATA",
+            "business_name": "Customer Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data storage component that contains the actual customer records within the customer data cluster",
+            "used_by_programs": [
+                "DEFCUST.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Customer Data Index Component (AWS.CUSTDATA.CLUSTER.INDEX)",
+            "original_name": "AWS.CUSTDATA.CLUSTER.INDEX",
+            "business_name": "Customer Data Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component that provides efficient keyed access to customer records for fast data retrieval and navigation",
+            "used_by_programs": [
+                "DEFCUST.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DEFCUST.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFCUST.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM dataset management operations (IDCAMS) \"]\n"
+}

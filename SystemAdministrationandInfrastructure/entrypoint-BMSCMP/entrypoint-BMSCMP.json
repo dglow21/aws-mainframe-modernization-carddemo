@@ -1,0 +1,187 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "BMSCMP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "BMSCMP.jcl",
+    "summary": {
+        "overview": "This JCL compiles and deploys CICS screen map definitions for the card demo application. It processes BMS map source code through assembly and link-editing to create executable screen layouts and generates copybook structures for application development.",
+        "business_functions": [
+            "Copy CICS map source code from library to temporary dataset for processing",
+            "Assemble CICS map definitions to generate executable screen layout objects",
+            "Link-edit assembled map objects to create deployable load modules",
+            "Generate data structure definitions (DSECTs) as copybooks for COBOL programs",
+            "Display assembly listing for verification and review of compilation results",
+            "Refresh CICS program definition to activate new screen maps in running environment",
+            "Clean up temporary datasets to free system storage space"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "PDS",
+                "PDSE"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "BMSCMP.jcl": [
+            {
+                "program_name": "IEBGENER",
+                "program_overview": "IBM utility program that copies CICS map source code to temporary dataset",
+                "called_programs": []
+            },
+            {
+                "program_name": "ASMA90",
+                "program_overview": "IBM High Level Assembler that compiles CICS map definitions and generates data structures",
+                "called_programs": []
+            },
+            {
+                "program_name": "HEWL",
+                "program_overview": "IBM Linkage Editor that creates executable load modules from assembled objects",
+                "called_programs": []
+            },
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM null program used for dataset cleanup operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility that refreshes CICS program definitions",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo BMS Map Source Library (AWS.M2.CARDDEMO.BMS(CICSMAP))",
+            "original_name": "AWS.M2.CARDDEMO.BMS(CICSMAP)",
+            "business_name": "Card Demo BMS Map Source Library",
+            "type": "PDS",
+            "function": "Contains BMS map definition source code that defines screen layouts and field attributes for CICS applications",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Temporary BMS Map Work File (&&TEMPM)",
+            "original_name": "&&TEMPM",
+            "business_name": "Temporary BMS Map Work File",
+            "type": "SEQUENTIAL",
+            "function": "Temporary storage for BMS map source during compilation process",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "READ",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "CICS System Macro Library (OEM.CICSTS.V05R06M0.CICS.SDFHMAC)",
+            "original_name": "OEM.CICSTS.V05R06M0.CICS.SDFHMAC",
+            "business_name": "CICS System Macro Library",
+            "type": "PDS",
+            "function": "System library containing CICS macro definitions required for BMS map assembly",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Macro Library (SYS1.MACLIB)",
+            "original_name": "SYS1.MACLIB",
+            "business_name": "System Macro Library",
+            "type": "PDS",
+            "function": "Standard system macro library containing macros needed for assembly operations",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Language Environment Macro Library (CEE.SCEEMAC)",
+            "original_name": "CEE.SCEEMAC",
+            "business_name": "Language Environment Macro Library",
+            "type": "PDS",
+            "function": "Contains Language Environment macros required for assembly process",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Temporary Map Object Work File (&&MAP)",
+            "original_name": "&&MAP",
+            "business_name": "Temporary Map Object Work File",
+            "type": "SEQUENTIAL",
+            "function": "Temporary storage for assembled object code during link-edit process",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "READ",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Card Demo Load Library (AWS.M2.CARDDEMO.LOADLIB(CICSMAP))",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB(CICSMAP)",
+            "business_name": "Card Demo Load Library",
+            "type": "PDS",
+            "function": "Final executable load library where compiled BMS maps are stored for CICS runtime use",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Demo Listing Library (AWS.M2.CARDDEMO.LST(CICSMAP))",
+            "original_name": "AWS.M2.CARDDEMO.LST(CICSMAP)",
+            "business_name": "Card Demo Listing Library",
+            "type": "PDS",
+            "function": "Contains assembly listings and compilation details for review and documentation purposes",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Demo Copybook Library (AWS.M2.CARDDEMO.CPY(CICSMAP))",
+            "original_name": "AWS.M2.CARDDEMO.CPY(CICSMAP)",
+            "business_name": "Card Demo Copybook Library",
+            "type": "PDS",
+            "function": "Contains generated DSECT copybooks that define data structures for BMS maps, used by COBOL programs",
+            "used_by_programs": [
+                "BMSCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "BMSCMP.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/BMSCMP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEBGENER[\"IBM utility program that copies CICS map source code to temporary dataset (IEBGENER) \"]\n    ASMA90[\"IBM High Level Assembler that compiles CICS map definitions and generates data structures (ASMA90) \"]\n    HEWL[\"IBM Linkage Editor that creates executable load modules from assembled objects (HEWL) \"]\n    IEFBR14[\"IBM null program used for dataset cleanup operations (IEFBR14) \"]\n    SDSF[\"System Display and Search Facility that refreshes CICS program definitions (SDSF) \"]\n"
+}

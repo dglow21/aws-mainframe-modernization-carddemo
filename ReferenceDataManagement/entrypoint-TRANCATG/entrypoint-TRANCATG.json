@@ -1,0 +1,96 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANCATG.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANCATG.jcl",
+    "summary": {
+        "overview": "This JCL job sets up and loads the Transaction Category master file for the CARDDEMO application. It creates a VSAM indexed dataset and populates it with transaction category reference data used for categorizing card transactions.",
+        "business_functions": [
+            "Delete existing Transaction Category VSAM file to ensure clean setup",
+            "Create new VSAM indexed cluster for storing transaction category reference data",
+            "Load transaction category data from sequential file into VSAM structure for indexed access",
+            "Enable concurrent access to transaction category data for multiple users and applications"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANCATG.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM dataset management and data loading operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Category Master File (AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS",
+            "business_name": "Transaction Category Master File",
+            "type": "VSAM_KSDS",
+            "function": "Master file containing transaction category reference data with 6-byte keys and 60-byte fixed records, supporting shared access for transaction categorization",
+            "used_by_programs": [
+                "TRANCATG.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Data Component (AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS.DATA",
+            "business_name": "Transaction Category Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data component of the transaction category VSAM cluster containing the actual transaction category records",
+            "used_by_programs": [
+                "TRANCATG.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Index Component (AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS.INDEX",
+            "business_name": "Transaction Category Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the transaction category VSAM cluster providing keyed access to transaction category data",
+            "used_by_programs": [
+                "TRANCATG.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Source Data (AWS.M2.CARDDEMO.TRANCATG.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS",
+            "business_name": "Transaction Category Source Data",
+            "type": "SEQUENTIAL",
+            "function": "Sequential input file containing source transaction category data used to populate the VSAM master file",
+            "used_by_programs": [
+                "TRANCATG.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANCATG.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANCATG.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM dataset management and data loading operations (IDCAMS) \"]\n"
+}

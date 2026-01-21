@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "ACCTFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "ACCTFILE.jcl",
+    "summary": {
+        "overview": "This JCL performs account data management operations by refreshing the VSAM indexed dataset for the CARDDEMO application. It removes existing account data, creates a new indexed file structure, and loads fresh account records from a sequential file.",
+        "business_functions": [
+            "Delete existing account data storage to prepare for fresh data setup",
+            "Create new indexed account data storage structure with 11-character account key and 300-character record size",
+            "Load account records from sequential file into indexed VSAM structure for efficient account access"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "ACCTFILE.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM file management operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Account Data VSAM File (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Data VSAM File",
+            "type": "VSAM_KSDS",
+            "function": "Primary storage for account data records with 11-byte key and 300-byte fixed record size, used for efficient keyed access to customer account information",
+            "used_by_programs": [
+                "ACCTFILE.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data VSAM Data Component (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS.DATA",
+            "business_name": "Account Data VSAM Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data component of the account VSAM cluster that stores the actual account record data",
+            "used_by_programs": [
+                "ACCTFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data VSAM Index Component (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS.INDEX",
+            "business_name": "Account Data VSAM Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the account VSAM cluster that maintains key sequence for efficient data retrieval",
+            "used_by_programs": [
+                "ACCTFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data Sequential File (AWS.M2.CARDDEMO.ACCTDATA.PS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.PS",
+            "business_name": "Account Data Sequential File",
+            "type": "SEQUENTIAL",
+            "function": "Sequential source file containing account data records to be loaded into the VSAM account data file",
+            "used_by_programs": [
+                "ACCTFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "ACCTFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/ACCTFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM file management operations (IDCAMS) \"]\n"
+}

@@ -1,0 +1,112 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DUSRSECJ.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DUSRSECJ.jcl",
+    "summary": {
+        "overview": "This JCL job creates and populates a user security file for the CARDDEMO application, establishing user accounts with credentials and access levels. It converts user data from sequential format to VSAM indexed structure for efficient authentication and access control operations.",
+        "business_functions": [
+            "Clean up existing user security datasets to ensure fresh data environment",
+            "Create user security records for 10 user accounts (5 administrators and 5 regular users)",
+            "Establish two user access levels with appropriate password classifications",
+            "Define VSAM indexed dataset structure for optimal user lookup performance",
+            "Load user security data into VSAM dataset for fast authentication processing"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DUSRSECJ.jcl": [
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "System utility for dataset cleanup operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "IEBGENER",
+                "program_overview": "Data copying utility for creating sequential user security dataset",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "VSAM management utility for defining and loading user security data",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security Sequential File (AWS.M2.CARDDEMO.USRSEC.PS)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.PS",
+            "business_name": "User Security Sequential File",
+            "type": "SEQUENTIAL",
+            "function": "Temporary sequential file used to store user security data including user IDs, names, and passwords for both admin and regular users before loading into VSAM dataset",
+            "used_by_programs": [
+                "DUSRSECJ.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "User Security VSAM Dataset (AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS",
+            "business_name": "User Security VSAM Dataset",
+            "type": "VSAM_KSDS",
+            "function": "Primary VSAM key-sequenced dataset that stores user security records with indexed access for efficient retrieval of user credentials and authentication data",
+            "used_by_programs": [
+                "DUSRSECJ.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "User Security VSAM Data Component (AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS.DAT)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS.DAT",
+            "business_name": "User Security VSAM Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data component of the VSAM cluster that physically stores the user security record data",
+            "used_by_programs": [
+                "DUSRSECJ.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "User Security VSAM Index Component (AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS.IDX)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS.IDX",
+            "business_name": "User Security VSAM Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the VSAM cluster that maintains key-based access paths for efficient retrieval of user security records",
+            "used_by_programs": [
+                "DUSRSECJ.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DUSRSECJ.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/DUSRSECJ.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEFBR14[\"System utility for dataset cleanup operations (IEFBR14) \"]\n    IEBGENER[\"Data copying utility for creating sequential user security dataset (IEBGENER) \"]\n    IDCAMS[\"VSAM management utility for defining and loading user security data (IDCAMS) \"]\n"
+}

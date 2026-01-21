@@ -1,0 +1,147 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CLOSEFIL.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CLOSEFIL.jcl",
+    "summary": {
+        "overview": "This JCL job performs administrative maintenance on a CICS system by closing multiple critical business database files to ensure proper system shutdown or maintenance procedures. The job executes CICS commands to safely close five key business files including transaction data, account information, cross-reference tables, and user security files.",
+        "business_functions": [
+            "Close transaction processing file to prepare for system maintenance",
+            "Close cross-reference lookup table for data integrity",
+            "Close account data file to ensure proper file closure",
+            "Close account index file for consistent data access",
+            "Close user security file to maintain security protocols"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CLOSEFIL.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility - executes CICS commands for file management operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "SDSF Program Results Output (ISFOUT)",
+            "original_name": "ISFOUT",
+            "business_name": "SDSF Program Results Output",
+            "type": "SEQUENTIAL",
+            "function": "Captures output results from SDSF program execution for system monitoring and command processing",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "SDSF Command Results Output (CMDOUT)",
+            "original_name": "CMDOUT",
+            "business_name": "SDSF Command Results Output",
+            "type": "SEQUENTIAL",
+            "function": "Stores results and responses from SDSF commands executed during file closure operations",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "CICS File Closure Commands Input (ISFIN)",
+            "original_name": "ISFIN",
+            "business_name": "CICS File Closure Commands Input",
+            "type": "SEQUENTIAL",
+            "function": "Contains predefined CICS CEMT commands for systematically closing business files",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Data File (TRANSACT)",
+            "original_name": "TRANSACT",
+            "business_name": "Transaction Data File",
+            "type": "VSAM_KSDS",
+            "function": "Stores business transaction records and is being closed as part of system shutdown or maintenance procedures",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Cross Reference Data File (CCXREF)",
+            "original_name": "CCXREF",
+            "business_name": "Cross Reference Data File",
+            "type": "VSAM_KSDS",
+            "function": "Maintains cross-reference relationships between business entities and is being closed during system maintenance",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Account Data File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Data File",
+            "type": "VSAM_KSDS",
+            "function": "Contains customer account information and financial data, being closed as part of end-of-day or maintenance processing",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Account Alternate Index File (CXACAIX)",
+            "original_name": "CXACAIX",
+            "business_name": "Account Alternate Index File",
+            "type": "VSAM_KSDS",
+            "function": "Provides alternate key access paths to account data for efficient business queries and is being closed with the main account file",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "User Security Data File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security Data File",
+            "type": "VSAM_KSDS",
+            "function": "Stores user authentication and authorization information for system access control, being closed during security maintenance procedures",
+            "used_by_programs": [
+                "CLOSEFIL.jcl"
+            ],
+            "accessType": [
+                "UPDATE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CLOSEFIL.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CLOSEFIL.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System Display and Search Facility - executes CICS commands for file management operations (SDSF) \"]\n"
+}

@@ -1,0 +1,81 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CICCMP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CICCMP.jcl",
+    "summary": {
+        "overview": "This JCL compiles a CICS program and performs an immediate deployment to the CICS region without requiring system downtime. It ensures the updated program is available for online transaction processing immediately after successful compilation.",
+        "business_functions": [
+            "Compile CICS program CICSPGMN to create executable version",
+            "Refresh program in CICS memory to activate latest version without system restart",
+            "Enable immediate deployment of program updates to online environment"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "CICS",
+                "SDSF"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CICCMP.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility - Executes CICS commands to refresh programs in memory",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "System Output Log (SYSOUT)",
+            "original_name": "SYSOUT",
+            "business_name": "System Output Log",
+            "type": "SEQUENTIAL",
+            "function": "Captures system messages and output from SDSF program execution for monitoring and logging purposes",
+            "used_by_programs": [
+                "CICCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "CICS Command Input Stream (ISFIN)",
+            "original_name": "ISFIN",
+            "business_name": "CICS Command Input Stream",
+            "type": "SEQUENTIAL",
+            "function": "Contains inline CICS command data to perform NEWCOPY operation on program CICSPGMN, instructing CICS to refresh the program in memory",
+            "used_by_programs": [
+                "CICCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "CICS Utility Procedure Library (AWS.M2.CARDDEMO.PRC.UTIL)",
+            "original_name": "AWS.M2.CARDDEMO.PRC.UTIL",
+            "business_name": "CICS Utility Procedure Library",
+            "type": "PDS",
+            "function": "Procedure library containing JCL procedures including BUILDONL used for CICS program compilation process",
+            "used_by_programs": [
+                "CICCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CICCMP.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/CICCMP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System Display and Search Facility - Executes CICS commands to refresh programs in memory (SDSF) \"]\n"
+}

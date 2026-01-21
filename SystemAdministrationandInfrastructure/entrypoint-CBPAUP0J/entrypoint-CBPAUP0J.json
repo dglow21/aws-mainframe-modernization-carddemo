@@ -1,0 +1,238 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CBPAUP0J.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CBPAUP0J.jcl",
+    "summary": {
+        "overview": "This JCL executes an IMS Batch Message Processing program for the CARDDEMO application to process card demonstration data. The program performs data processing or update operations using specific control parameters and sequence numbers.",
+        "business_functions": [
+            "Execute IMS batch message processing for card demonstration system",
+            "Process card demo data with control parameters and sequence numbers",
+            "Perform batch data processing operations on card application data",
+            "Generate system output logs for monitoring batch execution results"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "IMS TM"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CBPAUP0J.jcl": [
+            {
+                "program_name": "CBPAUP0C.cbl",
+                "program_overview": "Processes card demonstration data in IMS batch environment",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "IMS System Resource Library (IMS.SDFSRESL)",
+            "original_name": "IMS.SDFSRESL",
+            "business_name": "IMS System Resource Library",
+            "type": "PDS",
+            "function": "Contains IMS system components and resources required for program execution",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Production Application Load Library (XXXXXXXX.PROD.LOADLIB)",
+            "original_name": "XXXXXXXX.PROD.LOADLIB",
+            "business_name": "Production Application Load Library",
+            "type": "PDS",
+            "function": "Contains production application programs and modules for execution",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Procedure Library (IMS.PROCLIB)",
+            "original_name": "IMS.PROCLIB",
+            "business_name": "IMS Procedure Library",
+            "type": "PDS",
+            "function": "Contains IMS procedure definitions and control statements for system operations",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Program Specification Block Library (IMS.PSBLIB)",
+            "original_name": "IMS.PSBLIB",
+            "business_name": "IMS Program Specification Block Library",
+            "type": "PDS",
+            "function": "Contains database access control definitions for IMS programs",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Database Description Library (IMS.DBDLIB)",
+            "original_name": "IMS.DBDLIB",
+            "business_name": "IMS Database Description Library",
+            "type": "PDS",
+            "function": "Contains database structure and schema definitions for IMS databases",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Control Parameter Input (SYSIN)",
+            "original_name": "SYSIN",
+            "business_name": "Control Parameter Input",
+            "type": "SEQUENTIAL",
+            "function": "Provides processing control parameters and configuration settings for program execution",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Output Messages (SYSOUX)",
+            "original_name": "SYSOUX",
+            "business_name": "System Output Messages",
+            "type": "SEQUENTIAL",
+            "function": "Captures system messages and program output for monitoring and review",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Standard Program Output (SYSOUT)",
+            "original_name": "SYSOUT",
+            "business_name": "Standard Program Output",
+            "type": "SEQUENTIAL",
+            "function": "Contains standard program output messages and processing results",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Abnormal Termination Output (SYSABOUT)",
+            "original_name": "SYSABOUT",
+            "business_name": "Abnormal Termination Output",
+            "type": "SEQUENTIAL",
+            "function": "Captures error information and diagnostic messages when program terminates abnormally",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Debug and Error Analysis Output (ABENDAID)",
+            "original_name": "ABENDAID",
+            "business_name": "Debug and Error Analysis Output",
+            "type": "SEQUENTIAL",
+            "function": "Provides debugging information and error analysis data for troubleshooting",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Job Restart Recovery File (IEFRDER)",
+            "original_name": "IEFRDER",
+            "business_name": "Job Restart Recovery File",
+            "type": "SEQUENTIAL",
+            "function": "Supports job step restart and recovery processing capabilities",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Logging Recovery File (IMSLOGR)",
+            "original_name": "IMSLOGR",
+            "business_name": "IMS Logging Recovery File",
+            "type": "SEQUENTIAL",
+            "function": "Supports IMS logging and recovery processing for data integrity",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Program Print Output (SYSPRINT)",
+            "original_name": "SYSPRINT",
+            "business_name": "Program Print Output",
+            "type": "SEQUENTIAL",
+            "function": "Contains program print output and status messages for business review",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Memory Dump Output (SYSUDUMP)",
+            "original_name": "SYSUDUMP",
+            "business_name": "Memory Dump Output",
+            "type": "SEQUENTIAL",
+            "function": "Provides memory dump information for technical analysis in case of program failure",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "IMS Error Messages Output (IMSERR)",
+            "original_name": "IMSERR",
+            "business_name": "IMS Error Messages Output",
+            "type": "SEQUENTIAL",
+            "function": "Captures IMS error messages and diagnostic information for system monitoring",
+            "used_by_programs": [
+                "CBPAUP0J.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CBPAUP0J.jcl": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/CBPAUP0J.jcl",
+        "CBPAUP0C.cbl": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/CBPAUP0C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBPAUP0C.cbl[\"Processes card demonstration data in IMS batch environment (CBPAUP0C.cbl) \"]\n"
+}

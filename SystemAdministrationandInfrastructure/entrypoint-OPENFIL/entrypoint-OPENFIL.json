@@ -1,0 +1,147 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "OPENFIL.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "OPENFIL.jcl",
+    "summary": {
+        "overview": "This JCL job automates the opening of five critical business files in the CICS region to make essential transaction and reference data available for online processing. It uses SDSF to send CICS commands that open transaction processing, account data, cross-reference, security, and index files.",
+        "business_functions": [
+            "Open TRANSACT file for transaction processing data access",
+            "Open CCXREF file for cross-reference information lookup",
+            "Open ACCTDAT file for account data information retrieval",
+            "Open CXACAIX file for account cross-reference index access",
+            "Open USRSEC file for user security information management"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "OPENFIL.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System Display and Search Facility - Executes CICS commands to open business files",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "SDSF Program Results Output (ISFOUT)",
+            "original_name": "ISFOUT",
+            "business_name": "SDSF Program Results Output",
+            "type": "SEQUENTIAL",
+            "function": "Stores output results from SDSF (System Display and Search Facility) program execution for system monitoring and job management purposes",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Command Execution Results Output (CMDOUT)",
+            "original_name": "CMDOUT",
+            "business_name": "Command Execution Results Output",
+            "type": "SEQUENTIAL",
+            "function": "Captures and stores results from system command executions for audit and monitoring purposes",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "CICS File Open Commands Input (ISFIN)",
+            "original_name": "ISFIN",
+            "business_name": "CICS File Open Commands Input",
+            "type": "SEQUENTIAL",
+            "function": "Contains CICS commands used to open various business files for transaction processing operations",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Records File (TRANSACT)",
+            "original_name": "TRANSACT",
+            "business_name": "Transaction Records File",
+            "type": "VSAM_KSDS",
+            "function": "Stores business transaction records for processing and maintains transaction history and details",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Cross-Reference Data File (CCXREF)",
+            "original_name": "CCXREF",
+            "business_name": "Cross-Reference Data File",
+            "type": "VSAM_KSDS",
+            "function": "Contains cross-reference and lookup data used for data validation and business rule processing",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Data File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Data File",
+            "type": "VSAM_KSDS",
+            "function": "Stores customer account information and account-related data for business operations",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Cross-Reference Index File (CXACAIX)",
+            "original_name": "CXACAIX",
+            "business_name": "Account Cross-Reference Index File",
+            "type": "VSAM_KSDS",
+            "function": "Provides alternate index access to account and cross-reference data for efficient data retrieval",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "User Security Information File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security Information File",
+            "type": "VSAM_KSDS",
+            "function": "Contains user security profiles, access permissions, and authentication data for system security management",
+            "used_by_programs": [
+                "OPENFIL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "OPENFIL.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/OPENFIL.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System Display and Search Facility - Executes CICS commands to open business files (SDSF) \"]\n"
+}

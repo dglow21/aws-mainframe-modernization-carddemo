@@ -1,0 +1,93 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "INTRDRJ2.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "INTRDRJ2.JCL",
+    "summary": {
+        "overview": "This JCL job performs a data backup operation by copying the entire contents of a CARDEMO FTP test backup dataset to create a duplicate copy for internal reader processing or archival purposes.",
+        "business_functions": [
+            "Copy data from source backup dataset to destination backup dataset",
+            "Create backup copy of CARDEMO FTP test data for internal reader processing",
+            "Preserve all data formatting and record structure during the copy operation"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "FTP"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "INTRDRJ2.JCL": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "System utility that performs data management operations including dataset copy and backup functions",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "CARDEMO FTP Test Backup Source Data (AWS.M2.CARDEMO.FTP.TEST.BKUP)",
+            "original_name": "AWS.M2.CARDEMO.FTP.TEST.BKUP",
+            "business_name": "CARDEMO FTP Test Backup Source Data",
+            "type": "SEQUENTIAL",
+            "function": "Contains backup data from the CARDEMO FTP test environment that serves as the source for data copying operations",
+            "used_by_programs": [
+                "INTRDRJ2.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "CARDEMO FTP Test Backup Target for Internal Reader (AWS.M2.CARDEMO.FTP.TEST.BKUP.INTRDR)",
+            "original_name": "AWS.M2.CARDEMO.FTP.TEST.BKUP.INTRDR",
+            "business_name": "CARDEMO FTP Test Backup Target for Internal Reader",
+            "type": "SEQUENTIAL",
+            "function": "Receives copied backup data from the source dataset and prepares it for internal reader processing",
+            "used_by_programs": [
+                "INTRDRJ2.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "System Processing Messages and Reports (SYSPRINT)",
+            "original_name": "SYSPRINT",
+            "business_name": "System Processing Messages and Reports",
+            "type": "SEQUENTIAL",
+            "function": "Captures system utility messages, processing reports, and status information for monitoring and auditing purposes",
+            "used_by_programs": [
+                "INTRDRJ2.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Data Copy Control Instructions (SYSIN)",
+            "original_name": "SYSIN",
+            "business_name": "Data Copy Control Instructions",
+            "type": "SEQUENTIAL",
+            "function": "Contains control statements that specify how data should be copied from the source file to the target file",
+            "used_by_programs": [
+                "INTRDRJ2.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "INTRDRJ2.JCL": "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ2.JCL"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"System utility that performs data management operations including dataset copy and backup functions (IDCAMS) \"]\n"
+}

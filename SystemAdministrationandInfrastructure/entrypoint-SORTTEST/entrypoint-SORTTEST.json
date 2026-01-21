@@ -1,0 +1,69 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "SORTTEST.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "SORTTEST.jcl",
+    "summary": {
+        "overview": "This JCL performs daily transaction processing by extracting card transactions from backup data for a specific date (2022-06-02) and creating a sorted daily transaction file. The process filters transactions by processing date and sorts them by card number for daily reporting and analysis purposes.",
+        "business_functions": [
+            "Extract card transactions from backup dataset for specific processing date (2022-06-02)",
+            "Filter transaction records to include only those processed on the target date",
+            "Sort filtered transactions in ascending order by card number",
+            "Generate daily transaction file for reporting and analysis"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "GDG",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "SORTTEST.jcl": [
+            {
+                "program_name": "SORT",
+                "program_overview": "IBM Sort Utility - Filters and sorts card transaction records by date and card number",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Backup Records (AWS.M2.CARDDEMO.TRANSACT.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP",
+            "business_name": "Transaction Backup Records",
+            "type": "GDG",
+            "function": "Input dataset containing transaction backup records used as source data for sorting and filtering operations",
+            "used_by_programs": [
+                "SORTTEST.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Daily Transaction Records (AWS.M2.CARDDEMO.TRANSACT.DALY)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.DALY",
+            "business_name": "Daily Transaction Records",
+            "type": "GDG",
+            "function": "Output dataset for daily transaction records containing sorted transaction records filtered by processing date",
+            "used_by_programs": [
+                "SORTTEST.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "SORTTEST.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/SORTTEST.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SORT[\"IBM Sort Utility - Filters and sorts card transaction records by date and card number (SORT) \"]\n"
+}

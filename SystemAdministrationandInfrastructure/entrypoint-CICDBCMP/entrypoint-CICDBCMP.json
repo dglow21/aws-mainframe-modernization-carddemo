@@ -1,0 +1,119 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CICDBCMP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CICDBCMP.jcl",
+    "summary": {
+        "overview": "This JCL compiles and builds a CICS DB2 program for the CARDDEMO application system. It creates the necessary executable components to enable CICS transaction processing with DB2 database access.",
+        "business_functions": [
+            "Compile CICS DB2 program source code for CARDDEMO application",
+            "Build executable load module for CICS transaction processing",
+            "Generate database request module for DB2 access"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "DB2"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "PDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CICDBCMP.jcl": [
+            {
+                "program_name": "CICSDB2P",
+                "program_overview": "CICS DB2 program for CARDDEMO application processing",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "COBOL Source Code Library (AWS.M2.CARDDEMO.CBL)",
+            "original_name": "AWS.M2.CARDDEMO.CBL",
+            "business_name": "COBOL Source Code Library",
+            "type": "PDS",
+            "function": "Contains COBOL source code for the CICSDB2P program that needs to be compiled",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "COBOL Copybook Library (AWS.M2.CARDDEMO.CPY)",
+            "original_name": "AWS.M2.CARDDEMO.CPY",
+            "business_name": "COBOL Copybook Library",
+            "type": "PDS",
+            "function": "Contains COBOL copybooks that are referenced and included during the compilation process",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "DB2 Declaration Library (AWS.M2.CARDDEMO.DCL)",
+            "original_name": "AWS.M2.CARDDEMO.DCL",
+            "business_name": "DB2 Declaration Library",
+            "type": "PDS",
+            "function": "Contains DB2 DCLGEN declarations that define database table structures used during compilation",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Load Module Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Load Module Library",
+            "type": "PDS",
+            "function": "Stores the compiled executable load module that can be executed in the CICS environment",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Database Request Module Library (AWS.M2.CARDDEMO.DBRMLIB)",
+            "original_name": "AWS.M2.CARDDEMO.DBRMLIB",
+            "business_name": "Database Request Module Library",
+            "type": "PDS",
+            "function": "Stores the DB2 Database Request Module (DBRM) which contains SQL statements that will be bound to the DB2 plan CARDDEMO",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Compilation Procedure Library (AWS.M2.CARDDEMO.PROC.UTIL)",
+            "original_name": "AWS.M2.CARDDEMO.PROC.UTIL",
+            "business_name": "Compilation Procedure Library",
+            "type": "PDS",
+            "function": "Contains the BLDCIDB2 procedure that defines the compilation steps for CICS DB2 programs",
+            "used_by_programs": [
+                "CICDBCMP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CICDBCMP.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/CICDBCMP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CICSDB2P[\"CICS DB2 program for CARDDEMO application processing (CICSDB2P) \"]\n"
+}

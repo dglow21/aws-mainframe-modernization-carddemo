@@ -1,0 +1,158 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CREADB21.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CREADB21.jcl",
+    "summary": {
+        "overview": "Creates and initializes the CARDDEMO database for credit card transaction processing. Establishes database structure with transaction type tables, loads reference data for 7 transaction types and 19 subcategories, and configures security permissions for the card demo system.",
+        "business_functions": [
+            "Database Cleanup - Releases existing DB2 application plans and packages to prepare for fresh database setup",
+            "Database Creation - Creates CARDDEMO database with proper tablespaces and storage configuration",
+            "Table Structure Setup - Creates TRANSACTION_TYPE and TRANSACTION_TYPE_CATEGORY tables with referential integrity constraints",
+            "Security Configuration - Grants comprehensive database access permissions to application users",
+            "Transaction Type Loading - Populates master transaction types (Purchase, Payment, Credit, Authorization, Refund, Reversal, Adjustment)",
+            "Category Data Loading - Loads detailed transaction subcategories covering various payment scenarios and transaction methods"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "DB2"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CREADB21.jcl": [
+            {
+                "program_name": "IKJEFT01",
+                "program_overview": "TSO command processor that executes DB2 administrative commands and SQL operations",
+                "called_programs": [
+                    "DSNTIAD",
+                    "DSNTEP4"
+                ]
+            },
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "System utility that serves as a conditional checkpoint in job processing flow",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "DB2 System Load Modules Library (OEM.DB2.DAZ1.SDSNLOAD)",
+            "original_name": "OEM.DB2.DAZ1.SDSNLOAD",
+            "business_name": "DB2 System Load Modules Library",
+            "type": "PDS",
+            "function": "Contains DB2 system load modules required for database operations and job execution",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Language Environment Runtime Library (CEE.SCEERUN)",
+            "original_name": "CEE.SCEERUN",
+            "business_name": "Language Environment Runtime Library",
+            "type": "PDS",
+            "function": "Contains Language Environment runtime modules needed for program execution",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "DB2 Exit Routines Library (OEM.DB2.DAZ1.SDSNEXIT)",
+            "original_name": "OEM.DB2.DAZ1.SDSNEXIT",
+            "business_name": "DB2 Exit Routines Library",
+            "type": "PDS",
+            "function": "Contains DB2 exit routines for customized database processing",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "DB2 Version-Specific Load Modules (OEMA.DB2.VERSIONA.SDSNLOAD)",
+            "original_name": "OEMA.DB2.VERSIONA.SDSNLOAD",
+            "business_name": "DB2 Version-Specific Load Modules",
+            "type": "PDS",
+            "function": "Contains DB2 version-specific load modules for database compatibility",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "DB2 Runtime Load Library (OEM.DB2.DAZ1.RUNLIB.LOAD)",
+            "original_name": "OEM.DB2.DAZ1.RUNLIB.LOAD",
+            "business_name": "DB2 Runtime Load Library",
+            "type": "PDS",
+            "function": "Contains DB2 runtime load modules required for database program execution",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Type Reference Table (CARDDEMO.TRANSACTION_TYPE)",
+            "original_name": "CARDDEMO.TRANSACTION_TYPE",
+            "business_name": "Transaction Type Reference Table",
+            "type": "DB2_TABLE",
+            "function": "Stores master reference data for transaction type codes and descriptions including purchase, payment, credit, authorization, refund, reversal, and adjustment types",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Transaction Type Category Detail Table (CARDDEMO.TRANSACTION_TYPE_CATEGORY)",
+            "original_name": "CARDDEMO.TRANSACTION_TYPE_CATEGORY",
+            "business_name": "Transaction Type Category Detail Table",
+            "type": "DB2_TABLE",
+            "function": "Stores detailed transaction type categories with subcodes and descriptions, linked to the main transaction type table for comprehensive transaction classification",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "INSERT"
+            ]
+        },
+        {
+            "name": "DB2 System Dummy Table (SYSIBM.SYSDUMMY1)",
+            "original_name": "SYSIBM.SYSDUMMY1",
+            "business_name": "DB2 System Dummy Table",
+            "type": "DB2_TABLE",
+            "function": "System table used to generate constant values and perform SQL operations that don't require actual data tables",
+            "used_by_programs": [
+                "CREADB21.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CREADB21.jcl": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/CREADB21.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IKJEFT01[\"TSO command processor that executes DB2 administrative commands and SQL operations (IKJEFT01) \"]\n    IEFBR14[\"System utility that serves as a conditional checkpoint in job processing flow (IEFBR14) \"]\n    IKJEFT01 --> DSNTIAD\n    IKJEFT01 --> DSNTEP4\n"
+}

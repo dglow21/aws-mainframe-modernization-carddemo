@@ -1,0 +1,1416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCATBALF.jcl Batch Documentation</title>
+
+    <!-- Cloudscape Design System -->
+    <link rel="stylesheet" href="https://unpkg.com/@cloudscape-design/global-styles/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/@cloudscape-design/components/styles.css">
+
+
+    <style>
+        /* Cloudscape-inspired custom styles */
+        :root {
+            /* Neutral color tokens */
+            --color-background-layout-main: #fafafa;
+            --color-background-container-content: #ffffff;
+            --color-background-container-header: #ffffff;
+            --color-border-divider-default: #d5dbdb;
+            --color-border-item-default: #d5dbdb;
+            --color-text-body-default: #16191f;
+            --color-text-heading-default: #16191f;
+            --color-text-label: #414d5c;
+            --color-text-status-info: #414d5c;
+            --color-background-status-info: #f2f3f3;
+            --color-background-input-default: #ffffff;
+            --color-border-input-default: #879596;
+            --color-text-interactive-default: #414d5c;
+            --color-background-button-primary-default: #414d5c;
+            --color-text-button-primary-default: #ffffff;
+            --color-background-notification-blue: #f2f3f3;
+            --color-border-notification-blue: #414d5c;
+    
+            /* Blue color only for active tabs */
+            --color-tab-active: #0972d3;
+            --color-tab-active-bg: #e9f3ff;
+    
+            /* AWS Cloudscape Button Color Schemes - Exact Normal Button Match */
+            /* Normal Button Colors - Exact Cloudscape Specification */
+            --color-background-button-normal-default: #ffffff;
+            --color-background-button-normal-hover: #fafbfc;
+            --color-background-button-normal-active: #f2f3f3;
+            --color-background-button-normal-disabled: #fafbfc;
+    
+            --color-border-button-normal-default: #d5dbdb;
+            --color-border-button-normal-hover: #0972d3;
+            --color-border-button-normal-active: #0972d3;
+            --color-border-button-normal-disabled: #e9ebed;
+    
+            --color-text-button-normal-default: #0f1419;
+            --color-text-button-normal-hover: #0f1419;
+            --color-text-button-normal-active: #0f1419;
+            --color-text-button-normal-disabled: #9ba7b6;
+    
+            /* Primary Button Colors - AWS Blue */
+            --color-background-button-primary-default: #0972d3;
+            --color-background-button-primary-hover: #0962c7;
+            --color-background-button-primary-active: #0859b8;
+            --color-background-button-primary-disabled: #d1d5db;
+    
+            --color-border-button-primary-default: #0972d3;
+            --color-border-button-primary-hover: #0962c7;
+            --color-border-button-primary-active: #0859b8;
+            --color-border-button-primary-disabled: #d1d5db;
+    
+            --color-text-button-primary-default: #ffffff;
+            --color-text-button-primary-hover: #ffffff;
+            --color-text-button-primary-active: #ffffff;
+            --color-text-button-primary-disabled: #9ca3af;
+    
+            /* Responsive header padding */
+            @media (max-width: 768px) {
+                .awsui-header>div {
+                    padding: 0 60px !important;
+                }
+            }
+    
+            @media (max-width: 900px) {
+                .awsui-header>div {
+                    padding: 0 80px !important;
+                }
+            }
+    
+            @media (max-width: 900px) {
+                .aws-transform-text {
+                    display: none;
+                }
+            }
+    
+            /* Hide AWS logo on very small screens to prevent overlap */
+            @media (max-width: 600px) {
+                .aws-logo-container {
+                    display: none;
+                }
+            }
+    
+            /* Spacing tokens */
+            --space-xxxs: 2px;
+            --space-xxs: 4px;
+            --space-xs: 8px;
+            --space-s: 12px;
+            --space-m: 16px;
+            --space-l: 20px;
+            --space-xl: 24px;
+            --space-xxl: 32px;
+            --space-xxxl: 40px;
+    
+            /* Typography */
+            --font-family-base: 'Amazon Ember',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            Arial,
+            sans-serif;
+            --font-size-body-s: 12px;
+            --font-size-body-m: 14px;
+            --font-size-heading-xs: 16px;
+            --font-size-heading-s: 18px;
+            --font-size-heading-m: 20px;
+            --font-size-heading-l: 24px;
+            --font-size-heading-xl: 32px;
+    
+            /* Layout */
+            --sidebar-width: 280px;
+        }
+    
+        * {
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-body-m);
+            line-height: 1.5;
+            color: var(--color-text-body-default);
+            background-color: var(--color-background-layout-main);
+            margin: 0;
+            padding: 0;
+        }
+    
+        /* Layout Structure */
+        .awsui-app-layout {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--color-background-layout-main);
+        }
+    
+        /* Navigation Panel - slides out from below sticky header */
+        .awsui-app-layout__navigation {
+            width: var(--sidebar-width);
+            background-color: var(--color-background-container-content);
+            border-right: 1px solid var(--color-border-divider-default);
+            position: fixed;
+            top: calc(var(--space-s) * 2 + var(--font-size-heading-xl) * 1.5 + 1px);
+            /* Below the sticky header */
+            left: 0;
+            height: calc(100vh - var(--space-s) * 2 - var(--font-size-heading-xl) * 1.5 - 1px);
+            /* Full height minus header */
+            z-index: 999;
+            /* Below header but above content */
+            transform: translateX(0);
+            /* Visible by default */
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            /* Custom scrollbar styling */
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border-item-default) transparent;
+        }
+    
+        .awsui-app-layout__navigation.show {
+            transform: translateX(0);
+            /* Slide in when shown */
+        }
+    
+        .awsui-app-layout__navigation:not(.show) {
+            transform: translateX(-100%);
+            /* Hide when not shown */
+        }
+    
+        .awsui-app-layout__navigation.show {
+            transform: translateX(0);
+            /* Slide in when shown */
+        }
+    
+        .awsui-app-layout__navigation:not(.show) {
+            transform: translateX(-100%);
+            /* Hide when not shown */
+        }
+    
+        /* Webkit scrollbar styling for navigation */
+        .awsui-app-layout__navigation::-webkit-scrollbar {
+            width: 6px;
+        }
+    
+        .awsui-app-layout__navigation::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    
+        .awsui-app-layout__navigation::-webkit-scrollbar-thumb {
+            background-color: var(--color-border-item-default);
+            border-radius: 3px;
+        }
+    
+        .awsui-app-layout__navigation::-webkit-scrollbar-thumb:hover {
+            background-color: var(--color-border-item-focused);
+        }
+    
+        .awsui-app-layout__navigation.collapsed {
+            transform: translateX(-100%);
+            /* Keep hidden when collapsed */
+        }
+    
+        .awsui-app-layout__navigation .awsui-side-navigation__header {
+            display: none;
+            /* Hide navigation header since hamburger is in title */
+        }
+    
+        /* Hamburger icon styling - AWS Cloudscape style */
+        .hamburger-button {
+            background: none;
+            border: none !important;
+            /* Force remove any border */
+            padding: var(--space-xs);
+            cursor: pointer;
+            color: var(--color-text-interactive-default);
+            font-size: 24px;
+            border-radius: 4px;
+            transition: background-color 0.15s ease;
+            outline: none;
+            /* Remove default button outline */
+        }
+    
+        /* Normal icon hover - gray background */
+        .hamburger-button:hover {
+            background-color: var(--color-background-button-normal-hover);
+            border: none !important;
+            /* Ensure no border on hover */
+        }
+    
+        /* Active/blue icon hover - dark blue background */
+        .hamburger-button.active:hover {
+            background-color: #0962c7;
+            /* Dark blue background when blue icon is hovered */
+            color: white;
+            border: none !important;
+        }
+    
+        .hamburger-button:active,
+        .hamburger-button.active {
+            background-color: var(--color-background-button-primary-default);
+            color: white;
+            border: none !important;
+            /* Ensure no border when active */
+        }
+    
+        .hamburger-button:focus {
+            outline: 2px solid var(--color-border-item-focused);
+            outline-offset: 2px;
+            border: none !important;
+            /* Ensure no border on focus */
+        }
+    
+        .awsui-side-navigation {
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .awsui-button {
+            background: none;
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 8px;
+            padding: var(--space-xs);
+            cursor: pointer;
+            color: var(--color-text-interactive-default);
+            font-size: var(--font-size-body-m);
+            transition: all 0.15s ease;
+            min-width: 32px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .awsui-button:hover {
+            background-color: var(--color-background-status-info);
+            border-color: var(--color-text-interactive-default);
+        }
+    
+        .awsui-side-navigation__list {
+            list-style: none;
+            padding: var(--space-m);
+            margin: 0;
+            flex: 1;
+            /* Take remaining space */
+            overflow-y: auto;
+            /* Allow list to scroll independently */
+        }
+    
+        .awsui-side-navigation__item {
+            margin: 0;
+            /* Remove margin between items */
+        }
+    
+        .awsui-side-navigation__link {
+            display: block;
+            padding: var(--space-xs) var(--space-m);
+            color: var(--color-text-body-default);
+            text-decoration: none;
+            border-radius: 0;
+            transition: all 0.15s ease;
+            font-size: var(--font-size-body-m);
+            font-weight: 400;
+            line-height: 1.5;
+            position: relative;
+            text-align: left;
+            writing-mode: horizontal-tb;
+            text-orientation: initial;
+            min-height: auto;
+        }
+    
+        .awsui-side-navigation__link:hover {
+            color: #0972d3;
+            /* Blue text on hover */
+            text-shadow: 0 1px 2px rgba(9, 114, 211, 0.1);
+            /* Subtle depth effect */
+            background-color: transparent;
+            /* No background change */
+        }
+    
+        .awsui-side-navigation__link:active,
+        .awsui-side-navigation__link.active {
+            color: #0972d3;
+            /* Blue text when clicked/active */
+            font-weight: 600;
+            /* Bold text when active */
+            background-color: transparent;
+            /* No background highlighting */
+        }
+    
+        .awsui-side-navigation__link:focus {
+            outline: 2px solid var(--color-border-item-focused);
+            outline-offset: -2px;
+        }
+    
+        /* Main Content Area */
+        .awsui-app-layout__content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+            background-color: var(--color-background-layout-main);
+        }
+    
+        .awsui-app-layout__content.expanded {
+            margin-left: 0;
+            /* Full width when navigation is collapsed */
+        }
+    
+        /* Header - Full width sticky header */
+        .awsui-header {
+            background-color: var(--color-background-container-header);
+            border-bottom: 1px solid var(--color-border-divider-default);
+            padding: var(--space-s) var(--space-xxl);
+            margin-bottom: var(--space-xl);
+            /* Restored spacing between header and content */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    
+        /* Global scroll behavior to account for sticky header */
+        html {
+            scroll-padding-top: calc(var(--space-s) * 2 + var(--font-size-heading-xl) * 1.5 + 1px + var(--space-xl));
+            /* Header height + margin-bottom */
+        }
+    
+        /* Alternative: target specific sections */
+        .awsui-container-header {
+            scroll-margin-top: calc(var(--space-s) * 2 + var(--font-size-heading-xl) * 1.5 + 1px + var(--space-xl));
+        }
+    
+        /* Override any mobile CSS that might make navigation vertical */
+        .awsui-app-layout__navigation .awsui-side-navigation__link {
+            writing-mode: horizontal-tb !important;
+            text-orientation: initial !important;
+            text-align: left !important;
+            display: block !important;
+            padding: var(--space-xs) var(--space-m) !important;
+            font-size: var(--font-size-body-m) !important;
+            min-height: auto !important;
+            margin: 0 !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+        }
+    
+        /* App layout adjusted for external header */
+        .awsui-app-layout {
+            margin-top: 0;
+        }
+    
+        .awsui-header__title {
+            font-size: var(--font-size-heading-xl);
+            font-weight: 700;
+            color: var(--color-text-heading-default);
+            margin: 0;
+            text-align: center;
+        }
+    
+        /* Container */
+        .awsui-container {
+            max-width: none;
+            padding: 0 var(--space-xxl) var(--space-xxl);
+        }
+    
+        /* Cards/Containers */
+        .awsui-container-content {
+            background-color: var(--color-background-container-content);
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            overflow: hidden;
+        }
+    
+        .awsui-container-header {
+            background-color: var(--color-background-container-header);
+            border-bottom: 1px solid var(--color-border-divider-default);
+            padding: var(--space-l) var(--space-xl);
+        }
+    
+        .awsui-container-header__title {
+            font-size: var(--font-size-heading-m);
+            font-weight: 600;
+            color: var(--color-text-heading-default);
+            margin: 0;
+        }
+    
+        .awsui-container-body {
+            padding: var(--space-xl);
+        }
+    
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--color-text-heading-default);
+            margin: 0 0 var(--space-m) 0;
+            font-weight: 600;
+        }
+    
+        h1 {
+            font-size: var(--font-size-heading-xl);
+        }
+    
+        h2 {
+            font-size: var(--font-size-heading-l);
+        }
+    
+        h3 {
+            font-size: var(--font-size-heading-m);
+        }
+    
+        h4 {
+            font-size: var(--font-size-heading-s);
+        }
+    
+        /* Reduce bullet point indentation in key-value sections */
+        .awsui-key-value-detail ul {
+            margin: 0;
+            padding-left: var(--space-s);
+        }
+    
+        .awsui-key-value-detail li {
+            margin: 0;
+        }
+    
+        /* Reduce container header spacing */
+        .awsui-container-header__description {
+            margin-top: var(--space-xxs);
+            margin-bottom: 0;
+            color: var(--color-text-label);
+        }
+    
+        /* Grid Layout for Metrics */
+        .awsui-grid {
+            display: grid;
+            gap: var(--space-m);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+    
+        .awsui-key-value-pairs {
+            display: grid;
+            gap: var(--space-s);
+        }
+    
+        /* Tables */
+        .awsui-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--color-background-container-content);
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    
+        .awsui-table th,
+        .awsui-table td {
+            padding: var(--space-m) var(--space-l);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border-divider-default);
+        }
+    
+        .awsui-table th {
+            background-color: var(--color-background-container-header);
+            font-weight: 600;
+            color: var(--color-text-label);
+            font-size: var(--font-size-body-s);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    
+        .awsui-table tr:hover {
+            background-color: var(--color-background-status-info);
+        }
+    
+        .awsui-table tr:last-child td {
+            border-bottom: none;
+        }
+    
+        /* Sortable table styles */
+        .awsui-table th {
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            transition: background-color 0.15s ease;
+            padding-right: 36px;
+            /* Make more room for the larger arrow */
+        }
+    
+        .awsui-table th:hover {
+            background-color: var(--color-background-status-info);
+        }
+    
+        /* Table sorting indicators - SVG approach */
+        .awsui-table th {
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            padding-right: 24px;
+            /* Make room for the arrow */
+        }
+    
+        .awsui-table th::after {
+            content: '';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M8 3l5 5H3l5-5z" fill="%23ddd"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+    
+        .awsui-table th.asc::after {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M8 3l5 5H3l5-5z" fill="%23414d5c"/></svg>');
+        }
+    
+        .awsui-table th.desc::after {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M8 13L3 8h10l-5 5z" fill="%23414d5c"/></svg>');
+        }
+    
+        .awsui-table th::after {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="m8 5 4 6H4l4-6Z" fill="%23414d5c" class="filled stroke-linejoin-round"/><path d="m8 11 4-6H4l4 6Z" fill="%23414d5c" class="filled stroke-linejoin-round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+    
+        .awsui-table th.asc::after {
+            opacity: 1;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="m8 5 4 6H4l4-6Z" fill="%230972d3" class="filled stroke-linejoin-round"/></svg>');
+        }
+    
+        .awsui-table th.desc::after {
+            opacity: 1;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="m8 11 4-6H4l4 6Z" fill="%230972d3" class="filled stroke-linejoin-round"/></svg>');
+        }
+    
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+    
+            to {
+                opacity: 1;
+            }
+        }
+    
+        /* Key-Value Pairs Styling */
+        .awsui-key-value-pairs {
+            margin: var(--space-l) 0;
+        }
+    
+        .awsui-column-layout {
+            width: 100%;
+        }
+    
+        .awsui-key-value-item {
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-m);
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 8px;
+            background-color: var(--color-background-container-content);
+        }
+    
+        .awsui-key-value-item.highlight {
+            border-color: #ff9900;
+            background-color: #fff8f0;
+        }
+    
+        .awsui-key-value-term {
+            margin: 0 0 var(--space-xs) 0;
+        }
+    
+        .awsui-key-label {
+            font-size: var(--font-size-heading-s);
+            color: var(--color-text-body-default);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+    
+        .awsui-key-value-detail {
+            margin: 0;
+            font-size: var(--font-size-body-m);
+            color: var(--color-text-label);
+            font-weight: 500;
+            line-height: 1.8;
+        }
+    
+        #bms-screen-container div[style*="background-color: #000000"] {
+            display: inline-block !important;
+            text-align: left !important;
+        }
+    
+        /* Cloudscape Search Input Styling */
+        .awsui-tools-filtering {
+            margin-bottom: var(--space-m);
+        }
+    
+        .awsui-input-root {
+            position: relative;
+            width: 100%;
+        }
+    
+        .awsui-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+    
+        .awsui-input-icon-left {
+            position: absolute;
+            left: var(--space-s);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+        }
+    
+        .awsui-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+        }
+    
+        .awsui-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--color-text-label);
+            stroke-width: 2;
+        }
+    
+        .awsui-input {
+            width: 100%;
+            padding: var(--space-s) var(--space-s) var(--space-s) 36px;
+            border: 1px solid var(--color-border-input-default);
+            border-radius: 8px;
+            font-size: var(--font-size-body-m);
+            font-family: var(--font-family-base);
+            background-color: var(--color-background-input-default);
+            color: var(--color-text-body-default);
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+    
+        .awsui-input:focus {
+            border-color: var(--color-tab-active);
+            box-shadow: 0 0 0 2px rgba(9, 114, 211, 0.2);
+        }
+    
+        .awsui-input::placeholder {
+            color: #8a8a8a;
+            font-style: italic;
+        }
+    
+        .awsui-input-type-search {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+    
+        .awsui-input-has-icon-left {
+            padding-left: 36px;
+        }
+    
+        /* BMS Screen Styling */
+        .bms-details-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-l);
+        }
+    
+        .bms-detail {
+            background-color: var(--color-background-container-content);
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    
+        .bms-name {
+            background-color: var(--color-tab-active);
+            color: white;
+            padding: var(--space-xs) var(--space-m);
+            margin: 0;
+            font-weight: 600;
+            font-size: var(--font-size-body-m);
+            text-align: center;
+        }
+    
+        #bms-screen-panel {
+            flex: 1;
+            min-width: 800px;
+        }
+    
+        #bms-screen-container {
+            width: 100%;
+            background-color: #000;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+    
+        /* Responsive layout for BMS Screen and Table */
+        @media (max-width: 1200px) {
+            #bms-screen-panel {
+                width: 100% !important;
+                min-width: auto !important;
+                max-width: none !important;
+            }
+    
+            #bms-screen-container {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+    
+        /* Mermaid Diagram Styling */
+        .mermaid-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+    
+        .mermaid-wrapper {
+            width: 100%;
+            overflow: auto;
+            padding: 10px;
+        }
+    
+        .mermaid {
+            text-align: center;
+            transition: transform 0.3s ease;
+            transform-origin: left top;
+            display: inline-block;
+            max-width: none;
+            width: auto;
+        }
+
+        .mermaid-svg {
+            text-align: center;
+            transition: transform 0.3s ease;
+            transform-origin: left top;
+            display: inline-block;
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+        
+        .mermaid-svg svg {
+            max-width: 100%;
+            height: auto;
+            width: auto;
+        }
+    
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 100;
+        }
+    
+        .zoom-btn {
+            background-color: var(--color-background-button-normal-default);
+            color: var(--color-text-button-normal-default);
+            border: 1px solid var(--color-border-button-normal-default);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            padding: 0;
+        }
+    
+        .zoom-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+    
+        .zoom-btn:hover {
+            background-color: var(--color-background-button-normal-hover);
+            border-color: var(--color-border-button-normal-hover);
+            color: var(--color-text-button-normal-hover);
+        }
+    
+        .zoom-btn:active {
+            background-color: var(--color-background-button-normal-active);
+            border-color: var(--color-border-button-normal-active);
+            transform: translateY(1px);
+        }
+    
+        .zoom-btn:disabled {
+            cursor: not-allowed;
+        }
+    
+        .zoom-btn:disabled svg {
+            stroke: #c0c0c0;
+        }
+
+        /* Override yellow cluster backgrounds in subgraph SVGs */
+        .cluster rect {
+            fill: transparent !important;
+            stroke: transparent !important;
+        }
+
+        path[marker-end] {
+            marker-end: url(#my-svg_flowchart-v2-pointEnd) !important;
+        }
+    
+        .summary-content {
+            font-size: var(--font-size-body-m);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .summary-content ul {
+            margin: var(--space-s) 0;
+            padding-left: var(--space-l);
+        }
+    
+        .summary-content li {
+            margin-bottom: var(--space-xs);
+            line-height: 1.5;
+        }
+    
+        .summary-content p {
+            margin: 0 0 var(--space-s) 0;
+        }
+    
+        .summary-content p:first-child {
+            margin-top: 0;
+        }
+
+        .data-source-detail {
+            padding: var(--space-xl);
+            background-color: var(--color-background-container-content);
+            border: 1px solid var(--color-border-item-default);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.15s ease;
+        }
+
+        .data-source-detail:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-source-details-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-l);
+            margin: var(--space-xl);
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Header outside app layout for full width -->
+
+    <header class="awsui-header">
+        <div
+            style="display: flex; align-items: center; justify-content: center; position: relative; width: 100%; padding: 0 120px;">
+            <!-- Hamburger button with better vertical alignment -->
+            <button class="awsui-button hamburger-button active" id="header-toggle-nav" aria-label="Toggle Navigation"
+                style="position: absolute; left: 0px; top: 50%; transform: translateY(-50%);">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"
+                    style="width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none;">
+                    <path d="M15 3H1M15 8H1M15 13H1" class="stroke-linejoin-round"></path>
+                </svg>
+            </button>
+            <!-- Centered title -->
+            <h1 class="awsui-header__title"
+                style="text-align: center; margin: 0; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                TCATBALF.jcl Batch Documentation</h1>
+            <!-- AWS Logo on the right -->
+            <div class="aws-logo-container"
+                style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: var(--space-xs);">
+                <svg width="32" height="32" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    aria-label="AWS Logo">
+                    <path
+                        d="M15 1.98096V4.48096C15 4.75733 14.7764 4.98096 14.5 4.98096H12V3.98096H13.5463L9.31055 1.37451C8.50196 0.876463 7.49707 0.876463 6.69043 1.37451L2.71387 3.8208C2.2666 4.09619 2 4.57373 2 5.09863V8.28027L5 6.21777V4.98095C5 4.81396 5.08398 4.65771 5.22266 4.56493L6.72266 3.56493C6.87207 3.46434 7.06348 3.4536 7.22364 3.53368L8.00001 3.92186L8.77638 3.53368C8.93458 3.4536 9.12697 3.46434 9.27736 3.56493L10.7774 4.56493C10.916 4.6577 11 4.81395 11 4.98095V5.67187L11.7236 6.03369C11.8926 6.11865 12 6.2915 12 6.48096V6.63092L11 7.33093V6.79004L10.2764 6.42822C10.1074 6.34326 10 6.17041 10 5.98095V5.24853L8.96389 4.5581L8.22366 4.92822C8.08304 4.99853 7.91702 4.99853 7.77639 4.92822L7.03616 4.5581L6.00003 5.24853V6.48095C6.00003 6.6455 5.91898 6.7998 5.78323 6.89306L1.7832 9.64307C1.69824 9.70118 1.59961 9.73096 1.5 9.73096C1.41992 9.73096 1.34082 9.71192 1.26758 9.67334C1.10254 9.58691 1 9.4165 1 9.23096V5.09864C1 4.22413 1.44531 3.42774 2.19043 2.96925L6.16602 0.522952C7.29688 -0.174317 8.70215 -0.174317 9.83497 0.522952L14 3.08637V1.98096H15ZM14.7324 6.28857C14.5693 6.20312 14.3711 6.21435 14.2168 6.31884L10.2168 9.06884C10.0811 9.1621 10 9.3164 10 9.48095V10.7134L8.96387 11.4038L8.22364 11.0337C8.08302 10.9634 7.917 10.9634 7.77637 11.0337L7.03614 11.4038L6.00001 10.7134V9.98095C6.00001 9.7915 5.89259 9.61865 5.72364 9.53368L5.00001 9.17186V8.63091L4.00001 9.33092V9.48094C4.00001 9.67039 4.10743 9.84324 4.27638 9.92821L5.00001 10.29V10.981C5.00001 11.1479 5.08399 11.3042 5.22267 11.397L6.72267 12.397C6.87208 12.4966 7.06349 12.5073 7.22365 12.4282L8.00002 12.04L8.77639 12.4282C8.93459 12.5073 9.12698 12.4966 9.27737 12.397L10.7774 11.397C10.916 11.3042 11 11.148 11 10.981V9.74413L14 7.68163V10.8633C14 11.3882 13.7334 11.8657 13.2862 12.1411L9.3096 14.5874C8.50296 15.0854 7.49808 15.0854 6.68948 14.5874L2.4537 11.9809H4.00003V10.9809H1.5C1.22363 10.9809 1 11.2046 1 11.4809V13.9809H2V12.8755L6.16504 15.439C6.73145 15.7876 7.36524 15.9619 8 15.9619C8.63476 15.9619 9.26855 15.7876 9.83398 15.439L13.8096 12.9927C14.5547 12.5342 15 11.7378 15 10.8633V6.73095C15 6.5454 14.8975 6.37499 14.7324 6.28857Z"
+                        fill="black" />
+                </svg>
+                <span class="aws-transform-text"
+                    style="font-weight: 600; color: var(--color-text-heading-default); font-size: var(--font-size-heading-xs);">AWS
+                    Transform</span>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="awsui-app-layout">
+        <!-- Navigation Panel -->
+
+        <nav class="awsui-app-layout__navigation" id="navigation">
+            <div class="awsui-side-navigation">
+                <ul class="awsui-side-navigation__list">
+                    
+                    <li class="awsui-side-navigation__item">
+                        <a class="awsui-side-navigation__link active" href="#overview">Summary Information</a>
+                    </li>
+
+                    <li class="awsui-side-navigation__item">
+                        <a class="awsui-side-navigation__link" href="#dependency-tree">Functionality Flow</a>
+                    </li>
+
+                    <li class="awsui-side-navigation__item">
+                        <a class="awsui-side-navigation__link" href="#datasources">Data Sources Information</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <main class="awsui-app-layout__content" id="content">
+            <div class="awsui-container">
+                
+                <section id="overview">
+                    <div class="awsui-container-content">
+                        <div class="awsui-container-header">
+                            <h2 class="awsui-container-header__title">Summary Information</h2>
+                        </div>
+                        <div class="awsui-container-body">
+                            <div class="summary-content">
+                                <p>This JCL job initializes the Transaction Category Balance File (TCATBALF) by creating a new VSAM indexed dataset and loading it with balance data. The job ensures clean setup by removing any existing balance file before creating and populating the new indexed structure for efficient transaction category balance management.</p>
+                            </div>
+                            
+                            <h3 style="margin-top: var(--space-xxl); margin-bottom: var(--space-l);">Business Functions:</h3>
+                            <ul style="margin: var(--space-s) 0; padding-left: var(--space-l);">
+                                <li style="margin-bottom: var(--space-xs); line-height: 1.5;">Delete existing transaction category balance file to ensure clean initialization</li>
+<li style="margin-bottom: var(--space-xs); line-height: 1.5;">Create new indexed VSAM dataset for transaction category balance storage with 17-byte key structure</li>
+<li style="margin-bottom: var(--space-xs); line-height: 1.5;">Load transaction category balance data from sequential file into the newly created indexed dataset for efficient access</li>
+                            </ul>
+                            
+                            <section class="card" aria-label="Environment Summary"><h3 style="margin-top:0;">Environment Summary</h3><div style="line-height: 1.6;"><div><strong>Workload Type:</strong> Batch</div><div><strong>Database Types:</strong> <ul><li>VSAM</li></ul></div><div><strong>Integration Components:</strong> N/A</div><div><strong>Dataset Types:</strong> <ul><li>VSAM KSDS</li><li>PS</li></ul></div></div></section>
+                        </div>
+                    </div>
+                </section>
+
+                
+                <section id="dependency-tree">
+                    <div class="awsui-container-content">
+                        <div class="awsui-container-header">
+                            <h2 class="awsui-container-header__title">Functionality Flow</h2>
+                        </div>
+                        <div class="awsui-container-body">
+                            <div class="mermaid-container">
+                                <div class="zoom-controls">
+                                    <button class="zoom-btn zoom-in" title="Zoom In">
+                                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                                            <circle cx="7" cy="7" r="6"></circle>
+                                            <path d="m11 11 4 4M7 4v6M4 7l6 .01"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="zoom-btn zoom-out" title="Zoom Out">
+                                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                                            <path d="m11 11 4 4"></path>
+                                            <circle cx="7" cy="7" r="6"></circle>
+                                            <path d="m4 7 6 .01"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="zoom-btn zoom-reset" title="Reset Zoom">
+                                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                                            <path d="M11 5H5v6h6V5ZM6 1H1v5M10 1h5v5M6 15H1v-5M10 15h5v-5" class="stroke-linejoin-round"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mermaid-wrapper">
+                                    <div class="mermaid-svg">
+    <svg id="my-svg" width="265" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart" height="120.80000305175781" viewBox="0 0 265 120.80000305175781" role="graphics-document document" aria-roledescription="flowchart-v2" style="background-color: transparent;"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#my-svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#my-svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:2.0px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape rect,#my-svg .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#my-svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#my-svg .mainProgram rect{fill:#f9f!important;stroke:#333!important;stroke-width:2px!important;}#my-svg .mainProgram polygon{fill:#f9f!important;stroke:#333!important;stroke-width:2px!important;}#my-svg .mainProgram ellipse{fill:#f9f!important;stroke:#333!important;stroke-width:2px!important;}#my-svg .mainProgram circle{fill:#f9f!important;stroke:#333!important;stroke-width:2px!important;}#my-svg .mainProgram path{fill:#f9f!important;stroke:#333!important;stroke-width:2px!important;}#my-svg .subProgram rect{fill:#bbf!important;stroke:#333!important;stroke-width:1px!important;}#my-svg .subProgram polygon{fill:#bbf!important;stroke:#333!important;stroke-width:1px!important;}#my-svg .subProgram ellipse{fill:#bbf!important;stroke:#333!important;stroke-width:1px!important;}#my-svg .subProgram circle{fill:#bbf!important;stroke:#333!important;stroke-width:1px!important;}#my-svg .subProgram path{fill:#bbf!important;stroke:#333!important;stroke-width:1px!important;}</style><g><marker id="my-svg_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><g class="root"><g class="clusters"/><g class="edgePaths"/><g class="edgeLabels"/><g class="nodes"><g class="node default mainProgram" id="flowchart-IDCAMS-0" transform="translate(132.5, 60.400001525878906)"><rect class="basic label-container" style="fill:#f9f !important;stroke:#333 !important;stroke-width:2px !important" x="-124.5" y="-52.400001525878906" width="249" height="104.80000305175781"/><g class="label" style="" transform="translate(0, -37.400001525878906)"><rect/><g><rect class="background" style="stroke: none"/><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">IBM</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> Data</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> Set</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> Utility</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> for</tspan></tspan><tspan class="text-outer-tspan" x="0" y="1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">VSAM</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> dataset</tspan></tspan><tspan class="text-outer-tspan" x="0" y="2.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">management</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> operations</tspan></tspan><tspan class="text-outer-tspan" x="0" y="3.2em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">(IDCAMS)</tspan></tspan></text></g></g></g></g></g></g></svg>
+    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                
+                
+                <section id="datasources">
+                    <div class="awsui-container-content">
+                        <div class="awsui-container-header">
+                            <h2 class="awsui-container-header__title">Data Sources Information (2)</h2>
+                            <p class="awsui-container-header__description">Data sources used in different business function.</p>
+                        </div>
+                        <div class="awsui-container-body">
+                            <!-- Cloudscape Search Bar for Data Sources Table -->
+                            <div class="awsui-tools-filtering" style="margin-bottom: var(--space-m);">
+                                <div class="awsui-input-root">
+                                    <div class="awsui-input-container">
+                                        <span class="awsui-input-icon-left">
+                                            <span class="awsui-icon">
+                                                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                                                    <path d="m11 11 4 4M7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10Z" class="stroke-linejoin-round"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <input class="awsui-input awsui-input-type-search awsui-input-has-icon-left" 
+                                               aria-label="Filter data sources" 
+                                               placeholder="Find data sources" 
+                                               autocomplete="off" 
+                                               type="search" 
+                                               onkeyup="searchTable(this, 'datasources-table')"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <table class="awsui-table" id="datasources-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Function</th>
+                                        <th>Used by programs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+    <td>Transaction Category Balance VSAM File (AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS)</td>
+    <td>VSAM_KSDS</td>
+    <td>Stores transaction category balance data in an indexed VSAM dataset with 17-byte key and 50-byte fixed records, supporting shared access for read and update operations</td>
+    <td>TCATBALF.jcl</td>
+    </tr>
+    <tr>
+    <td>Transaction Category Balance Source Data (AWS.M2.CARDDEMO.TCATBALF.PS)</td>
+    <td>SEQUENTIAL</td>
+    <td>Sequential dataset containing source transaction category balance data that is loaded into the VSAM file</td>
+    <td>TCATBALF.jcl</td>
+    </tr>
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-background-container-header); border-top: 1px solid var(--color-border-divider-default); padding: var(--space-l); text-align: right; color: var(--color-text-label); font-size: var(--font-size-body-s);">
+        © <span id="current-year"></span>, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+    </footer>
+
+
+    <script>
+        // Navigation toggle functionality - single hamburger with active state
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set dynamic year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const navigation = document.getElementById('navigation');
+            const content = document.getElementById('content');
+            const headerToggleBtn = document.getElementById('header-toggle-nav');
+
+            function updateHamburgerState() {
+                // Add/remove active class based on navigation state
+                if (navigation.classList.contains('show')) {
+                    headerToggleBtn.classList.add('active');
+                } else {
+                    headerToggleBtn.classList.remove('active');
+                }
+            }
+
+            function toggleNavigation() {
+                // Always use desktop behavior - no mobile responsive changes
+                navigation.classList.toggle('show');
+
+                // Update hamburger active state
+                updateHamburgerState();
+
+                // Adjust content margin
+                if (navigation.classList.contains('show')) {
+                    content.style.marginLeft = '280px';
+                } else {
+                    content.style.marginLeft = '0';
+                }
+            }
+
+            // Header hamburger button controls navigation
+            headerToggleBtn.addEventListener('click', toggleNavigation);
+
+            // Initialize navigation as visible by default
+            navigation.classList.add('show');
+            content.style.marginLeft = '280px';
+            updateHamburgerState(); // Set initial hamburger state
+
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('.awsui-side-navigation__link');
+            let isNavigatingToSection = false; // Flag to prevent scroll interference
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Immediately highlight the clicked section
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Set flag to prevent scroll-based highlighting from interfering
+                    isNavigatingToSection = true;
+
+                    // Smooth scroll to target
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+
+                        // Re-enable scroll-based highlighting after navigation completes
+                        setTimeout(() => {
+                            isNavigatingToSection = false;
+                        }, 1000); // Wait for smooth scroll to complete
+                    }
+                });
+            });
+
+            // Highlight active section on scroll
+            const sections = document.querySelectorAll('section[id]');
+
+            function updateActiveNavigation() {
+                // Skip updating if user is manually navigating
+                if (isNavigatingToSection) return;
+
+                let current = '';
+                const scrollPosition = window.pageYOffset + 150; // Offset for header
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                // If no section is found, default to the first one
+                if (!current && sections.length > 0) {
+                    current = sections[0].getAttribute('id');
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Throttle scroll events for better performance
+            let scrollTimeout;
+            function throttledUpdateActiveNavigation() {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(updateActiveNavigation, 10);
+            }
+
+            window.addEventListener('scroll', throttledUpdateActiveNavigation);
+            updateActiveNavigation(); // Set initial active state
+
+            // Make tables sortable
+            makeTablesSortable();
+
+        });
+
+        // Make tables sortable
+        function makeTablesSortable() {
+            const tables = document.querySelectorAll('.awsui-table');
+
+            tables.forEach(table => {
+                const headers = table.querySelectorAll('th');
+
+                headers.forEach((header, index) => {
+                    header.addEventListener('click', () => {
+                        sortTable(table, index, header);
+                    });
+                });
+            });
+        }
+
+        // Sort table function
+        function sortTable(table, columnIndex, header) {
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // Determine sort direction
+            const isAscending = !header.classList.contains('asc');
+
+            // Clear all sort indicators from this table
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('asc', 'desc');
+            });
+
+            // Set current sort indicator
+            header.classList.add(isAscending ? 'asc' : 'desc');
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+
+                // Try to parse as numbers first
+                const aNum = parseFloat(aText);
+                const bNum = parseFloat(bText);
+
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return isAscending ? aNum - bNum : bNum - aNum;
+                }
+
+                // Fall back to string comparison
+                return isAscending ?
+                    aText.localeCompare(bText) :
+                    bText.localeCompare(aText);
+            });
+
+            // Re-append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Custom table search functionality
+        function searchTable(input, tableId) {
+            const searchTerm = input.value.toLowerCase();
+            const table = document.getElementById(tableId);
+            const tbody = table.querySelector('tbody');
+            const rows = tbody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let rowText = '';
+
+                // Combine all cell text for searching
+                cells.forEach(cell => {
+                    rowText += cell.textContent.toLowerCase() + ' ';
+                });
+
+                // Show/hide row based on search match
+                if (rowText.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Diagram zoom functionality - Based on detailed file implementation
+        document.addEventListener('DOMContentLoaded', function () {
+            const mermaidContainers = document.querySelectorAll('.mermaid-container');
+
+            mermaidContainers.forEach(container => {
+                const mermaidDiv = container.querySelector('.mermaid-svg');
+                const zoomInBtn = container.querySelector('.zoom-in');
+                const zoomOutBtn = container.querySelector('.zoom-out');
+                const zoomResetBtn = container.querySelector('.zoom-reset');
+
+                if (!mermaidDiv || !zoomInBtn || !zoomOutBtn || !zoomResetBtn) return;
+
+                let scale = 1;
+                const minScale = 0.5;
+                const maxScale = 2;
+                const scaleStep = 0.1;
+
+                // Initialize button states
+                updateButtonStates();
+
+                zoomInBtn.addEventListener('click', () => {
+                    if (scale < maxScale) {
+                        scale += scaleStep;
+                        updateZoom();
+                        updateButtonStates();
+                    }
+                });
+
+                zoomOutBtn.addEventListener('click', () => {
+                    if (scale > minScale) {
+                        scale -= scaleStep;
+                        updateZoom();
+                        updateButtonStates();
+                    }
+                });
+
+                zoomResetBtn.addEventListener('click', () => {
+                    scale = 1;
+                    updateZoom();
+                    updateButtonStates();
+                });
+
+                function updateZoom() {
+                    mermaidDiv.style.transform = `scale(${scale})`;
+                    // Center the diagram as it grows
+                    if (scale > 1) {
+                        const wrapper = container.querySelector('.mermaid-wrapper');
+                        if (wrapper) {
+                            wrapper.scrollLeft = (mermaidDiv.scrollWidth * scale - wrapper.clientWidth) / 2;
+                        }
+                    }
+                }
+
+                function updateButtonStates() {
+                    // Update zoom in button
+                    if (scale >= maxScale) {
+                        zoomInBtn.disabled = true;
+                    } else {
+                        zoomInBtn.disabled = false;
+                    }
+
+                    // Update zoom out button
+                    if (scale <= minScale) {
+                        zoomOutBtn.disabled = true;
+                    } else {
+                        zoomOutBtn.disabled = false;
+                    }
+
+                    // Update reset button - disabled when at default scale (1)
+                    if (scale === 1) {
+                        zoomResetBtn.disabled = true;
+                    } else {
+                        zoomResetBtn.disabled = false;
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

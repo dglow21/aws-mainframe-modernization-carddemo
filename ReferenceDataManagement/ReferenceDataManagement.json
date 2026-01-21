@@ -1,0 +1,46 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Reference Data Management",
+  "brief_description": "Maintains master reference data including transaction types, categories, and lookup tables used throughout the system.",
+  "business_purpose": "This function manages all reference and lookup data that supports business operations across the card management system. It ensures consistent and accurate reference data is available for transaction processing, categorization, and business rule enforcement, maintaining data integrity and supporting standardized business processes.",
+  "key_capabilities": [
+    "Transaction type and category maintenance",
+    "Reference data file creation and loading",
+    "Lookup table management and updates",
+    "Master data synchronization and consistency",
+    "Reference data backup and recovery"
+  ],
+  "components": [
+    {
+      "name": "TRANTYPE",
+      "type": "Batch",
+      "business_function": "Transaction type reference data management",
+      "entry_point_program": "TRANTYPE"
+    },
+    {
+      "name": "TRANCATG",
+      "type": "Batch",
+      "business_function": "Transaction category master data setup",
+      "entry_point_program": "TRANCATG"
+    },
+    {
+      "name": "TRANEXTR",
+      "type": "Batch",
+      "business_function": "Reference data extraction from database",
+      "entry_point_program": "TRANEXTR"
+    },
+    {
+      "name": "DISCGRP",
+      "type": "Batch",
+      "business_function": "Disclosure group master data management",
+      "entry_point_program": "DISCGRP"
+    },
+    {
+      "name": "TCATBALF",
+      "type": "Batch",
+      "business_function": "Transaction category balance file initialization",
+      "entry_point_program": "TCATBALF"
+    }
+  ]
+}

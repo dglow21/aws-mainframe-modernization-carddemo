@@ -1,0 +1,10 @@
+{
+  "UnassignProgramPaths": {
+    "CBTRN01C.cbl": [
+      "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN01C.cbl"
+    ],
+    "COBTUPDT.cbl": [
+      "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COBTUPDT.cbl"
+    ]
+  }
+}

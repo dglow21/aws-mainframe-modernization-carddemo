@@ -1,0 +1,59 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "LISTCAT.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "LISTCAT.jcl",
+    "summary": {
+        "overview": "This JCL job performs catalog management operations for the CARDDEMO application by cleaning up existing catalog files and generating a comprehensive inventory report of all datasets under the AWS.M2.CARDDEMO hierarchy for system administration and capacity planning purposes.",
+        "business_functions": [
+            "Dataset Cleanup - Removes existing catalog listing file to ensure clean execution environment",
+            "Catalog Inventory Generation - Creates comprehensive report of all CARDDEMO application datasets including attributes and space allocation",
+            "System Documentation - Provides complete visibility into dataset inventory for business users and administrators"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "LISTCAT.jcl": [
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM utility program for dataset cleanup operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for catalog listing and management",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Catalog Listing Output File (AWS.M2.CARDDEMO.LISTCAT)",
+            "original_name": "AWS.M2.CARDDEMO.LISTCAT",
+            "business_name": "Card Demo Catalog Listing Output File",
+            "type": "SEQUENTIAL",
+            "function": "Output file used to capture and store catalog listing results with fixed-block format records of 133 characters length for permanent retention",
+            "used_by_programs": [
+                "LISTCAT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "LISTCAT.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/LISTCAT.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEFBR14[\"IBM utility program for dataset cleanup operations (IEFBR14) \"]\n    IDCAMS[\"IBM Access Method Services utility for catalog listing and management (IDCAMS) \"]\n"
+}

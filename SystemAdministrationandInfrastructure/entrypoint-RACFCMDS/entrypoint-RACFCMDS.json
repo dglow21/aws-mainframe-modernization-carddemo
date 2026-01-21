@@ -1,0 +1,66 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "RACFCMDS.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "RACFCMDS.jcl",
+    "summary": {
+        "overview": "This JCL job performs RACF security administration tasks to manage user access and group memberships. It adds a member to a RACF group and connects a user to an application development group for proper system access permissions.",
+        "business_functions": [
+            "Add member CT02 to the GCICSTRN RACF group with CARD access authority",
+            "Connect user AWSCODR to the M2APPDEV application development group for system access permissions"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "TSO"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "RACFCMDS.jcl": [
+            {
+                "program_name": "IKJEFT01",
+                "program_overview": "TSO Terminal Monitor Program - Executes TSO commands in batch mode for security administration",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "System Output Report (SYSTSPRT)",
+            "original_name": "SYSTSPRT",
+            "business_name": "System Output Report",
+            "type": "SEQUENTIAL",
+            "function": "Captures and stores the results and messages from RACF security administration commands for review and audit purposes",
+            "used_by_programs": [
+                "RACFCMDS.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "RACF Command Input Stream (SYSTSIN)",
+            "original_name": "SYSTSIN",
+            "business_name": "RACF Command Input Stream",
+            "type": "SEQUENTIAL",
+            "function": "Contains RACF security commands for user profile modifications and group connection management that need to be executed in batch mode",
+            "used_by_programs": [
+                "RACFCMDS.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "RACFCMDS.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/RACFCMDS.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IKJEFT01[\"TSO Terminal Monitor Program - Executes TSO commands in batch mode for security administration (IKJEFT01) \"]\n"
+}

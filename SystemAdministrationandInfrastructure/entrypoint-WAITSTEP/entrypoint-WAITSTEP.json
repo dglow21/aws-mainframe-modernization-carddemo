@@ -1,0 +1,89 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "WAITSTEP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "WAITSTEP.jcl",
+    "summary": {
+        "overview": "This JCL executes a timing control utility that introduces a 36-second delay in batch processing workflows. It serves as a synchronization mechanism to ensure proper sequencing and coordination between different processing steps in the card demo application system.",
+        "business_functions": [
+            "Wait Control - Implements a controlled 36-second delay to synchronize batch processing operations",
+            "Process Coordination - Ensures proper timing between sequential job steps and external system dependencies",
+            "Workflow Management - Provides timing buffer for system resource availability and database synchronization"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "WAITSTEP.jcl": [
+            {
+                "program_name": "COBSWAIT.cbl",
+                "program_overview": "Implements wait/delay functionality for timing control in batch processing",
+                "called_programs": [
+                    "MVSWAIT.asm"
+                ]
+            },
+            {
+                "program_name": "MVSWAIT.asm",
+                "program_overview": "Low-level assembly routine that provides system wait capabilities",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Program Library",
+            "type": "PDS",
+            "function": "Library containing executable COBOL programs, specifically used to access the COBSWAIT program for execution",
+            "used_by_programs": [
+                "WAITSTEP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Output (SYSOUT)",
+            "original_name": "SYSOUT",
+            "business_name": "System Output",
+            "type": "SEQUENTIAL",
+            "function": "Output destination for system messages, program output, and diagnostic information generated during program execution",
+            "used_by_programs": [
+                "WAITSTEP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "System Input (SYSIN)",
+            "original_name": "SYSIN",
+            "business_name": "System Input",
+            "type": "SEQUENTIAL",
+            "function": "Input data containing wait time configuration (3600 centiseconds/36 seconds) that controls program execution timing",
+            "used_by_programs": [
+                "WAITSTEP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "WAITSTEP.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/WAITSTEP.jcl",
+        "COBSWAIT.cbl": "aws-mainframe-modernization-carddemo-main/app/cbl/COBSWAIT.cbl",
+        "MVSWAIT.asm": "aws-mainframe-modernization-carddemo-main/app/asm/MVSWAIT.asm"
+    },
+    "flow_diagram_code": "flowchart TD\n    COBSWAIT.cbl[\"Implements wait/delay functionality for timing control in batch processing (COBSWAIT.cbl) \"]\n    MVSWAIT.asm[\"Low-level assembly routine that provides system wait capabilities (MVSWAIT.asm) \"]\n    COBSWAIT.cbl --> MVSWAIT.asm\n"
+}

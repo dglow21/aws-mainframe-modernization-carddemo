@@ -1,0 +1,192 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DBPAUTP0.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DBPAUTP0.jcl",
+    "summary": {
+        "overview": "This JCL performs an IMS database unload operation for card demo authentication data. It first deletes any existing unload dataset, then extracts the complete DBPAUTP0 database contents to a sequential file for backup, recovery, or data migration purposes.",
+        "business_functions": [
+            "Delete existing card authentication database unload file to ensure clean processing",
+            "Extract card authorization data from IMS database DBPAUTP0",
+            "Convert hierarchical database records to sequential file format",
+            "Create portable backup copy of card authentication information",
+            "Generate unloaded dataset for data migration or processing by other applications"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DBPAUTP0.jcl": [
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM system utility for file management operations - deletes existing datasets",
+                "called_programs": []
+            },
+            {
+                "program_name": "DFSRRC00",
+                "program_overview": "IMS Database Recovery Control utility - performs database unload operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Authorization Database Unload File (AWS.M2.CARDDEMO.IMSDATA.DBPAUTP0)",
+            "original_name": "AWS.M2.CARDDEMO.IMSDATA.DBPAUTP0",
+            "business_name": "Card Demo Authorization Database Unload File",
+            "type": "SEQUENTIAL",
+            "function": "Output file used to store unloaded IMS database data with variable blocked records for Card Demo authorization processing",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "IMS System Load Library (OEMA.IMS.IMSP.SDFSRESL)",
+            "original_name": "OEMA.IMS.IMSP.SDFSRESL",
+            "business_name": "IMS System Load Library",
+            "type": "PDS",
+            "function": "IMS system load library containing executable modules and utilities required for database unload operations",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Application Load Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Application Load Library",
+            "type": "PDS",
+            "function": "Application-specific load library containing Card Demo application modules needed for unload operations",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Program Specification Block Library (OEM.IMS.IMSP.PSBLIB)",
+            "original_name": "OEM.IMS.IMSP.PSBLIB",
+            "business_name": "IMS Program Specification Block Library",
+            "type": "PDS",
+            "function": "IMS library containing program definitions and database access specifications for application programs",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Database Description Library (OEM.IMS.IMSP.DBDLIB)",
+            "original_name": "OEM.IMS.IMSP.DBDLIB",
+            "business_name": "IMS Database Description Library",
+            "type": "PDS",
+            "function": "IMS library containing database structure definitions and metadata for database operations",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Authorization Database (OEM.IMS.IMSP.PAUTHDB)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDB",
+            "business_name": "Card Demo Authorization Database",
+            "type": "IMS Segments",
+            "function": "IMS database containing authorization and authentication data for Card Demo application",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Card Demo Authorization Database Index (OEM.IMS.IMSP.PAUTHDBX)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDBX",
+            "business_name": "Card Demo Authorization Database Index",
+            "type": "IMS Segments",
+            "function": "IMS database index or extension file related to the authorization database for enhanced data access",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "IMS Procedure Library (OEMPP.IMS.V15R01MB.PROCLIB)",
+            "original_name": "OEMPP.IMS.V15R01MB.PROCLIB",
+            "business_name": "IMS Procedure Library",
+            "type": "PDS",
+            "function": "IMS procedure library containing database processing parameters and configuration settings",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Primary IMS Recovery Control Dataset (OEM.IMS.IMSP.RECON1)",
+            "original_name": "OEM.IMS.IMSP.RECON1",
+            "business_name": "Primary IMS Recovery Control Dataset",
+            "type": "SEQUENTIAL",
+            "function": "Primary IMS recovery control dataset containing database recovery and logging information",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Secondary IMS Recovery Control Dataset (OEM.IMS.IMSP.RECON2)",
+            "original_name": "OEM.IMS.IMSP.RECON2",
+            "business_name": "Secondary IMS Recovery Control Dataset",
+            "type": "SEQUENTIAL",
+            "function": "Secondary IMS recovery control dataset providing backup recovery information",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Tertiary IMS Recovery Control Dataset (OEM.IMS.IMSP.RECON3)",
+            "original_name": "OEM.IMS.IMSP.RECON3",
+            "business_name": "Tertiary IMS Recovery Control Dataset",
+            "type": "SEQUENTIAL",
+            "function": "Tertiary IMS recovery control dataset for additional recovery control backup",
+            "used_by_programs": [
+                "DBPAUTP0.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DBPAUTP0.jcl": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/DBPAUTP0.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEFBR14[\"IBM system utility for file management operations - deletes existing datasets (IEFBR14) \"]\n    DFSRRC00[\"IMS Database Recovery Control utility - performs database unload operations (DFSRRC00) \"]\n"
+}

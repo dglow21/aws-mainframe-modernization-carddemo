@@ -1,0 +1,69 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "REPRTEST.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "REPRTEST.jcl",
+    "summary": {
+        "overview": "This JCL job creates a backup of card transaction data by copying records from a VSAM dataset to a sequential backup file. The backup is stored as a new generation in a Generation Data Group for data protection and recovery purposes.",
+        "business_functions": [
+            "Read card transaction data from the primary VSAM transaction file",
+            "Create a sequential backup copy of all transaction records",
+            "Store the backup as a new generation in the backup dataset for historical retention"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "GDG",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "REPRTEST.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility that performs data management operations including copying and backing up datasets",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Transaction Data File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Card Demo Transaction Data File",
+            "type": "VSAM_KSDS",
+            "function": "Contains transaction data that serves as the source for backup operations. This file stores all card transaction records that need to be preserved through backup processes.",
+            "used_by_programs": [
+                "REPRTEST.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Transaction Backup File (AWS.M2.CARDDEMO.TRANSACT.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP(+1)",
+            "business_name": "Card Demo Transaction Backup File",
+            "type": "GDG",
+            "function": "Stores backup copies of transaction data as new generations in a generation data group. Each backup creates a new version with 350-byte fixed-length records containing complete transaction history for recovery purposes.",
+            "used_by_programs": [
+                "REPRTEST.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "REPRTEST.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/REPRTEST.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility that performs data management operations including copying and backing up datasets (IDCAMS) \"]\n"
+}

@@ -1,0 +1,124 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "ESDSRRDS.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "ESDSRRDS.jcl",
+    "summary": {
+        "overview": "This JCL job initializes the user security system for the CARDDEMO application by creating and populating VSAM datasets with predefined user accounts. It establishes both sequential and direct access methods for user authentication and authorization data, supporting administrator and regular user accounts with their credentials.",
+        "business_functions": [
+            "Create temporary sequential file containing user security data with administrator and regular user accounts",
+            "Define VSAM Entry Sequenced Data Set (ESDS) structure for sequential access to user security information",
+            "Load user security data into ESDS VSAM file for sequential processing capabilities",
+            "Define VSAM Relative Record Data Set (RRDS) structure for direct access to user security information",
+            "Load user security data into RRDS VSAM file for direct record access capabilities",
+            "Establish dual storage approach supporting both sequential and direct access to user credentials"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM ESDS",
+                "VSAM RRDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "ESDSRRDS.jcl": [
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM utility program that performs cleanup operations to delete temporary datasets",
+                "called_programs": []
+            },
+            {
+                "program_name": "IEBGENER",
+                "program_overview": "IBM utility for copying and formatting user security data from inline JCL to sequential file",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM operations including define, delete, and data loading",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security Work File (AWS.M2.CARDDEMO.ESDSRRDS.PS)",
+            "original_name": "AWS.M2.CARDDEMO.ESDSRRDS.PS",
+            "business_name": "User Security Work File",
+            "type": "SEQUENTIAL",
+            "function": "Temporary work file used as intermediate storage for user security data with 80-byte fixed-length records before loading into VSAM files",
+            "used_by_programs": [
+                "ESDSRRDS.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "User Security ESDS Cluster (AWS.M2.CARDDEMO.USRSEC.VSAM.ESDS)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.ESDS",
+            "business_name": "User Security ESDS Cluster",
+            "type": "VSAM_ESDS",
+            "function": "Entry Sequenced Data Set that stores user security information including admin and regular user credentials with 80-byte records",
+            "used_by_programs": [
+                "ESDSRRDS.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "User Security ESDS Data Component (AWS.M2.CARDDEMO.USRSEC.VSAM.ESDS.DAT)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.ESDS.DAT",
+            "business_name": "User Security ESDS Data Component",
+            "type": "VSAM_ESDS",
+            "function": "Physical data storage component for the ESDS cluster containing user security information",
+            "used_by_programs": [
+                "ESDSRRDS.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "User Security RRDS Cluster (AWS.M2.CARDDEMO.USRSEC.VSAM.RRDS)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.RRDS",
+            "business_name": "User Security RRDS Cluster",
+            "type": "VSAM_RRDS",
+            "function": "Relative Record Data Set that stores user security information in numbered record format with 80-byte records, containing the same data as the ESDS",
+            "used_by_programs": [
+                "ESDSRRDS.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "User Security RRDS Data Component (AWS.M2.CARDDEMO.USRSEC.VSAM.RRDS.DAT)",
+            "original_name": "AWS.M2.CARDDEMO.USRSEC.VSAM.RRDS.DAT",
+            "business_name": "User Security RRDS Data Component",
+            "type": "VSAM_RRDS",
+            "function": "Physical data storage component for the RRDS cluster containing user security information",
+            "used_by_programs": [
+                "ESDSRRDS.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "ESDSRRDS.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/ESDSRRDS.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEFBR14[\"IBM utility program that performs cleanup operations to delete temporary datasets (IEFBR14) \"]\n    IEBGENER[\"IBM utility for copying and formatting user security data from inline JCL to sequential file (IEBGENER) \"]\n    IDCAMS[\"IBM Access Method Services utility for VSAM operations including define, delete, and data loading (IDCAMS) \"]\n"
+}

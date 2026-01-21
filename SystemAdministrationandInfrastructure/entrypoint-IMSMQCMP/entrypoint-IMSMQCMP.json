@@ -1,0 +1,229 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "IMSMQCMP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "IMSMQCMP.jcl",
+    "summary": {
+        "overview": "This JCL compiles and links a COBOL program that integrates CICS transaction processing, IMS database operations, and MQ message queuing capabilities. The job creates an executable load module for processing online transactions while accessing IMS databases and handling MQ messages.",
+        "business_functions": [
+            "Translate CICS commands in COBOL source code for transaction processing compatibility",
+            "Compile COBOL program with business logic for IMS message queue processing",
+            "Prepare linkage control statements for program entry point and module naming",
+            "Prepare CICS interface integration statements for transaction processing",
+            "Prepare MQ interface integration statements for message queue operations",
+            "Link compiled program with CICS, IMS, and MQ runtime libraries to create executable load module"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "CICS",
+                "MQ",
+                "IMS TM"
+            ],
+            "dataset_types": [
+                "PDS",
+                "PDSE"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "IMSMQCMP.jcl": [
+            {
+                "program_name": "IMSMQPGM",
+                "program_overview": "COBOL program that processes IMS message queue transactions with CICS integration",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "CICS System Load Module Library (CICSTS.CICS.SDFHLOAD)",
+            "original_name": "CICSTS.CICS.SDFHLOAD",
+            "business_name": "CICS System Load Module Library",
+            "type": "PDS",
+            "function": "Contains CICS system load modules required for CICS program compilation and execution",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Application Source Code Library (AWS.M2.COBOL.SRC(IMSMQPGM))",
+            "original_name": "AWS.M2.COBOL.SRC(IMSMQPGM)",
+            "business_name": "Application Source Code Library",
+            "type": "PDS",
+            "function": "Contains the COBOL source code for programs that integrate CICS, IMS and MQ functionality",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "COBOL Compiler Library (IGY.SIGYCOMP.V63)",
+            "original_name": "IGY.SIGYCOMP.V63",
+            "business_name": "COBOL Compiler Library",
+            "type": "PDS",
+            "function": "Contains COBOL compiler load modules for program compilation",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Language Environment Runtime Library (CEE.SCEERUN)",
+            "original_name": "CEE.SCEERUN",
+            "business_name": "Language Environment Runtime Library",
+            "type": "PDS",
+            "function": "Contains Language Environment runtime modules required for program execution",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Additional Language Environment Runtime Library (CEE.SCEERUN2)",
+            "original_name": "CEE.SCEERUN2",
+            "business_name": "Additional Language Environment Runtime Library",
+            "type": "PDS",
+            "function": "Contains additional Language Environment runtime modules for extended program functionality",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Language Environment Sample Copybook Library (CEE.SCEESAMP)",
+            "original_name": "CEE.SCEESAMP",
+            "business_name": "Language Environment Sample Copybook Library",
+            "type": "PDS",
+            "function": "Contains Language Environment sample copybooks and include members",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "CICS COBOL Copybook Library (CICSTS.CICS.SDFHCOB)",
+            "original_name": "CICSTS.CICS.SDFHCOB",
+            "business_name": "CICS COBOL Copybook Library",
+            "type": "PDS",
+            "function": "Contains CICS COBOL copybooks and include members for CICS program development",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "MQ COBOL Copybook Library (MQ.SCSQCOBC)",
+            "original_name": "MQ.SCSQCOBC",
+            "business_name": "MQ COBOL Copybook Library",
+            "type": "PDS",
+            "function": "Contains MQ COBOL copybooks for message queue operations and integration",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Application COBOL Copybook Library (AWS.M2.COBCOPY)",
+            "original_name": "AWS.M2.COBCOPY",
+            "business_name": "Application COBOL Copybook Library",
+            "type": "PDS",
+            "function": "Contains application-specific COBOL copybooks for business logic implementation",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "MQ Load Module Library (MQ.SCSQLOAD)",
+            "original_name": "MQ.SCSQLOAD",
+            "business_name": "MQ Load Module Library",
+            "type": "PDS",
+            "function": "Contains MQ load modules and stub programs for message queue functionality",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Load Module Library (SYS1.LINKLIB)",
+            "original_name": "SYS1.LINKLIB",
+            "business_name": "System Load Module Library",
+            "type": "PDS",
+            "function": "Contains standard system load modules required for program execution",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Language Environment Link Editor Library (CEE.SCEELKED)",
+            "original_name": "CEE.SCEELKED",
+            "business_name": "Language Environment Link Editor Library",
+            "type": "PDS",
+            "function": "Contains Language Environment link editor modules for program linking",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS System Load Module Library (IMS.SDFSRESL)",
+            "original_name": "IMS.SDFSRESL",
+            "business_name": "IMS System Load Module Library",
+            "type": "PDS",
+            "function": "Contains IMS system load modules for IMS program integration and execution",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Application Load Module Library (AWS.M2.CICSLOAD(IMSMQPGM))",
+            "original_name": "AWS.M2.CICSLOAD(IMSMQPGM)",
+            "business_name": "Application Load Module Library",
+            "type": "PDS",
+            "function": "Stores the final executable program that integrates CICS, IMS and MQ functionality for business operations",
+            "used_by_programs": [
+                "IMSMQCMP"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "IMSMQCMP.jcl": "aws-mainframe-modernization-carddemo-main/samples/jcl/IMSMQCMP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IMSMQPGM[\"COBOL program that processes IMS message queue transactions with CICS integration (IMSMQPGM) \"]\n"
+}

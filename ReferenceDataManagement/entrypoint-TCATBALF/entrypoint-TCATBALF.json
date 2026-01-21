@@ -1,0 +1,69 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TCATBALF.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TCATBALF.jcl",
+    "summary": {
+        "overview": "This JCL job initializes the Transaction Category Balance File (TCATBALF) by creating a new VSAM indexed dataset and loading it with balance data. The job ensures clean setup by removing any existing balance file before creating and populating the new indexed structure for efficient transaction category balance management.",
+        "business_functions": [
+            "Delete existing transaction category balance file to ensure clean initialization",
+            "Create new indexed VSAM dataset for transaction category balance storage with 17-byte key structure",
+            "Load transaction category balance data from sequential file into the newly created indexed dataset for efficient access"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TCATBALF.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Data Set Utility for VSAM dataset management operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Category Balance VSAM File (AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS",
+            "business_name": "Transaction Category Balance VSAM File",
+            "type": "VSAM_KSDS",
+            "function": "Stores transaction category balance data in an indexed VSAM dataset with 17-byte key and 50-byte fixed records, supporting shared access for read and update operations",
+            "used_by_programs": [
+                "TCATBALF.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Transaction Category Balance Source Data (AWS.M2.CARDDEMO.TCATBALF.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.PS",
+            "business_name": "Transaction Category Balance Source Data",
+            "type": "SEQUENTIAL",
+            "function": "Sequential dataset containing source transaction category balance data that is loaded into the VSAM file",
+            "used_by_programs": [
+                "TCATBALF.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TCATBALF.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TCATBALF.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Data Set Utility for VSAM dataset management operations (IDCAMS) \"]\n"
+}

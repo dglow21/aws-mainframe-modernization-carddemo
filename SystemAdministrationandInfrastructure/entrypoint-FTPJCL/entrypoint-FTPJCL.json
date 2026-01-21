@@ -1,0 +1,56 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "FTPJCL.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "FTPJCL.JCL",
+    "summary": {
+        "overview": "This JCL performs file transfer operations to upload card demo test data from the mainframe to a remote server. It establishes an FTP connection to transfer a dataset to an external system for testing or data sharing purposes.",
+        "business_functions": [
+            "Connect to remote server using FTP protocol",
+            "Authenticate with server credentials",
+            "Navigate to target directory on remote server",
+            "Transfer card demo test data file to remote location",
+            "Verify successful file upload completion"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "FTP"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "FTPJCL.JCL": [
+            {
+                "program_name": "FTP",
+                "program_overview": "System utility for file transfer protocol operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo FTP Test File (AWS.M2.CARDEMO.FTP.TEST)",
+            "original_name": "AWS.M2.CARDEMO.FTP.TEST",
+            "business_name": "Card Demo FTP Test File",
+            "type": "SEQUENTIAL",
+            "function": "Test file used for FTP transfer operations in the card demo system. The file is transferred from the mainframe to a remote FTP server as 'welcome.txt' for testing FTP connectivity and file transfer capabilities.",
+            "used_by_programs": [
+                "FTPJCL.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "FTPJCL.JCL": "aws-mainframe-modernization-carddemo-main/app/jcl/FTPJCL.JCL"
+    },
+    "flow_diagram_code": "flowchart TD\n    FTP[\"System utility for file transfer protocol operations (FTP) \"]\n"
+}

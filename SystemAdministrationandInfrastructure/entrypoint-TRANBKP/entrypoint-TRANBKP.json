@@ -1,0 +1,108 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANBKP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANBKP.jcl",
+    "summary": {
+        "overview": "This JCL performs transaction master file backup and recreation operations for the CARDDEMO application. It creates a backup copy of the transaction VSAM file, deletes existing VSAM structures, and redefines a new empty VSAM cluster for transaction processing.",
+        "business_functions": [
+            "Create backup copy of card transaction master file to generation dataset for data protection",
+            "Delete existing transaction VSAM cluster and alternate index to clean up current structure",
+            "Define new empty VSAM cluster with indexed access for card transaction data storage"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANBKP.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility for VSAM dataset management operations including backup, delete, and cluster definition",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Card Demo Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Primary transaction data storage containing card transaction records. Used as source for backup operations and then refreshed with clean structure.",
+            "used_by_programs": [
+                "TRANBKP.jcl"
+            ],
+            "accessType": [
+                "READ",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Card Demo Transaction Backup Archive (AWS.M2.CARDDEMO.TRANSACT.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP(+1)",
+            "business_name": "Card Demo Transaction Backup Archive",
+            "type": "GDG",
+            "function": "Backup archive for transaction data. Creates new generation of backup dataset for permanent retention and recovery purposes.",
+            "used_by_programs": [
+                "TRANBKP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Demo Transaction Alternate Index (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX",
+            "business_name": "Card Demo Transaction Alternate Index",
+            "type": "VSAM_KSDS",
+            "function": "Alternate index providing additional access path to transaction records. Removed during file refresh process.",
+            "used_by_programs": [
+                "TRANBKP.jcl"
+            ],
+            "accessType": [
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Card Demo Transaction Data Component (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS.DATA",
+            "business_name": "Card Demo Transaction Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data component of the VSAM cluster containing actual transaction records. Created as part of file refresh process with clean structure.",
+            "used_by_programs": [
+                "TRANBKP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Demo Transaction Index Component (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS.INDEX",
+            "business_name": "Card Demo Transaction Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the VSAM cluster providing indexed access to transaction records. Created as part of file refresh process.",
+            "used_by_programs": [
+                "TRANBKP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANBKP.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANBKP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility for VSAM dataset management operations including backup, delete, and cluster definition (IDCAMS) \"]\n"
+}

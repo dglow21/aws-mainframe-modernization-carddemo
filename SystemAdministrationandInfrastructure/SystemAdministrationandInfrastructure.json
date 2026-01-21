@@ -1,0 +1,220 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "System Administration and Infrastructure",
+  "brief_description": "Provides system administration, infrastructure management, and technical support operations.",
+  "business_purpose": "This function encompasses all system administration and infrastructure management activities required to maintain the card management system. It includes database administration, file management, system compilation, deployment operations, and technical maintenance tasks that ensure system availability, performance, and proper operation of the application infrastructure.",
+  "key_capabilities": [
+    "Database creation and administration",
+    "System compilation and deployment",
+    "File system management and maintenance",
+    "Infrastructure setup and configuration",
+    "System monitoring and maintenance operations"
+  ],
+  "components": [
+    {
+      "name": "CREADB21",
+      "type": "Batch",
+      "business_function": "Database creation and initialization",
+      "entry_point_program": "CREADB21"
+    },
+    {
+      "name": "MNTTRDB2",
+      "type": "Batch",
+      "business_function": "Database maintenance and updates",
+      "entry_point_program": "MNTTRDB2"
+    },
+    {
+      "name": "ACCTFILE",
+      "type": "Batch",
+      "business_function": "Account file management and refresh",
+      "entry_point_program": "ACCTFILE"
+    },
+    {
+      "name": "CARDFILE",
+      "type": "Batch",
+      "business_function": "Card file rebuild and maintenance",
+      "entry_point_program": "CARDFILE"
+    },
+    {
+      "name": "CUSTFILE",
+      "type": "Batch",
+      "business_function": "Customer file management and reload",
+      "entry_point_program": "CUSTFILE"
+    },
+    {
+      "name": "TRANFILE",
+      "type": "Batch",
+      "business_function": "Transaction file setup and indexing",
+      "entry_point_program": "TRANFILE"
+    },
+    {
+      "name": "TRANIDX",
+      "type": "Batch",
+      "business_function": "Transaction file alternate index creation",
+      "entry_point_program": "TRANIDX"
+    },
+    {
+      "name": "TRANBKP",
+      "type": "Batch",
+      "business_function": "Transaction file backup and recreation",
+      "entry_point_program": "TRANBKP"
+    },
+    {
+      "name": "XREFFILE",
+      "type": "Batch",
+      "business_function": "Cross-reference file system setup",
+      "entry_point_program": "XREFFILE"
+    },
+    {
+      "name": "DEFCUST",
+      "type": "Batch",
+      "business_function": "Customer data infrastructure setup",
+      "entry_point_program": "DEFCUST"
+    },
+    {
+      "name": "ESDSRRDS",
+      "type": "Batch",
+      "business_function": "User security system initialization",
+      "entry_point_program": "ESDSRRDS"
+    },
+    {
+      "name": "DUSRSECJ",
+      "type": "Batch",
+      "business_function": "User security file creation and population",
+      "entry_point_program": "DUSRSECJ"
+    },
+    {
+      "name": "OPENFIL",
+      "type": "Batch",
+      "business_function": "CICS file opening and activation",
+      "entry_point_program": "OPENFIL"
+    },
+    {
+      "name": "CLOSEFIL",
+      "type": "Batch",
+      "business_function": "CICS file closing and maintenance",
+      "entry_point_program": "CLOSEFIL"
+    },
+    {
+      "name": "CBADMCDJ",
+      "type": "Batch",
+      "business_function": "CICS environment setup and resource definition",
+      "entry_point_program": "CBADMCDJ"
+    },
+    {
+      "name": "CICCMP",
+      "type": "Batch",
+      "business_function": "CICS program compilation and deployment",
+      "entry_point_program": "CICCMP"
+    },
+    {
+      "name": "CICDBCMP",
+      "type": "Batch",
+      "business_function": "CICS DB2 program compilation",
+      "entry_point_program": "CICDBCMP"
+    },
+    {
+      "name": "IMSMQCMP",
+      "type": "Batch",
+      "business_function": "IMS MQ program compilation and linking",
+      "entry_point_program": "IMSMQCMP"
+    },
+    {
+      "name": "BMSCMP",
+      "type": "Batch",
+      "business_function": "Screen map compilation and deployment",
+      "entry_point_program": "BMSCMP"
+    },
+    {
+      "name": "BATCMP",
+      "type": "Batch",
+      "business_function": "Batch program compilation",
+      "entry_point_program": "BATCMP"
+    },
+    {
+      "name": "LISTCAT",
+      "type": "Batch",
+      "business_function": "Catalog management and inventory reporting",
+      "entry_point_program": "LISTCAT"
+    },
+    {
+      "name": "RACFCMDS",
+      "type": "Batch",
+      "business_function": "Security administration and access management",
+      "entry_point_program": "RACFCMDS"
+    },
+    {
+      "name": "DBPAUTP0",
+      "type": "Batch",
+      "business_function": "IMS database unload operations",
+      "entry_point_program": "DBPAUTP0"
+    },
+    {
+      "name": "CBPAUP0J",
+      "type": "Batch",
+      "business_function": "IMS batch message processing",
+      "entry_point_program": "CBPAUP0J"
+    },
+    {
+      "name": "WAITSTEP",
+      "type": "Batch",
+      "business_function": "Batch processing timing control",
+      "entry_point_program": "WAITSTEP"
+    },
+    {
+      "name": "FTPJCL",
+      "type": "Batch",
+      "business_function": "File transfer operations",
+      "entry_point_program": "FTPJCL"
+    },
+    {
+      "name": "INTRDRJ1",
+      "type": "Batch",
+      "business_function": "Data backup and job submission automation",
+      "entry_point_program": "INTRDRJ1"
+    },
+    {
+      "name": "INTRDRJ2",
+      "type": "Batch",
+      "business_function": "Internal reader data backup operations",
+      "entry_point_program": "INTRDRJ2"
+    },
+    {
+      "name": "DEFGDGB",
+      "type": "Batch",
+      "business_function": "Generation Data Group infrastructure setup",
+      "entry_point_program": "DEFGDGB"
+    },
+    {
+      "name": "DEFGDGD",
+      "type": "Batch",
+      "business_function": "Reference data backup GDG creation",
+      "entry_point_program": "DEFGDGD"
+    },
+    {
+      "name": "REPTFILE",
+      "type": "Batch",
+      "business_function": "Report file GDG infrastructure setup",
+      "entry_point_program": "REPTFILE"
+    },
+    {
+      "name": "DALYREJS",
+      "type": "Batch",
+      "business_function": "Daily rejection file GDG setup",
+      "entry_point_program": "DALYREJS"
+    },
+    {
+      "name": "REPRTEST",
+      "type": "Batch",
+      "business_function": "Transaction data backup operations",
+      "entry_point_program": "REPRTEST"
+    },
+    {
+      "name": "SORTTEST",
+      "type": "Batch",
+      "business_function": "Daily transaction processing and sorting",
+      "entry_point_program": "SORTTEST"
+    }
+  ]
+}

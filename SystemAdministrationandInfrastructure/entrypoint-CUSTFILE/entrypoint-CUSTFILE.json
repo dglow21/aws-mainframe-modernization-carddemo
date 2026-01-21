@@ -1,0 +1,76 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CUSTFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CUSTFILE.jcl",
+    "summary": {
+        "overview": "This JCL job manages the Customer Data file by recreating the VSAM dataset and reloading it with customer information. The job coordinates with CICS to safely close the file during maintenance, recreates the file structure, loads customer data, and reopens the file for online access.",
+        "business_functions": [
+            "Close Customer Data file in CICS system to prevent access during maintenance operations",
+            "Delete existing Customer Data VSAM cluster to prepare for recreation with updated structure",
+            "Create new VSAM indexed customer file with 9-byte customer ID key and 500-byte records",
+            "Load customer data from sequential source file into the newly created VSAM customer database",
+            "Open Customer Data file in CICS system to enable online customer transactions and inquiries"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CUSTFILE.jcl": [
+            {
+                "program_name": "SDSF",
+                "program_overview": "System utility for sending commands to CICS regions to manage file status",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "VSAM utility for managing dataset operations including delete, define, and data copy functions",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Customer Data VSAM File (AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS",
+            "business_name": "Customer Data VSAM File",
+            "type": "VSAM_KSDS",
+            "function": "Primary indexed storage for customer data with 9-byte key and 500-byte fixed records, providing shared access for customer information management",
+            "used_by_programs": [
+                "CUSTFILE.jcl"
+            ],
+            "accessType": [
+                "CREATE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Customer Data Sequential File (AWS.M2.CARDDEMO.CUSTDATA.PS)",
+            "original_name": "AWS.M2.CARDDEMO.CUSTDATA.PS",
+            "business_name": "Customer Data Sequential File",
+            "type": "SEQUENTIAL",
+            "function": "Source dataset containing customer data that serves as input for populating the VSAM customer file",
+            "used_by_programs": [
+                "CUSTFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CUSTFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CUSTFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SDSF[\"System utility for sending commands to CICS regions to manage file status (SDSF) \"]\n    IDCAMS[\"VSAM utility for managing dataset operations including delete, define, and data copy functions (IDCAMS) \"]\n"
+}

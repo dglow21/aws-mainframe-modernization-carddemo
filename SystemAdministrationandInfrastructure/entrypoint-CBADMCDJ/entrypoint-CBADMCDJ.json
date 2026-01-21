@@ -1,0 +1,89 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CBADMCDJ.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CBADMCDJ.jcl",
+    "summary": {
+        "overview": "This JCL job sets up the complete CICS environment for the CARDDEMO credit card application by defining all necessary system resources including user interface screens, business programs, and transaction entry points. It establishes the foundation for credit card processing operations including customer account management, transaction processing, bill payments, and administrative functions.",
+        "business_functions": [
+            "Define CICS library for CARDDEMO application load modules",
+            "Create user login and authentication screen interfaces",
+            "Set up account management screens for viewing, updating, and deactivating customer accounts",
+            "Define card management interfaces for credit card operations",
+            "Establish transaction processing and reporting screen definitions",
+            "Create bill payment setup and processing interfaces",
+            "Define administrative function screens and menus",
+            "Register all business application programs with CICS system",
+            "Create transaction entry points for user access (CCDM for admin menu, CCT1-CCT4 for testing)",
+            "Group all CARDDEMO resources for organized system management",
+            "Generate resource verification listings for system validation"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "PDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CBADMCDJ.jcl": [
+            {
+                "program_name": "DFHCSDUP",
+                "program_overview": "CICS System Definition Utility - Defines and manages CICS system resources",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "CICS System Load Module Library (OEM.CICSTS.V05R06M0.CICS.SDFHLOAD)",
+            "original_name": "OEM.CICSTS.V05R06M0.CICS.SDFHLOAD",
+            "business_name": "CICS System Load Module Library",
+            "type": "PDS",
+            "function": "Contains CICS system load modules required for CICS program execution and system operations",
+            "used_by_programs": [
+                "CBADMCDJ.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "CICS System Definition File (OEM.CICSTS.DFHCSD)",
+            "original_name": "OEM.CICSTS.DFHCSD",
+            "business_name": "CICS System Definition File",
+            "type": "VSAM_KSDS",
+            "function": "Stores CICS resource definitions and configuration data for CARDDEMO application resources management",
+            "used_by_programs": [
+                "CBADMCDJ.jcl"
+            ],
+            "accessType": [
+                "READ",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "CARDDEMO Application Load Module Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "CARDDEMO Application Load Module Library",
+            "type": "PDS",
+            "function": "Contains CARDDEMO application load modules and serves as source library for CICS application program definitions",
+            "used_by_programs": [
+                "CBADMCDJ.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CBADMCDJ.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CBADMCDJ.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    DFHCSDUP[\"CICS System Definition Utility - Defines and manages CICS system resources (DFHCSDUP) \"]\n"
+}

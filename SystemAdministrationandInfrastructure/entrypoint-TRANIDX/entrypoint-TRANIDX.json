@@ -1,0 +1,106 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANIDX.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANIDX.jcl",
+    "summary": {
+        "overview": "This JCL creates an alternate index on the Transaction Master file to enable secondary key access to transaction records. It establishes an alternate access path using a 26-byte key starting at position 304, allowing applications to retrieve transaction data through this secondary key structure.",
+        "business_functions": [
+            "Define alternate index structure on Transaction Master VSAM file with 26-byte key starting at position 304",
+            "Create path entry to enable application access through alternate index key",
+            "Build and populate alternate index with existing transaction data for fast secondary key retrieval"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANIDX.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM file operations and alternate index management",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Primary transaction master file containing transaction records with 350-byte fixed length records that serves as the base dataset for creating alternate index access paths",
+            "used_by_programs": [
+                "TRANIDX.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Alternate Index (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX",
+            "business_name": "Transaction Alternate Index",
+            "type": "VSAM_KSDS",
+            "function": "Alternate index that provides an alternative access path to the transaction master file, allowing records to be accessed using a different key sequence than the primary key",
+            "used_by_programs": [
+                "TRANIDX.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Alternate Index Data Component (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.DATA",
+            "business_name": "Transaction Alternate Index Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data component of the alternate index that stores the actual alternate index data records with non-unique keys starting at position 304 with length 26",
+            "used_by_programs": [
+                "TRANIDX.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Alternate Index Structure Component (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.INDEX",
+            "business_name": "Transaction Alternate Index Structure Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the alternate index that contains the index structure for fast access to the alternate index data component",
+            "used_by_programs": [
+                "TRANIDX.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Alternate Index Path Definition (AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.PATH)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.AIX.PATH",
+            "business_name": "Transaction Alternate Index Path Definition",
+            "type": "VSAM_KSDS",
+            "function": "Path definition that provides a logical connection between applications and the alternate index, enabling programs to access the base file through the alternate key sequence",
+            "used_by_programs": [
+                "TRANIDX.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANIDX.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANIDX.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM file operations and alternate index management (IDCAMS) \"]\n"
+}

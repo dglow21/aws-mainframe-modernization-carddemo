@@ -1,0 +1,84 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "XREFFILE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "XREFFILE.jcl",
+    "summary": {
+        "overview": "This JCL job establishes a comprehensive cross-reference file system for the CARDDEMO application, creating indexed datasets that enable efficient card data lookups through both primary and alternate access paths. The job performs complete setup including data loading and index building to support flexible card information retrieval for business operations.",
+        "business_functions": [
+            "Delete existing cross-reference VSAM datasets to ensure clean setup environment",
+            "Create new VSAM Key Sequenced Dataset structure for card cross-reference data storage",
+            "Load card cross-reference data from sequential source file into indexed VSAM structure",
+            "Define alternate index to enable secondary access path using alternate key fields",
+            "Create logical path connection between alternate index and base cluster for application access",
+            "Build and populate alternate index entries from existing base cluster data for dual search capability"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "XREFFILE.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM dataset management and data operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Cross-Reference Master File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross-Reference Master File",
+            "type": "VSAM_KSDS",
+            "function": "Primary storage for card cross-reference data with 16-byte key and 50-byte fixed records, supporting indexed access for card relationship management",
+            "used_by_programs": [
+                "XREFFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Alternate Index (AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX",
+            "business_name": "Card Cross-Reference Alternate Index",
+            "type": "VSAM_KSDS",
+            "function": "Alternate index providing secondary access path to card cross-reference data using 11-byte alternate key, allowing non-unique keys for flexible data retrieval",
+            "used_by_programs": [
+                "XREFFILE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Input Data (AWS.M2.CARDDEMO.CARDXREF.PS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.PS",
+            "business_name": "Card Cross-Reference Input Data",
+            "type": "SEQUENTIAL",
+            "function": "Sequential input file containing source card cross-reference data to be loaded into the VSAM master file during data initialization process",
+            "used_by_programs": [
+                "XREFFILE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "XREFFILE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/XREFFILE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM dataset management and data operations (IDCAMS) \"]\n"
+}

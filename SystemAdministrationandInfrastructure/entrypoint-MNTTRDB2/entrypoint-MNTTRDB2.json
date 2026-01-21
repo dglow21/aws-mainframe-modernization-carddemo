@@ -1,0 +1,122 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "MNTTRDB2.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "MNTTRDB2.jcl",
+    "summary": {
+        "overview": "This batch job executes a COBOL program to perform database maintenance operations on transaction records. It processes input data through the CARDDEMO application to update business records in the DB2 database system.",
+        "business_functions": [
+            "Read transaction records from input file",
+            "Connect to DB2 database system for data access",
+            "Process and validate transaction data",
+            "Update business records in the database",
+            "Generate processing status and completion messages"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "DB2"
+            ],
+            "integration_components": [
+                "TSO"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "MNTTRDB2.jcl": [
+            {
+                "program_name": "COBTUPDT",
+                "program_overview": "Updates transaction database records",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "DB2 Exit Routines Library (OEM.DB2.DAZ1.SDSNEXIT)",
+            "original_name": "OEM.DB2.DAZ1.SDSNEXIT",
+            "business_name": "DB2 Exit Routines Library",
+            "type": "PDS",
+            "function": "Contains DB2 exit routines required for program execution support",
+            "used_by_programs": [
+                "MNTTRDB2"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "DB2 Load Modules Library (OEMA.DB2.VERSIONA.SDSNLOAD)",
+            "original_name": "OEMA.DB2.VERSIONA.SDSNLOAD",
+            "business_name": "DB2 Load Modules Library",
+            "type": "PDS",
+            "function": "Contains DB2 load modules required for program execution support",
+            "used_by_programs": [
+                "MNTTRDB2"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Application Load Modules Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Application Load Modules Library",
+            "type": "PDS",
+            "function": "Contains application load modules required for program execution support",
+            "used_by_programs": [
+                "MNTTRDB2"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Database Request Modules Library (AWS.M2.CARDDEMO.DBRMLIB)",
+            "original_name": "AWS.M2.CARDDEMO.DBRMLIB",
+            "business_name": "Database Request Modules Library",
+            "type": "PDS",
+            "function": "Contains database request modules used for DB2 program binding operations",
+            "used_by_programs": [
+                "MNTTRDB2"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Input File (INPFILE)",
+            "original_name": "INPFILE",
+            "business_name": "Transaction Input File",
+            "type": "SEQUENTIAL",
+            "function": "Contains transaction records to be processed by the COBOL program",
+            "used_by_programs": [
+                "MNTTRDB2"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Record File (TR-RECORD)",
+            "original_name": "TR-RECORD",
+            "business_name": "Transaction Record File",
+            "type": "SEQUENTIAL",
+            "function": "Transaction record file processed for database update operations",
+            "used_by_programs": [
+                "COBTUPDT"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "MNTTRDB2.jcl": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/MNTTRDB2.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    COBTUPDT[\"Updates transaction database records (COBTUPDT) \"]\n"
+}

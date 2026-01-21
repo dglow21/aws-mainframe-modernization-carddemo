@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DISCGRP.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DISCGRP.jcl",
+    "summary": {
+        "overview": "This JCL job performs a complete refresh of the disclosure group master file for the CARDDEMO application. It deletes any existing disclosure group data, creates a new indexed VSAM file structure, and loads current disclosure group information from a sequential source file.",
+        "business_functions": [
+            "Delete existing disclosure group master file to ensure clean data setup",
+            "Create new indexed file structure for disclosure group data with 16-byte key and 50-byte records",
+            "Load disclosure group data from sequential source file into indexed VSAM file for efficient access"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DISCGRP.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM file management and data operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Disclosure Group Master File (AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS",
+            "business_name": "Disclosure Group Master File",
+            "type": "VSAM_KSDS",
+            "function": "Main indexed file storing disclosure group information with 16-byte key and 50-byte fixed records for card demo application",
+            "used_by_programs": [
+                "DISCGRP.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Disclosure Group Data Component (AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS.DATA",
+            "business_name": "Disclosure Group Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Data storage component of the disclosure group VSAM indexed file structure",
+            "used_by_programs": [
+                "DISCGRP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Disclosure Group Index Component (AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS.INDEX",
+            "business_name": "Disclosure Group Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index component of the disclosure group VSAM indexed file structure for fast data retrieval",
+            "used_by_programs": [
+                "DISCGRP.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Disclosure Group Source Data (AWS.M2.CARDDEMO.DISCGRP.PS)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.PS",
+            "business_name": "Disclosure Group Source Data",
+            "type": "SEQUENTIAL",
+            "function": "Sequential input file containing disclosure group data to be loaded into the VSAM master file",
+            "used_by_programs": [
+                "DISCGRP.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DISCGRP.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/DISCGRP.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM Access Method Services utility for VSAM file management and data operations (IDCAMS) \"]\n"
+}

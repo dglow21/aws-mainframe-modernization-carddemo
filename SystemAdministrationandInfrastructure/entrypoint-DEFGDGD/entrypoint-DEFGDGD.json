@@ -1,0 +1,167 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DEFGDGD.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DEFGDGD.jcl",
+    "summary": {
+        "overview": "This JCL performs automated backup operations for CardDemo reference data by creating Generation Data Groups (GDGs) and copying current transaction types, transaction categories, and discount groups data to new backup generations. The job maintains up to 5 generations of backup copies for each data type to ensure business continuity and data preservation.",
+        "business_functions": [
+            "Create backup infrastructure for transaction type reference data with 5-generation retention",
+            "Copy current transaction type master data to new backup generation",
+            "Create backup infrastructure for transaction category reference data with 5-generation retention",
+            "Copy current transaction category master data to new backup generation",
+            "Create backup infrastructure for discount group reference data with 5-generation retention",
+            "Copy current discount group master data to new backup generation"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "GDG",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DEFGDGD.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility for defining Generation Data Groups and managing catalog entries",
+                "called_programs": []
+            },
+            {
+                "program_name": "IEBGENER",
+                "program_overview": "IBM utility for copying sequential datasets and creating backup copies",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Type Backup Storage (AWS.M2.CARDDEMO.TRANTYPE.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.BKUP",
+            "business_name": "Transaction Type Backup Storage",
+            "type": "GDG",
+            "function": "Generation Data Group storage for transaction type data backups with automatic retention management of 5 generations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Type Master File (AWS.M2.CARDDEMO.TRANTYPE.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.PS",
+            "business_name": "Transaction Type Master File",
+            "type": "SEQUENTIAL",
+            "function": "Source file containing transaction type reference data used for backup operations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Type Current Backup Generation (AWS.M2.CARDDEMO.TRANTYPE.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.BKUP(+1)",
+            "business_name": "Transaction Type Current Backup Generation",
+            "type": "GDG",
+            "function": "Current generation backup copy of transaction type data with fixed 60-character record format",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Backup Storage (AWS.M2.CARDDEMO.TRANCATG.PS.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS.BKUP",
+            "business_name": "Transaction Category Backup Storage",
+            "type": "GDG",
+            "function": "Generation Data Group storage for transaction category data backups with automatic retention management of 5 generations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Master File (AWS.M2.CARDDEMO.TRANCATG.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS",
+            "business_name": "Transaction Category Master File",
+            "type": "SEQUENTIAL",
+            "function": "Source file containing transaction category reference data used for backup operations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Category Current Backup Generation (AWS.M2.CARDDEMO.TRANCATG.PS.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS.BKUP(+1)",
+            "business_name": "Transaction Category Current Backup Generation",
+            "type": "GDG",
+            "function": "Current generation backup copy of transaction category data with fixed 60-character record format",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Discount Group Backup Storage (AWS.M2.CARDDEMO.DISCGRP.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.BKUP",
+            "business_name": "Discount Group Backup Storage",
+            "type": "GDG",
+            "function": "Generation Data Group storage for discount group data backups with automatic retention management of 5 generations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Discount Group Master File (AWS.M2.CARDDEMO.DISCGRP.PS)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.PS",
+            "business_name": "Discount Group Master File",
+            "type": "SEQUENTIAL",
+            "function": "Source file containing discount group reference data used for backup operations",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Discount Group Current Backup Generation (AWS.M2.CARDDEMO.DISCGRP.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.BKUP(+1)",
+            "business_name": "Discount Group Current Backup Generation",
+            "type": "GDG",
+            "function": "Current generation backup copy of discount group data with fixed 50-character record format",
+            "used_by_programs": [
+                "DEFGDGD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DEFGDGD.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGD.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility for defining Generation Data Groups and managing catalog entries (IDCAMS) \"]\n    IEBGENER[\"IBM utility for copying sequential datasets and creating backup copies (IEBGENER) \"]\n"
+}

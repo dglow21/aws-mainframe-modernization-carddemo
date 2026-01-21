@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANTYPE.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANTYPE.jcl",
+    "summary": {
+        "overview": "This JCL manages transaction type reference data by recreating a VSAM indexed file and loading current transaction type codes and descriptions from a sequential source file. The process ensures a clean, up-to-date transaction type lookup table is available for the card demonstration application.",
+        "business_functions": [
+            "Delete existing transaction type reference file to ensure clean data setup",
+            "Create new indexed transaction type storage structure with efficient key-based access",
+            "Load current transaction type codes and descriptions from source file into indexed storage",
+            "Establish transaction type lookup capability for card processing operations"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANTYPE.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility for VSAM dataset management operations including creation, deletion, and data loading",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Type Master File (AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS",
+            "business_name": "Transaction Type Master File",
+            "type": "VSAM_KSDS",
+            "function": "Stores master data for transaction types with indexed access capability for efficient retrieval and processing",
+            "used_by_programs": [
+                "TRANTYPE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Type Data Component (AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS.DATA",
+            "business_name": "Transaction Type Data Component",
+            "type": "VSAM_KSDS",
+            "function": "Physical storage component that contains the actual transaction type record data within the VSAM cluster",
+            "used_by_programs": [
+                "TRANTYPE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Type Index Component (AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS.INDEX)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS.INDEX",
+            "business_name": "Transaction Type Index Component",
+            "type": "VSAM_KSDS",
+            "function": "Index structure component that provides fast key-based access to transaction type records in the VSAM cluster",
+            "used_by_programs": [
+                "TRANTYPE.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Type Source Data (AWS.M2.CARDDEMO.TRANTYPE.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.PS",
+            "business_name": "Transaction Type Source Data",
+            "type": "SEQUENTIAL",
+            "function": "Contains source transaction type data in sequential format that serves as input for loading into the VSAM master file",
+            "used_by_programs": [
+                "TRANTYPE.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANTYPE.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANTYPE.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility for VSAM dataset management operations including creation, deletion, and data loading (IDCAMS) \"]\n"
+}

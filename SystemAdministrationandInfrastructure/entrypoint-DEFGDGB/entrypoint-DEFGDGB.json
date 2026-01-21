@@ -1,0 +1,124 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "DEFGDGB.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "DEFGDGB.jcl",
+    "summary": {
+        "overview": "This JCL job establishes the data management infrastructure for the CARDDEMO application by creating Generation Data Groups (GDGs) that support transaction processing, backup operations, and reporting functions. The job sets up six different GDG bases with automatic retention management to maintain up to 5 generations of historical data for each category.",
+        "business_functions": [
+            "Create GDG base for transaction backup data storage with 5 generation retention",
+            "Create GDG base for daily transaction data storage with 5 generation retention",
+            "Create GDG base for transaction reports with 5 generation retention",
+            "Create GDG base for transaction category balance backup with 5 generation retention",
+            "Create GDG base for system transaction data with 5 generation retention",
+            "Create GDG base for combined transaction data with 5 generation retention",
+            "Implement automatic data retention management for historical versions",
+            "Handle duplicate GDG definitions to allow job continuation"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "DEFGDGB.jcl": [
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM utility for VSAM and catalog management - Creates and manages Generation Data Groups",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Backup Data (AWS.M2.CARDDEMO.TRANSACT.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP",
+            "business_name": "Transaction Backup Data",
+            "type": "GDG",
+            "function": "Stores backup copies of transaction data with retention of 5 generations for recovery purposes",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Daily Transaction Data (AWS.M2.CARDDEMO.TRANSACT.DALY)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.DALY",
+            "business_name": "Daily Transaction Data",
+            "type": "GDG",
+            "function": "Stores daily transaction processing data with retention of 5 generations for historical tracking",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Reports (AWS.M2.CARDDEMO.TRANREPT)",
+            "original_name": "AWS.M2.CARDDEMO.TRANREPT",
+            "business_name": "Transaction Reports",
+            "type": "GDG",
+            "function": "Stores generated transaction reports with retention of 5 generations for business analysis and audit purposes",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Balance Backup (AWS.M2.CARDDEMO.TCATBALF.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.BKUP",
+            "business_name": "Transaction Category Balance Backup",
+            "type": "GDG",
+            "function": "Stores backup copies of transaction category balance data with retention of 5 generations for recovery and audit purposes",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "System Transaction Data (AWS.M2.CARDDEMO.SYSTRAN)",
+            "original_name": "AWS.M2.CARDDEMO.SYSTRAN",
+            "business_name": "System Transaction Data",
+            "type": "GDG",
+            "function": "Stores system-level transaction data with retention of 5 generations for system monitoring and analysis",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Combined Transaction Data (AWS.M2.CARDDEMO.TRANSACT.COMBINED)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.COMBINED",
+            "business_name": "Combined Transaction Data",
+            "type": "GDG",
+            "function": "Stores consolidated transaction data from multiple sources with retention of 5 generations for comprehensive reporting and analysis",
+            "used_by_programs": [
+                "DEFGDGB.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "DEFGDGB.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGB.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IDCAMS[\"IBM utility for VSAM and catalog management - Creates and manages Generation Data Groups (IDCAMS) \"]\n"
+}

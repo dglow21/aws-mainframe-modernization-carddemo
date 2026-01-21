@@ -1,0 +1,136 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANEXTR.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANEXTR.jcl",
+    "summary": {
+        "overview": "This JCL extracts transaction type and transaction category reference data from DB2 database tables and creates formatted sequential datasets for the CARDDEMO application system. It creates backup copies of existing files before generating fresh data extracts from the database.",
+        "business_functions": [
+            "Create backup copy of existing transaction type reference data",
+            "Create backup copy of existing transaction category reference data",
+            "Delete original transaction type and category data files to prepare for refresh",
+            "Extract transaction type codes and descriptions from database and format into 60-character records",
+            "Extract transaction category codes, categories and data from database and format into 60-character records"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "DB2"
+            ],
+            "integration_components": [
+                "TSO"
+            ],
+            "dataset_types": [
+                "PS",
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANEXTR.jcl": [
+            {
+                "program_name": "IEBGENER",
+                "program_overview": "IBM utility program for copying datasets",
+                "called_programs": []
+            },
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM utility program for dataset management operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "IKJEFT01",
+                "program_overview": "TSO command processor for executing DB2 database operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Type Master File (AWS.M2.CARDDEMO.TRANTYPE.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.PS",
+            "business_name": "Transaction Type Master File",
+            "type": "SEQUENTIAL",
+            "function": "Stores transaction type data that is read as input, then deleted and recreated with updated information from DB2 queries",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "READ",
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Transaction Type Backup File (AWS.M2.CARDDEMO.TRANTYPE.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.BKUP",
+            "business_name": "Transaction Type Backup File",
+            "type": "GDG",
+            "function": "Backup storage for transaction type data with fixed-length records of 60 characters",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Master File (AWS.M2.CARDDEMO.TRANCATG.PS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS",
+            "business_name": "Transaction Category Master File",
+            "type": "SEQUENTIAL",
+            "function": "Stores transaction category data that is read as input, then deleted and recreated with updated information from DB2 queries",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "READ",
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Transaction Category Backup File (AWS.M2.CARDDEMO.TRANCATG.PS.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.PS.BKUP",
+            "business_name": "Transaction Category Backup File",
+            "type": "GDG",
+            "function": "Backup storage for transaction category data with fixed-length records of 60 characters",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Type Reference Table (CARDDEMO.TRANSACTION_TYPE)",
+            "original_name": "CARDDEMO.TRANSACTION_TYPE",
+            "business_name": "Transaction Type Reference Table",
+            "type": "DB2_TABLE",
+            "function": "Master reference table containing transaction type codes and descriptions, used to extract current transaction type information ordered by transaction type",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Transaction Type Category Reference Table (CARDDEMO.TRANSACTION_TYPE_CATEGORY)",
+            "original_name": "CARDDEMO.TRANSACTION_TYPE_CATEGORY",
+            "business_name": "Transaction Type Category Reference Table",
+            "type": "DB2_TABLE",
+            "function": "Master reference table containing transaction category information including type codes, categories, and category data, used to extract current transaction category information ordered by type code and category",
+            "used_by_programs": [
+                "TRANEXTR.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANEXTR.jcl": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/TRANEXTR.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEBGENER[\"IBM utility program for copying datasets (IEBGENER) \"]\n    IEFBR14[\"IBM utility program for dataset management operations (IEFBR14) \"]\n    IKJEFT01[\"TSO command processor for executing DB2 database operations (IKJEFT01) \"]\n"
+}
