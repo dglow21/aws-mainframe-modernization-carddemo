@@ -1,0 +1,155 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CP00 Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CP00",
+    "summary": {
+        "overview": "The CP00 transaction processes real-time credit card authorization requests through MQ messaging. It validates card information, checks account balances against credit limits, makes approval or decline decisions, and updates authorization records in the database.",
+        "business_functions": [
+            "Initialize Authorization System - Set up MQ connections and database access for processing authorization requests",
+            "Read Authorization Request - Receive authorization request message from MQ queue with transaction details",
+            "Extract Request Message - Parse authorization request into individual transaction fields",
+            "Validate Card Cross-Reference - Look up card number to get associated account and customer IDs",
+            "Read Account Master Record - Retrieve account information including credit limits and current balance",
+            "Read Customer Master Record - Retrieve customer information for the associated account",
+            "Read Authorization Summary - Get existing authorization summary data from database for the account",
+            "Calculate Available Credit - Compute available credit by subtracting current balance from credit limit",
+            "Make Authorization Decision - Determine approval or decline based on available credit and transaction amount",
+            "Check Transaction Amount - Compare transaction amount against available credit to determine approval",
+            "Set Response Code - Assign appropriate response code (00 for approved, 05 for declined)",
+            "Set Decline Reason - Assign specific reason code for declined transactions",
+            "Format Response Message - Create response string with authorization results",
+            "Send Authorization Response - Put response message on reply MQ queue for requesting system",
+            "Update Authorization Summary - Update or insert authorization summary record in database",
+            "Update Authorization Counters - Increment approved/declined counters and update amounts",
+            "Update Credit Balance - Add approved amount to credit balance for approved transactions",
+            "Insert Authorization Detail - Create detailed authorization record in database",
+            "Commit Transaction - Execute transaction commit to save database changes",
+            "Process Multiple Requests - Loop through multiple authorization requests as configured"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "IMS DB",
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS",
+                "MQ",
+                "IMS TM"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CP00": [
+            {
+                "program_name": "COPAUA0C",
+                "program_overview": "Processes credit card authorization requests by validating card information, checking credit limits, making approval decisions, and updating authorization records",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Account Data File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Data File",
+            "type": "CICS_FILE",
+            "function": "Stores account record information including account details and credit limits used for authorization decisions and account validation",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference File (CCXREF)",
+            "original_name": "CCXREF",
+            "business_name": "Card Cross-Reference File",
+            "type": "CICS_FILE",
+            "function": "Contains card cross-reference data that maps card numbers to corresponding customer and account identifiers for transaction processing",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Customer Data File (CUSTDAT)",
+            "original_name": "CUSTDAT",
+            "business_name": "Customer Data File",
+            "type": "CICS_FILE",
+            "function": "Stores customer record information used for customer validation during the authorization process",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Pending Authorization Summary (PAUTSUM0)",
+            "original_name": "PAUTSUM0",
+            "business_name": "Pending Authorization Summary",
+            "type": "IMS_SEGMENT",
+            "function": "Maintains pending authorization summary data including credit limits, account balances, and authorization transaction counts for real-time authorization processing",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "SELECT",
+                "UPDATE",
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Detail (PAUTDTL1)",
+            "original_name": "PAUTDTL1",
+            "business_name": "Pending Authorization Detail",
+            "type": "IMS_SEGMENT",
+            "function": "Stores detailed authorization transaction records as child segments, capturing individual transaction details under the authorization summary",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Authorization Request Queue (REQUEST_QUEUE)",
+            "original_name": "REQUEST_QUEUE",
+            "business_name": "Authorization Request Queue",
+            "type": "MQ_QUEUE",
+            "function": "Receives incoming authorization request messages containing transaction details from external systems for processing",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Authorization Reply Queue (REPLY_QUEUE)",
+            "original_name": "REPLY_QUEUE",
+            "business_name": "Authorization Reply Queue",
+            "type": "MQ_QUEUE",
+            "function": "Sends authorization response messages back to requesting systems with approval or decline decisions and related transaction information",
+            "used_by_programs": [
+                "COPAUA0C.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COPAUA0C": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl"
+    },
+    "screen_preview": [],
+    "flow_diagram_code": "flowchart TD\n    COPAUA0C[\"Processes credit card authorization requests by validating card information, checking credit limits, making approval decisions, and updating authorization records (COPAUA0C) \"]\n"
+}

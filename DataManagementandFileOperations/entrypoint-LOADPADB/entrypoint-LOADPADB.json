@@ -1,0 +1,193 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "LOADPADB.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "LOADPADB.JCL",
+    "summary": {
+        "overview": "This batch job loads pending authorization data into the IMS PAUTDB database by processing root and child segment records from sequential input files. The job establishes hierarchical relationships between parent authorization summaries and their associated detail records in the Card Demo application database.",
+        "business_functions": [
+            "Read pending authorization summary records from root segment input file",
+            "Insert authorization summary data as root segments into PAUTDB database",
+            "Read pending authorization detail records from child segment input file",
+            "Establish parent-child relationships between summary and detail records",
+            "Insert authorization detail data as child segments under corresponding root segments",
+            "Validate data integrity during database loading process",
+            "Handle database operation errors and provide appropriate error reporting"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "LOADPADB.JCL": [
+            {
+                "program_name": "PAUDBLOD.CBL",
+                "program_overview": "Loads pending authorization data into IMS database by reading sequential files and inserting hierarchical segments",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Pending Authorization Summary Data File (AWS.M2.CARDDEMO.PAUTDB.ROOT.FILEO)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.ROOT.FILEO",
+            "business_name": "Pending Authorization Summary Data File",
+            "type": "SEQUENTIAL",
+            "function": "Contains root segment data with pending authorization summary records that are loaded into the IMS database",
+            "used_by_programs": [
+                "PAUDBLOD.CBL",
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Pending Authorization Details Data File (AWS.M2.CARDDEMO.PAUTDB.CHILD.FILEO)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.CHILD.FILEO",
+            "business_name": "Pending Authorization Details Data File",
+            "type": "SEQUENTIAL",
+            "function": "Contains child segment data with pending authorization detail records linked to root segments that are loaded into the IMS database",
+            "used_by_programs": [
+                "PAUDBLOD.CBL",
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Pending Authorization Summary Database Segment (PAUTSUM0)",
+            "original_name": "PAUTSUM0",
+            "business_name": "Pending Authorization Summary Database Segment",
+            "type": "IMS_SEGMENT",
+            "function": "Root segment in IMS database that stores pending authorization summary records for card transactions",
+            "used_by_programs": [
+                "PAUDBLOD.CBL"
+            ],
+            "accessType": [
+                "SELECT",
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Details Database Segment (PAUTDTL1)",
+            "original_name": "PAUTDTL1",
+            "business_name": "Pending Authorization Details Database Segment",
+            "type": "IMS_SEGMENT",
+            "function": "Child segment in IMS database that stores detailed pending authorization records linked to summary records",
+            "used_by_programs": [
+                "PAUDBLOD.CBL"
+            ],
+            "accessType": [
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Database (PAUTDB)",
+            "original_name": "PAUTDB",
+            "business_name": "Pending Authorization Database",
+            "type": "IMS Segments",
+            "function": "Complete IMS hierarchical database containing authorization data loaded from input files for card demo system",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "INSERT",
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "IMS System Load Module Library (OEMA.IMS.IMSP.SDFSRESL)",
+            "original_name": "OEMA.IMS.IMSP.SDFSRESL",
+            "business_name": "IMS System Load Module Library",
+            "type": "PDS",
+            "function": "Contains IMS system load modules and executables required for program execution",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Version 15.1 System Load Module Library (OEMA.IMS.IMSP.SDFSRESL.V151)",
+            "original_name": "OEMA.IMS.IMSP.SDFSRESL.V151",
+            "business_name": "IMS Version 15.1 System Load Module Library",
+            "type": "PDS",
+            "function": "Contains IMS version 15.1 specific system load modules for program execution",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Application Load Module Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Application Load Module Library",
+            "type": "PDS",
+            "function": "Contains application-specific load modules for the card demo system",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Program Specification Block Library (OEM.IMS.IMSP.PSBLIB)",
+            "original_name": "OEM.IMS.IMSP.PSBLIB",
+            "business_name": "IMS Program Specification Block Library",
+            "type": "PDS",
+            "function": "Contains IMS Program Specification Block definitions for database program control",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Database Description Library (OEM.IMS.IMSP.DBDLIB)",
+            "original_name": "OEM.IMS.IMSP.DBDLIB",
+            "business_name": "IMS Database Description Library",
+            "type": "PDS",
+            "function": "Contains IMS Database Description definitions for database structure information",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "IMS Database Control Parameters (OEMPP.IMS.V15R01MB.PROCLIB(DFSVSMDB))",
+            "original_name": "OEMPP.IMS.V15R01MB.PROCLIB(DFSVSMDB)",
+            "business_name": "IMS Database Control Parameters",
+            "type": "PDS",
+            "function": "Contains IMS database control parameters and configuration settings for database processing control",
+            "used_by_programs": [
+                "LOADPADB.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "LOADPADB.JCL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/LOADPADB.JCL",
+        "PAUDBLOD.CBL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBLOD.CBL"
+    },
+    "flow_diagram_code": "flowchart TD\n    PAUDBLOD.CBL[\"Loads pending authorization data into IMS database by reading sequential files and inserting hierarchical segments (PAUDBLOD.CBL) \"]\n"
+}

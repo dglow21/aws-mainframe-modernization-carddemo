@@ -1,0 +1,161 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CAUP Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CAUP",
+    "summary": {
+        "overview": "CAUP is a CICS transaction that provides online account and customer data update functionality for credit card accounts. It allows authorized users to search for accounts, view current account and customer information, make modifications to various data fields, and save validated changes to the database with proper transaction integrity.",
+        "business_functions": [
+            "User Authentication and Session Validation - Verify user credentials and maintain secure session",
+            "Account Search and Lookup - Accept account ID input and retrieve account information",
+            "Account Data Retrieval - Display current account master data including balances and limits",
+            "Customer Data Retrieval - Display associated customer master data and personal information",
+            "Data Modification Interface - Allow users to update account and customer information fields",
+            "Account Status Management - Validate and update account active status indicators",
+            "Credit Limit Management - Validate and update credit limit amounts",
+            "Balance Information Updates - Validate and update current and available balance amounts",
+            "Date Field Management - Validate and update account dates including open, expiry, and reissue dates",
+            "Customer Personal Information Updates - Validate and update customer names, addresses, and contact information",
+            "SSN and Date of Birth Validation - Ensure proper format and business rules for sensitive personal data",
+            "FICO Score Management - Validate and update credit scores within acceptable ranges",
+            "Phone Number and Address Validation - Ensure proper formatting of contact information",
+            "State and ZIP Code Validation - Validate geographic information consistency",
+            "EFT Account Information Updates - Manage electronic funds transfer account details",
+            "Data Change Detection and Confirmation - Compare original vs modified data and confirm changes",
+            "Concurrent Update Protection - Prevent data conflicts from simultaneous user updates",
+            "Transaction Commit Processing - Save validated changes to account and customer records",
+            "Error Handling and User Feedback - Display validation errors and guide user corrections",
+            "Menu Navigation and Program Flow - Handle user navigation between different application functions"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CAUP": [
+            {
+                "program_name": "COACTUPC",
+                "program_overview": "Main account update program that handles account and customer data modifications",
+                "called_programs": [
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COMEN01C",
+                "program_overview": "Main menu interface for regular users with navigation and access control",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COSGN00C",
+                "program_overview": "User authentication and sign-on screen with credential validation",
+                "called_programs": [
+                    "COADM01C",
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COADM01C",
+                "program_overview": "Administrative menu interface for admin users with elevated privileges",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "User security file used to authenticate user credentials by reading user ID and password information",
+            "used_by_programs": [
+                "COSGN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Master File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Master File",
+            "type": "CICS_FILE",
+            "function": "Account master file for reading and updating account records including balances, limits, dates, and status information",
+            "used_by_programs": [
+                "COACTUPC.cbl"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Customer Master File (CUSTDAT)",
+            "original_name": "CUSTDAT",
+            "business_name": "Customer Master File",
+            "type": "CICS_FILE",
+            "function": "Customer master file for reading and updating customer records including personal information, addresses, and phone numbers",
+            "used_by_programs": [
+                "COACTUPC.cbl"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Account Index File (CXACAIX)",
+            "original_name": "CXACAIX",
+            "business_name": "Card Cross-Reference Account Index File",
+            "type": "CICS_FILE",
+            "function": "Card cross-reference account index file used for lookup operations to find customer ID and card number by account ID",
+            "used_by_programs": [
+                "COACTUPC.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COACTUPC": "aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl",
+        "COMEN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl",
+        "COSGN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl",
+        "COADM01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 2
+        },
+        {
+            "name": "COACTUP",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">ACUP</span><span style=\"color: #FFFF00;\">        CardDemo - Account Update        </span><span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COACTUPC</span><span style=\"color: #FFFF00;\">        Account Update Screen         </span><span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                         Update Account\n\n              <span style=\"color: #00FFFF;\">Account Number :</span><span style=\"text-decoration: underline;\">___________</span>        <span style=\"color: #00FFFF;\">Active Y/N: </span><span style=\"text-decoration: underline;\">_</span>\n       <span style=\"color: #00FFFF;\">Opened :</span><span style=\"text-decoration: underline;\">____</span>-<span style=\"text-decoration: underline;\">__</span>-<span style=\"text-decoration: underline;\">__</span>      <span style=\"color: #00FFFF;\">Credit Limit        :</span><span style=\"text-decoration: underline;\">_______________</span>\n       <span style=\"color: #00FFFF;\">Expiry :</span><span style=\"text-decoration: underline;\">____</span>-<span style=\"text-decoration: underline;\">__</span>-<span style=\"text-decoration: underline;\">__</span>      <span style=\"color: #00FFFF;\">Cash credit Limit   :</span><span style=\"text-decoration: underline;\">_______________</span>\n       <span style=\"color: #00FFFF;\">Reissue:</span><span style=\"text-decoration: underline;\">____</span>-<span style=\"text-decoration: underline;\">__</span>-<span style=\"text-decoration: underline;\">__</span>      <span style=\"color: #00FFFF;\">Current Balance     :</span><span style=\"text-decoration: underline;\">_______________</span>\n                                      <span style=\"color: #00FFFF;\">Current Cycle Credit:</span><span style=\"text-decoration: underline;\">_______________</span>\n       <span style=\"color: #00FFFF;\">Account Group:</span><span style=\"text-decoration: underline;\">__________</span>      <span style=\"color: #00FFFF;\">Current Cycle Debit :</span><span style=\"text-decoration: underline;\">_______________</span>\n\n                        Customer Details\n\n       <span style=\"color: #00FFFF;\">Customer id  :</span><span style=\"text-decoration: underline;\">_________</span>        <span style=\"color: #00FFFF;\">SSN:</span><span style=\"text-decoration: underline;\">999</span>-<span style=\"text-decoration: underline;\">99</span>-<span style=\"text-decoration: underline;\">9999</span>\n       <span style=\"color: #00FFFF;\">Date of birth:</span><span style=\"text-decoration: underline;\">____</span>-<span style=\"text-decoration: underline;\">__</span>-<span style=\"text-decoration: underline;\">__</span>        <span style=\"color: #00FFFF;\">FICO Score:</span><span style=\"text-decoration: underline;\">___</span>\n<span style=\"color: #00FFFF;\">First Name</span>            <span style=\"color: #00FFFF;\">Middle Name: </span>            <span style=\"color: #00FFFF;\">Last Name : </span>\n<span style=\"text-decoration: underline;\">_________________________</span> <span style=\"text-decoration: underline;\">_________________________</span> <span style=\"text-decoration: underline;\">_________________________</span>\n<span style=\"color: #00FFFF;\">Address:</span><span style=\"text-decoration: underline;\">__________________________________________________</span> <span style=\"color: #00FFFF;\">State </span><span style=\"text-decoration: underline;\">__</span>\n         <span style=\"text-decoration: underline;\">__________________________________________________</span> <span style=\"color: #00FFFF;\">Zip</span><span style=\"text-decoration: underline;\">_____</span>\n<span style=\"color: #00FFFF;\">City </span><span style=\"text-decoration: underline;\">__________________________________________________</span> <span style=\"color: #00FFFF;\">Country</span><span style=\"text-decoration: underline;\">___</span>\n<span style=\"color: #00FFFF;\">Phone 1:</span><span style=\"text-decoration: underline;\">___</span><span style=\"text-decoration: underline;\">___</span><span style=\"text-decoration: underline;\">____</span> <span style=\"color: #00FFFF;\">Government Issued Id Ref    : </span><span style=\"text-decoration: underline;\">____________________</span>\n<span style=\"color: #00FFFF;\">Phone 2:</span><span style=\"text-decoration: underline;\">___</span><span style=\"text-decoration: underline;\">___</span><span style=\"text-decoration: underline;\">____</span> <span style=\"color: #00FFFF;\">EFT Account Id: </span><span style=\"text-decoration: underline;\">__________</span> <span style=\"color: #00FFFF;\">Primary Card Holder Y/N:</span><span style=\"text-decoration: underline;\">_</span>\n\n\n                      \n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Process F3=Exit</span> <span style=\"color: #FFFF00;\">F5=Save</span> <span style=\"color: #FFFF00;\">F12=Cancel</span>\n</div>",
+            "order": 3
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COACTUPC[\"Main account update program that handles account and customer data modifications (COACTUPC) \"]\n    COMEN01C[\"Main menu interface for regular users with navigation and access control (COMEN01C) \"]\n    COSGN00C[\"User authentication and sign-on screen with credential validation (COSGN00C) \"]\n    COADM01C[\"Administrative menu interface for admin users with elevated privileges (COADM01C) \"]\n    COACTUPC --> COMEN01C\n    COMEN01C --> COSGN00C\n    COSGN00C --> COADM01C\n    COSGN00C --> COMEN01C\n    COADM01C --> COSGN00C\n"
+}

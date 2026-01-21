@@ -1,0 +1,145 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "INTCALC.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "INTCALC.jcl",
+    "summary": {
+        "overview": "This batch job calculates monthly interest charges for credit card accounts by processing transaction category balances and generating interest transaction records. The system reads account data, applies appropriate interest rates based on account categories, and creates new transaction records for posting interest charges to customer accounts.",
+        "business_functions": [
+            "Read transaction category balance records to identify accounts with outstanding balances",
+            "Retrieve account master information and card cross-reference data for each account",
+            "Look up applicable interest rates from discount group records based on account category",
+            "Calculate monthly interest charges using the formula: (balance * interest rate) / 1200",
+            "Generate interest transaction records with system-assigned transaction IDs",
+            "Update account current balances by adding calculated interest amounts",
+            "Reset account cycle balances to prepare for next billing cycle",
+            "Write updated account information back to master files"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "INTCALC.jcl": [
+            {
+                "program_name": "CBACT04C",
+                "program_overview": "Calculates monthly interest charges for credit card accounts and generates interest transaction records",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Category Balance File (AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS",
+            "business_name": "Transaction Category Balance File",
+            "type": "VSAM_KSDS",
+            "function": "Contains transaction category balance records that are read sequentially to process interest calculations for each account and transaction category combination",
+            "used_by_programs": [
+                "CBACT04C.cbl",
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross-Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Cross-reference file used to lookup card number associated with account ID for transaction record creation and provides card-to-account relationship data",
+            "used_by_programs": [
+                "CBACT04C.cbl",
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Alternate Index Path (AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH",
+            "business_name": "Card Cross-Reference Alternate Index Path",
+            "type": "VSAM_KSDS",
+            "function": "Alternate index path for card cross-reference file that provides alternative access method to card data",
+            "used_by_programs": [
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Master File (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Master File",
+            "type": "VSAM_KSDS",
+            "function": "Account master file used to read account details and update current balance with calculated interest amounts during interest calculation processing",
+            "used_by_programs": [
+                "CBACT04C.cbl",
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Disclosure Group File (AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS",
+            "business_name": "Disclosure Group File",
+            "type": "VSAM_KSDS",
+            "function": "Contains interest rates and discount group information used to lookup rates based on account group ID, transaction type and category codes for interest rate calculations",
+            "used_by_programs": [
+                "CBACT04C.cbl",
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Transaction File (AWS.M2.CARDDEMO.SYSTRAN(+1))",
+            "original_name": "AWS.M2.CARDDEMO.SYSTRAN(+1)",
+            "business_name": "System Transaction File",
+            "type": "GDG",
+            "function": "Output transaction file where interest transaction records are written for each calculated interest amount, stored as new generation with fixed 350-byte records",
+            "used_by_programs": [
+                "CBACT04C.cbl",
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Program Library",
+            "type": "PDS",
+            "function": "Program library containing executable modules used for loading the CBACT04C program during interest calculation processing",
+            "used_by_programs": [
+                "INTCALC.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "INTCALC.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/INTCALC.jcl",
+        "CBACT04C": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBACT04C[\"Calculates monthly interest charges for credit card accounts and generates interest transaction records (CBACT04C) \"]\n"
+}

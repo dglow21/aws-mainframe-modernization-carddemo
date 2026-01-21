@@ -1,0 +1,64 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Transaction Processing and Management",
+  "brief_description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, and reporting.",
+  "business_purpose": "This function handles all aspects of credit card transaction processing from initial transaction entry through final posting and reporting. It provides comprehensive transaction management capabilities including real-time transaction inquiry, new transaction creation, batch transaction posting, and detailed transaction reporting for business analysis and customer service.",
+  "key_capabilities": [
+    "Real-time transaction inquiry and detailed viewing",
+    "Online transaction creation and validation",
+    "Batch transaction posting and account balance updates",
+    "Transaction reporting and analysis",
+    "Transaction type and category management"
+  ],
+  "components": [
+    {
+      "name": "CT00",
+      "type": "Transaction",
+      "business_function": "Transaction browsing and inquiry interface",
+      "entry_point_program": "COTRN00C"
+    },
+    {
+      "name": "CT01",
+      "type": "Transaction",
+      "business_function": "Detailed transaction inquiry and viewing",
+      "entry_point_program": "COTRN01C"
+    },
+    {
+      "name": "CT02",
+      "type": "Transaction",
+      "business_function": "New transaction creation and entry",
+      "entry_point_program": "COTRN02C"
+    },
+    {
+      "name": "POSTTRAN",
+      "type": "Batch",
+      "business_function": "Daily transaction posting and validation",
+      "entry_point_program": "POSTTRAN"
+    },
+    {
+      "name": "TRANREPT",
+      "type": "Batch",
+      "business_function": "Transaction reporting and analysis",
+      "entry_point_program": "TRANREPT"
+    },
+    {
+      "name": "CTLI",
+      "type": "Transaction",
+      "business_function": "Transaction type lookup and management",
+      "entry_point_program": "COTRTLIC"
+    },
+    {
+      "name": "CTTU",
+      "type": "Transaction",
+      "business_function": "Transaction type maintenance and updates",
+      "entry_point_program": "COTRTUPC"
+    },
+    {
+      "name": "INTCALC",
+      "type": "Batch",
+      "business_function": "Interest calculation and posting",
+      "entry_point_program": "INTCALC"
+    }
+  ]
+}

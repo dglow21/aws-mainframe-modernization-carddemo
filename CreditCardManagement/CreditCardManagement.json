@@ -1,0 +1,34 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Credit Card Management",
+  "brief_description": "Provides comprehensive credit card lifecycle management including card inquiry, updates, and maintenance operations.",
+  "business_purpose": "This function manages all aspects of credit card administration from card lookup and inquiry to detailed card information updates. It supports both customer service operations and administrative functions, enabling authorized users to view card details, update card information, and maintain card status throughout the card lifecycle.",
+  "key_capabilities": [
+    "Credit card search and inquiry by account or card number",
+    "Detailed card information viewing and display",
+    "Card data updates and maintenance",
+    "Card status management and tracking",
+    "Comprehensive card listing and browsing"
+  ],
+  "components": [
+    {
+      "name": "CC00",
+      "type": "Transaction",
+      "business_function": "Credit card listing and browsing interface",
+      "entry_point_program": "COCRDLIC"
+    },
+    {
+      "name": "CCDL",
+      "type": "Transaction",
+      "business_function": "Credit card detail lookup and inquiry",
+      "entry_point_program": "COCRDSLC"
+    },
+    {
+      "name": "CCUP",
+      "type": "Transaction",
+      "business_function": "Credit card information updates and maintenance",
+      "entry_point_program": "COCRDUPC"
+    }
+  ]
+}

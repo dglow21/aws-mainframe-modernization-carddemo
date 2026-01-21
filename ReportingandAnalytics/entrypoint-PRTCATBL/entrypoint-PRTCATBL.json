@@ -1,0 +1,96 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "PRTCATBL.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "PRTCATBL.jcl",
+    "summary": {
+        "overview": "This JCL job generates a formatted transaction category balance report by backing up VSAM data to a sequential file, then sorting and formatting the records to produce a readable report with account IDs, transaction types, category codes, and properly formatted balance amounts.",
+        "business_functions": [
+            "Delete existing transaction category balance report file to ensure clean processing",
+            "Create backup copy of VSAM transaction category balance file for data protection and audit purposes",
+            "Sort transaction category balance records by account ID, transaction type code, and category code for organized reporting",
+            "Format balance amounts with decimal notation to display monetary values in readable format",
+            "Generate formatted report containing account information and balance details for business analysis"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS",
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "PRTCATBL.jcl": [
+            {
+                "program_name": "IEFBR14",
+                "program_overview": "IBM utility for file deletion and cleanup operations",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services utility for VSAM file backup and data reproduction",
+                "called_programs": []
+            },
+            {
+                "program_name": "SORT",
+                "program_overview": "IBM Sort utility for sorting and formatting transaction category balance data into readable reports",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Category Balance Report (AWS.M2.CARDDEMO.TCATBALF.REPT)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.REPT",
+            "business_name": "Transaction Category Balance Report",
+            "type": "SEQUENTIAL",
+            "function": "Final output report file containing sorted and formatted transaction category balance data with account ID, transaction type, category code, and formatted balance amounts",
+            "used_by_programs": [
+                "PRTCATBL.jcl"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Category Balance Master Data (AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS",
+            "business_name": "Transaction Category Balance Master Data",
+            "type": "VSAM_KSDS",
+            "function": "Master file containing transaction category balance data that serves as the source for backup and reporting processes",
+            "used_by_programs": [
+                "PRTCATBL.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Category Balance Backup (AWS.M2.CARDDEMO.TCATBALF.BKUP)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.BKUP",
+            "business_name": "Transaction Category Balance Backup",
+            "type": "GDG",
+            "function": "Backup file that stores historical copies of transaction category balance data for archival purposes and as input for report generation",
+            "used_by_programs": [
+                "PRTCATBL.jcl"
+            ],
+            "accessType": [
+                "WRITE",
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "PRTCATBL.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/PRTCATBL.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    IEFBR14[\"IBM utility for file deletion and cleanup operations (IEFBR14) \"]\n    IDCAMS[\"IBM Access Method Services utility for VSAM file backup and data reproduction (IDCAMS) \"]\n    SORT[\"IBM Sort utility for sorting and formatting transaction category balance data into readable reports (SORT) \"]\n"
+}

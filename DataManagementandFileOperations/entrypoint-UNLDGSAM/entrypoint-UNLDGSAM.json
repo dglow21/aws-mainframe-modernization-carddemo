@@ -1,0 +1,170 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "UNLDGSAM.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "UNLDGSAM.JCL",
+    "summary": {
+        "overview": "This JCL job performs a database unload operation to extract pending authorization data from the IMS hierarchical database. The process reads authorization summary and detail records from the database and writes them to sequential GSAM files for backup, archival, or further processing purposes.",
+        "business_functions": [
+            "Initialize database unload process and display program start information",
+            "Read pending authorization summary records from IMS database",
+            "Validate account ID data to ensure numeric format before processing",
+            "Write authorization summary data to GSAM output file",
+            "Read authorization detail records associated with each summary record",
+            "Write authorization detail data to GSAM output file",
+            "Process multiple detail records for each authorization summary",
+            "Continue processing all authorization records until database is complete",
+            "Track and maintain processing counts for summary records",
+            "Handle end of database processing and set completion flags",
+            "Close processing and display completion messages"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "GSAM",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "UNLDGSAM.JCL": [
+            {
+                "program_name": "DBUNLDGS.CBL",
+                "program_overview": "Extracts and unloads pending authorization data from IMS hierarchical database to GSAM files",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Pending Authorization Summary Segment (PAUTSUM0)",
+            "original_name": "PAUTSUM0",
+            "business_name": "Pending Authorization Summary Segment",
+            "type": "IMS_SEGMENT",
+            "function": "Root segment containing summary information for pending credit card authorization transactions",
+            "used_by_programs": [
+                "DBUNLDGS.CBL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Details Segment (PAUTDTL1)",
+            "original_name": "PAUTDTL1",
+            "business_name": "Pending Authorization Details Segment",
+            "type": "IMS_SEGMENT",
+            "function": "Child segment containing detailed information for pending credit card authorization transactions",
+            "used_by_programs": [
+                "DBUNLDGS.CBL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Parent Segment GSAM Database (PASFLPCB)",
+            "original_name": "PASFLPCB",
+            "business_name": "Parent Segment GSAM Database",
+            "type": "IMS_GSAM",
+            "function": "GSAM database for storing extracted pending authorization summary data during unload process",
+            "used_by_programs": [
+                "DBUNLDGS.CBL"
+            ],
+            "accessType": [
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Child Segment GSAM Database (PADFLPCB)",
+            "original_name": "PADFLPCB",
+            "business_name": "Child Segment GSAM Database",
+            "type": "IMS_GSAM",
+            "function": "GSAM database for storing extracted pending authorization detail data during unload process",
+            "used_by_programs": [
+                "DBUNLDGS.CBL"
+            ],
+            "accessType": [
+                "INSERT"
+            ]
+        },
+        {
+            "name": "Card Demo Application Load Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Application Load Library",
+            "type": "PDS",
+            "function": "Library containing executable programs for the Card Demo credit card processing system",
+            "used_by_programs": [
+                "UNLDGSAM.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Authorization Root Segments GSAM Dataset (AWS.M2.CARDDEMO.PAUTDB.ROOT.GSAM)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.ROOT.GSAM",
+            "business_name": "Authorization Root Segments GSAM Dataset",
+            "type": "SEQUENTIAL",
+            "function": "Sequential dataset storing unloaded root segment data from pending authorization database",
+            "used_by_programs": [
+                "UNLDGSAM.JCL"
+            ],
+            "accessType": [
+                "READ",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Authorization Child Segments GSAM Dataset (AWS.M2.CARDDEMO.PAUTDB.CHILD.GSAM)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.CHILD.GSAM",
+            "business_name": "Authorization Child Segments GSAM Dataset",
+            "type": "SEQUENTIAL",
+            "function": "Sequential dataset storing unloaded child segment data from pending authorization database",
+            "used_by_programs": [
+                "UNLDGSAM.JCL"
+            ],
+            "accessType": [
+                "READ",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Pending Authorization Database (OEM.IMS.IMSP.PAUTHDB)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDB",
+            "business_name": "Pending Authorization Database",
+            "type": "IMS_DATABASE",
+            "function": "IMS hierarchical database containing pending credit card authorization transactions awaiting processing",
+            "used_by_programs": [
+                "UNLDGSAM.JCL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Database Index (OEM.IMS.IMSP.PAUTHDBX)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDBX",
+            "business_name": "Pending Authorization Database Index",
+            "type": "IMS_DATABASE",
+            "function": "IMS database index providing optimized access paths for pending authorization database queries",
+            "used_by_programs": [
+                "UNLDGSAM.JCL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        }
+    ],
+    "program_paths": {
+        "UNLDGSAM.JCL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDGSAM.JCL",
+        "DBUNLDGS.CBL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/DBUNLDGS.CBL"
+    },
+    "flow_diagram_code": "flowchart TD\n    DBUNLDGS.CBL[\"Extracts and unloads pending authorization data from IMS hierarchical database to GSAM files (DBUNLDGS.CBL) \"]\n"
+}

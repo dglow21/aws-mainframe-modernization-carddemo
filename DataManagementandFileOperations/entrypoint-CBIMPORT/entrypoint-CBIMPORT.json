@@ -1,0 +1,161 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CBIMPORT.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CBIMPORT.jcl",
+    "summary": {
+        "overview": "This JCL executes a batch data migration utility that imports consolidated customer data from an export file and separates it into distinct business entity files. The process reads multi-record export data and distributes customer information, account details, card cross-references, and transaction history into their respective target datasets.",
+        "business_functions": [
+            "Initialize Import Process - Set up import date, time, and open all required input and output files",
+            "Read Export Records - Read records sequentially from the export input file until end of file",
+            "Determine Record Type - Evaluate the record type indicator to route processing to appropriate handler",
+            "Process Customer Records - Extract customer data from export record and write to customer output file",
+            "Process Account Records - Extract account data from export record and write to account output file",
+            "Process Card Cross-Reference Records - Extract card-customer-account relationship data and write to xref output file",
+            "Process Transaction Records - Extract transaction data from export record and write to transaction output file",
+            "Process Card Records - Extract card data from export record and write to card output file",
+            "Handle Unknown Record Types - Log unknown record types to error output file with timestamp and sequence number",
+            "Validate Import Results - Perform validation checks on imported data",
+            "Generate Import Statistics - Display final counts of records processed by type and any errors encountered",
+            "Close Files and Finalize - Close all input and output files and complete the import process"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CBIMPORT.jcl": [
+            {
+                "program_name": "CBIMPORT.cbl",
+                "program_overview": "Imports and separates customer data from export file into normalized target files",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "CARDDEMO Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "CARDDEMO Program Library",
+            "type": "PDS",
+            "function": "Program library containing executable COBOL programs for the CARDDEMO application",
+            "used_by_programs": [
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Branch Migration Export Data (AWS.M2.CARDDEMO.EXPORT.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.EXPORT.DATA",
+            "business_name": "Branch Migration Export Data",
+            "type": "INDEXED",
+            "function": "Input file containing consolidated multi-record export data from branch migration with customer, account, transaction, and card information",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Customer Data Import File (AWS.M2.CARDDEMO.CUSTDATA.IMPORT)",
+            "original_name": "AWS.M2.CARDDEMO.CUSTDATA.IMPORT",
+            "business_name": "Customer Data Import File",
+            "type": "SEQUENTIAL",
+            "function": "Output file for normalized customer records extracted from export data during import processing",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data Import File (AWS.M2.CARDDEMO.ACCTDATA.IMPORT)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.IMPORT",
+            "business_name": "Account Data Import File",
+            "type": "SEQUENTIAL",
+            "function": "Output file for normalized account records extracted from export data during import processing",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Import File (AWS.M2.CARDDEMO.CARDXREF.IMPORT)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.IMPORT",
+            "business_name": "Card Cross-Reference Import File",
+            "type": "SEQUENTIAL",
+            "function": "Output file for card cross-reference records linking cards to customers and accounts",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Data Import File (AWS.M2.CARDDEMO.TRANSACT.IMPORT)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.IMPORT",
+            "business_name": "Transaction Data Import File",
+            "type": "SEQUENTIAL",
+            "function": "Output file for transaction records extracted from export data during import processing",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Data Output File (CARD-OUTPUT)",
+            "original_name": "CARD-OUTPUT",
+            "business_name": "Card Data Output File",
+            "type": "SEQUENTIAL",
+            "function": "Output file for card records extracted from export data",
+            "used_by_programs": [
+                "CBIMPORT.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Import Error Log File (AWS.M2.CARDDEMO.IMPORT.ERRORS)",
+            "original_name": "AWS.M2.CARDDEMO.IMPORT.ERRORS",
+            "business_name": "Import Error Log File",
+            "type": "SEQUENTIAL",
+            "function": "Error log file capturing import processing errors, unknown record types, and data validation issues",
+            "used_by_programs": [
+                "CBIMPORT.cbl",
+                "CBIMPORT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CBIMPORT.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CBIMPORT.jcl",
+        "CBIMPORT.cbl": "aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBIMPORT.cbl[\"Imports and separates customer data from export file into normalized target files (CBIMPORT.cbl) \"]\n"
+}

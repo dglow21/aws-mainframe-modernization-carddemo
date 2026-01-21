@@ -1,0 +1,149 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TRANREPT.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TRANREPT.jcl",
+    "summary": {
+        "overview": "This JCL job creates a comprehensive transaction report by extracting transaction data from a VSAM file for a specific date range (January 1, 2022 to July 6, 2022), organizing it by card number, and generating a formatted business report with detailed transaction information including customer details, transaction types, and categories.",
+        "business_functions": [
+            "Backup Transaction Data - Creates a complete backup copy of the transaction data file for data protection and recovery purposes",
+            "Filter Transaction Records - Extracts only transactions with processing dates between January 1, 2022 and July 6, 2022 from the backup file",
+            "Sort Transactions by Card Number - Organizes filtered transactions in ascending order by card number for efficient customer-based processing",
+            "Generate Comprehensive Transaction Report - Creates a formatted business report with detailed transaction analysis including customer identification, transaction descriptions, amounts, dates, and proper categorization using reference data"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "GDG",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TRANREPT.jcl": [
+            {
+                "program_name": "CBTRN03C",
+                "program_overview": "Generates comprehensive transaction reports with customer details and transaction categorization",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Contains transaction records that are read and copied to create backup files for further processing",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Backup File (AWS.M2.CARDDEMO.TRANSACT.BKUP(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP(+1)",
+            "business_name": "Transaction Backup File",
+            "type": "GDG",
+            "function": "Backup file created from transaction VSAM file, contains fixed-length records of 350 characters, used as input for sorting step",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Daily Transaction File (AWS.M2.CARDDEMO.TRANSACT.DALY(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.DALY(+1)",
+            "business_name": "Daily Transaction File",
+            "type": "GDG",
+            "function": "Contains sorted and filtered transaction records for specific date ranges, sorted by card number",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Cross Reference File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Reference file containing card cross-reference information used by the report generation program",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Type Reference File (AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS",
+            "business_name": "Transaction Type Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Reference file containing transaction type definitions used by the report generation program",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Category Reference File (AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS",
+            "business_name": "Transaction Category Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Reference file containing transaction category information used by the report generation program",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Date Parameter File (AWS.M2.CARDDEMO.DATEPARM)",
+            "original_name": "AWS.M2.CARDDEMO.DATEPARM",
+            "business_name": "Date Parameter File",
+            "type": "SEQUENTIAL",
+            "function": "Input parameter file containing date parameters used by the report generation program",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Report File (AWS.M2.CARDDEMO.TRANREPT(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANREPT(+1)",
+            "business_name": "Transaction Report File",
+            "type": "GDG",
+            "function": "Output report file containing formatted transaction report with 133-character fixed-length records generated by the CBTRN03C program",
+            "used_by_programs": [
+                "TRANREPT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TRANREPT.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANREPT.jcl",
+        "CBTRN03C": "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBTRN03C[\"Generates comprehensive transaction reports with customer details and transaction categorization (CBTRN03C) \"]\n"
+}

@@ -1,0 +1,107 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CDRA Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CDRA",
+    "summary": {
+        "overview": "CDRA is a CICS transaction that provides account inquiry services through message queue processing. The transaction retrieves customer account information including balances, credit limits, and account status based on account ID requests received via MQ queues.",
+        "business_functions": [
+            "Initialize System - Set up message queues and system variables for processing",
+            "Retrieve Queue Information - Get input queue details that triggered the transaction",
+            "Open Message Queues - Establish connections to input, reply, and error queues",
+            "Get Request Message - Receive account inquiry requests from the input queue",
+            "Parse Request Parameters - Extract function code and account ID from incoming messages",
+            "Validate Request Format - Verify request has valid function code and account ID",
+            "Read Account Record - Retrieve account information from account data file",
+            "Format Account Response - Build response with account details, balances, limits, and dates",
+            "Handle Account Not Found - Generate error message for non-existent account IDs",
+            "Handle Invalid Request - Generate error message for malformed or invalid requests",
+            "Send Reply Message - Deliver formatted response to the reply queue",
+            "Handle Processing Errors - Route error details to error queue when processing fails",
+            "Process Multiple Messages - Continue processing until all messages are handled",
+            "Close Message Queues - Clean up queue connections when processing completes",
+            "Terminate Program - Perform cleanup and return control to CICS"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS",
+                "MQ"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CDRA": [
+            {
+                "program_name": "COACCT01",
+                "program_overview": "Processes account inquiry requests via MQ queues and retrieves account information",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Account Master Data File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Master Data File",
+            "type": "CICS_FILE",
+            "function": "Stores comprehensive account information including account details, current balance, credit limits, important dates, and account status for customer account inquiries",
+            "used_by_programs": [
+                "COACCT01.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Inquiry Request Queue (INPUT-QUEUE-NAME)",
+            "original_name": "INPUT-QUEUE-NAME",
+            "business_name": "Account Inquiry Request Queue",
+            "type": "MQ_QUEUE",
+            "function": "Receives incoming account inquiry requests from external systems and applications that need to retrieve customer account information",
+            "used_by_programs": [
+                "COACCT01.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Inquiry Response Queue (CARD.DEMO.REPLY.ACCT)",
+            "original_name": "CARD.DEMO.REPLY.ACCT",
+            "business_name": "Account Inquiry Response Queue",
+            "type": "MQ_QUEUE",
+            "function": "Sends account inquiry response messages containing requested account information back to the requesting external systems",
+            "used_by_programs": [
+                "COACCT01.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Error Message Queue (CARD.DEMO.ERROR)",
+            "original_name": "CARD.DEMO.ERROR",
+            "business_name": "Error Message Queue",
+            "type": "MQ_QUEUE",
+            "function": "Sends error messages and notifications when account inquiry processing failures or business rule violations occur",
+            "used_by_programs": [
+                "COACCT01.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COACCT01": "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl"
+    },
+    "screen_preview": [],
+    "flow_diagram_code": "flowchart TD\n    COACCT01[\"Processes account inquiry requests via MQ queues and retrieves account information (COACCT01) \"]\n"
+}

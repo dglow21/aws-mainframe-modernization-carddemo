@@ -1,0 +1,34 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "System Navigation and Interface",
+  "brief_description": "Provides main menu systems and navigation interfaces for user access to application functions.",
+  "business_purpose": "This function serves as the primary entry point and navigation hub for the card management system, providing role-based menu access and routing users to appropriate application functions. It ensures proper user experience through intuitive navigation while maintaining security through role-based access control and proper menu presentation.",
+  "key_capabilities": [
+    "Main menu presentation and navigation",
+    "Role-based menu access control",
+    "User interface routing and direction",
+    "Administrative menu management",
+    "System date and time services"
+  ],
+  "components": [
+    {
+      "name": "CM00",
+      "type": "Transaction",
+      "business_function": "Main application menu and navigation hub",
+      "entry_point_program": "COMEN01C"
+    },
+    {
+      "name": "CA00",
+      "type": "Transaction",
+      "business_function": "Administrative menu and function access",
+      "entry_point_program": "COADM01C"
+    },
+    {
+      "name": "CDRD",
+      "type": "Transaction",
+      "business_function": "System date and time services",
+      "entry_point_program": "CODATE01"
+    }
+  ]
+}

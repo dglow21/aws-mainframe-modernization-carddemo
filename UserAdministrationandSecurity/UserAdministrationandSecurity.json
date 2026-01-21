@@ -1,0 +1,46 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "User Administration and Security",
+  "brief_description": "Manages user accounts, authentication, and access control for the card management system.",
+  "business_purpose": "This function provides comprehensive user administration and security management capabilities, enabling administrators to manage user accounts throughout their lifecycle, control access to system functions, and maintain security protocols. It supports role-based access control, user authentication, and ensures proper security governance across the application.",
+  "key_capabilities": [
+    "User account creation and management",
+    "User authentication and access control",
+    "User information updates and maintenance",
+    "User account deletion and deactivation",
+    "Role-based access management and menu routing"
+  ],
+  "components": [
+    {
+      "name": "CU00",
+      "type": "Transaction",
+      "business_function": "User management hub and administration interface",
+      "entry_point_program": "COUSR00C"
+    },
+    {
+      "name": "CU01",
+      "type": "Transaction",
+      "business_function": "New user account creation and setup",
+      "entry_point_program": "COUSR01C"
+    },
+    {
+      "name": "CU02",
+      "type": "Transaction",
+      "business_function": "User information updates and maintenance",
+      "entry_point_program": "COUSR02C"
+    },
+    {
+      "name": "CU03",
+      "type": "Transaction",
+      "business_function": "User account deletion and removal",
+      "entry_point_program": "COUSR03C"
+    },
+    {
+      "name": "CC00",
+      "type": "Transaction",
+      "business_function": "User authentication and menu access control",
+      "entry_point_program": "COSGN00C"
+    }
+  ]
+}

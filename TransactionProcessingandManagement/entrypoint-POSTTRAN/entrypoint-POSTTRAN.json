@@ -1,0 +1,139 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "POSTTRAN.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "POSTTRAN.jcl",
+    "summary": {
+        "overview": "This batch job processes daily credit card transactions by validating them against account and card reference data, posting approved transactions to account balances, and segregating rejected transactions into a separate file for further review.",
+        "business_functions": [
+            "Read daily transaction records from input file",
+            "Validate transactions against transaction master file",
+            "Cross-reference card information to verify card validity and account associations",
+            "Validate account data and check account status",
+            "Update account balances for approved transactions",
+            "Create daily rejection file for transactions that fail validation",
+            "Process transaction posting operations to maintain accurate account balance information"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS",
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "POSTTRAN.jcl": [
+            {
+                "program_name": "CBTRN02C",
+                "program_overview": "Validates and processes daily credit card transactions",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Program Library",
+            "type": "PDS",
+            "function": "Contains executable program modules for the card demo application",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Stores transaction records for processing and retrieval",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Daily Transaction Input File (AWS.M2.CARDDEMO.DALYTRAN.PS)",
+            "original_name": "AWS.M2.CARDDEMO.DALYTRAN.PS",
+            "business_name": "Daily Transaction Input File",
+            "type": "SEQUENTIAL",
+            "function": "Contains daily transaction data to be processed",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross-Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Provides card information lookup and cross-reference data",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Daily Rejection File (AWS.M2.CARDDEMO.DALYREJS)",
+            "original_name": "AWS.M2.CARDDEMO.DALYREJS",
+            "business_name": "Daily Rejection File",
+            "type": "GDG",
+            "function": "Stores rejected transaction records that failed validation or processing",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data File (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Data File",
+            "type": "VSAM_KSDS",
+            "function": "Contains account information and details for transaction processing",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Transaction Category Balance File (AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS",
+            "business_name": "Transaction Category Balance File",
+            "type": "VSAM_KSDS",
+            "function": "Maintains balance information by transaction category for processing and validation",
+            "used_by_programs": [
+                "POSTTRAN.jcl"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        }
+    ],
+    "program_paths": {
+        "POSTTRAN.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/POSTTRAN.jcl",
+        "CBTRN02C": "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBTRN02C[\"Validates and processes daily credit card transactions (CBTRN02C) \"]\n"
+}

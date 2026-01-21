@@ -1,0 +1,76 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Data Management and File Operations",
+  "brief_description": "Manages data files, performs data extraction, loading, and maintains data integrity across the system.",
+  "business_purpose": "This function handles all aspects of data management including file creation, data loading, extraction operations, and data integrity maintenance. It supports both operational data management and data migration activities, ensuring proper data flow between different system components and maintaining data consistency across the application ecosystem.",
+  "key_capabilities": [
+    "Master data file creation and maintenance",
+    "Data extraction and unloading operations",
+    "Data loading and import processing",
+    "Cross-reference data management",
+    "Data backup and recovery operations"
+  ],
+  "components": [
+    {
+      "name": "READACCT",
+      "type": "Batch",
+      "business_function": "Account master data processing and extraction",
+      "entry_point_program": "READACCT"
+    },
+    {
+      "name": "READCARD",
+      "type": "Batch",
+      "business_function": "Credit card data processing and reporting",
+      "entry_point_program": "READCARD"
+    },
+    {
+      "name": "READCUST",
+      "type": "Batch",
+      "business_function": "Customer data processing and validation",
+      "entry_point_program": "READCUST"
+    },
+    {
+      "name": "READXREF",
+      "type": "Batch",
+      "business_function": "Cross-reference data processing and analysis",
+      "entry_point_program": "READXREF"
+    },
+    {
+      "name": "CBEXPORT",
+      "type": "Batch",
+      "business_function": "Comprehensive data export and consolidation",
+      "entry_point_program": "CBEXPORT"
+    },
+    {
+      "name": "CBIMPORT",
+      "type": "Batch",
+      "business_function": "Data import and distribution processing",
+      "entry_point_program": "CBIMPORT"
+    },
+    {
+      "name": "COMBTRAN",
+      "type": "Batch",
+      "business_function": "Transaction data consolidation and loading",
+      "entry_point_program": "COMBTRAN"
+    },
+    {
+      "name": "UNLDPADB",
+      "type": "Batch",
+      "business_function": "Authorization database unloading and extraction",
+      "entry_point_program": "UNLDPADB"
+    },
+    {
+      "name": "UNLDGSAM",
+      "type": "Batch",
+      "business_function": "Pending authorization data extraction",
+      "entry_point_program": "UNLDGSAM"
+    },
+    {
+      "name": "LOADPADB",
+      "type": "Batch",
+      "business_function": "Authorization data loading and database population",
+      "entry_point_program": "LOADPADB"
+    }
+  ]
+}

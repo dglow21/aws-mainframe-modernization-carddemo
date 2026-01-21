@@ -1,0 +1,147 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CC00 Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CC00",
+    "summary": {
+        "overview": "The Credit Card List transaction provides a comprehensive interface for browsing and managing credit card records. It displays paginated lists of credit cards with filtering capabilities by account ID and card number, and allows users to select cards for detailed viewing or updating based on their access privileges.",
+        "business_functions": [
+            "Initialize Program Context - Set up program variables, transaction ID, and clear error messages",
+            "Handle Communication Area - Process incoming data from previous transactions or initialize for first run",
+            "Process Fresh Start - Reset program state when coming from menu or starting fresh",
+            "Validate Function Keys - Check if pressed key (F3, F7, F8, Enter) is valid for current context",
+            "Handle Exit Request - Process F3 key to return to main menu",
+            "Receive User Input - Capture data entered on the screen including filters and row selections",
+            "Validate Account Filter - Check if account ID filter is numeric and 11 digits when provided",
+            "Validate Card Filter - Check if card number filter is numeric and 16 digits when provided",
+            "Validate Row Selections - Ensure only one row is selected and selection codes are valid (S or U)",
+            "Read Credit Cards Forward - Browse credit card records from current position forward",
+            "Read Credit Cards Backward - Browse credit card records from current position backward for page up",
+            "Filter Credit Card Records - Apply account and card number filters to exclude non-matching records",
+            "Initialize Screen Display - Set up screen headers, dates, times, and page numbers",
+            "Populate Screen Array - Fill screen rows with credit card data (account, card number, status)",
+            "Handle Page Up Navigation - Process F7 key for previous page navigation with boundary checks",
+            "Handle Page Down Navigation - Process F8 key for next page navigation",
+            "Transfer to Card Detail View - Navigate to card detail program when 'S' (Select) is chosen",
+            "Transfer to Card Update Program - Navigate to card update program when 'U' (Update) is chosen",
+            "Handle No Records Found - Display appropriate message when no credit cards match criteria",
+            "Handle Pagination Boundaries - Manage first/last page indicators and navigation messages"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CC00": [
+            {
+                "program_name": "COCRDLIC",
+                "program_overview": "Credit card listing application that displays paginated credit card records with filtering and selection capabilities",
+                "called_programs": [
+                    "COCRDSLC",
+                    "COCRDUPC",
+                    "COMEN01C"
+                ]
+            }
+        ],
+        "CCLI": [
+            {
+                "program_name": "COCRDLIC",
+                "program_overview": "Credit card listing application that displays paginated credit card records with filtering and selection capabilities",
+                "called_programs": [
+                    "COCRDSLC",
+                    "COCRDUPC",
+                    "COMEN01C"
+                ]
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "User security file used to authenticate user credentials by reading user ID and password information",
+            "used_by_programs": [
+                "COSGN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Credit Card Data File (CARDDAT)",
+            "original_name": "CARDDAT",
+            "business_name": "Credit Card Data File",
+            "type": "CICS_FILE",
+            "function": "Credit card data file containing card records with details including card number, embossed name, expiration date, and status. Used for card lookup, detail management, updates, and browsing operations",
+            "used_by_programs": [
+                "COCRDSLC.cbl",
+                "COCRDUPC.cbl",
+                "COCRDLIC.cbl"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        {
+            "name": "Card Records Alternate Index (CARDAIX)",
+            "original_name": "CARDAIX",
+            "business_name": "Card Records Alternate Index",
+            "type": "CICS_FILE",
+            "function": "Alternate index file for accessing card records by account ID (referenced but not actively used in current logic)",
+            "used_by_programs": [
+                "COCRDSLC.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COCRDLIC": "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 2
+        },
+        {
+            "name": "COCRDSL",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CCDL</span>         <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COCRDSLC</span>      <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                      <span style=\"color: #FFFFFF;\">View Credit Card Detail</span>\n\n\n\n                      <span style=\"color: #00FFFF;\">Account Number    :</span> <span style=\"color: #FFFFFF; text-decoration: underline;\">___________</span>\n                      <span style=\"color: #00FFFF;\">Card Number       :</span> <span style=\"color: #FFFFFF; text-decoration: underline;\">________________</span>\n\n\n\n    <span style=\"color: #00FFFF;\">Name on card      :</span> <span style=\"color: #FFFFFF; text-decoration: underline;\">__________________________________________________</span>\n\n    <span style=\"color: #00FFFF;\">Card Active Y/N   :</span> <span style=\"color: #FFFFFF; text-decoration: underline;\">_</span>\n\n    <span style=\"color: #00FFFF;\">Expiry Date       :</span> <span style=\"color: #FFFFFF; text-decoration: underline;\">__</span>/<span style=\"color: #FFFFFF; text-decoration: underline;\">____</span>\n\n\n\n\n                        <span style=\"color: #FFFFFF;\">Please enter Account and Card Number</span>\n\n\n<span style=\"color: #FF0000;\">________________________________________________________________________________</span>\n<span style=\"color: #FFFF00;\">ENTER=Search Cards  F3=Exit                                                   </span>\n</div>",
+            "order": 3
+        },
+        {
+            "name": "COCRDUP",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CCUP</span><span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span><span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COCRDUPC</span><span style=\"color: #FFFF00;\">              CardDemo                  </span><span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n\n                      Update Credit Card Details\n\n\n\n       <span style=\"color: #00FFFF;\">Account Number    :</span><span style=\"text-decoration: underline;\">           </span>\n\n       <span style=\"color: #00FFFF;\">Card Number       :</span><span style=\"text-decoration: underline;\">                </span>\n\n\n\n<span style=\"color: #00FFFF;\">Name on card      :</span><span style=\"text-decoration: underline;\">                                                  </span>\n\n\n<span style=\"color: #00FFFF;\">Card Active Y/N   :</span> <span style=\"text-decoration: underline;\"> </span>\n\n\n<span style=\"color: #00FFFF;\">Expiry Date       :</span> <span style=\"text-decoration: underline;\">  </span>/<span style=\"text-decoration: underline;\">    </span>01\n\n\n\n\n                         <span style=\"color: #FFFFFF;\">                                        </span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                                </span>\n<span style=\"color: #FFFF00;\">ENTER=Process F3=Exit</span><span style=\"color: #FFFF00;\">F5=Save F12=Cancel</span>\n</div>",
+            "order": 4
+        },
+        {
+            "name": "COCRDLI",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CCLI</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COCRDLIC</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n                              List Credit Cards                     Page <span>   </span>\n\n                     <span style=\"color: #00FFFF;\">Account Number    :</span> <span style=\"color: #00FF00; text-decoration: underline;\">           </span>\n                     <span style=\"color: #00FFFF;\">Credit Card Number:</span> <span style=\"color: #00FF00; text-decoration: underline;\">                </span>\n\n         <span>Select    </span><span>Account Number</span>         <span> Card Number </span>    <span>Active </span>\n         <span>------</span><span>---------------</span>         <span>---------------</span>    <span>--------</span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n           <span style=\"text-decoration: underline;\"> </span> <span>           </span>                   <span>                </span> <span> </span>\n\n\n\n                  <span>                                             </span>\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n  <span style=\"color: #00FFFF;\">F3=Exit F7=Backward  F8=Forward</span>\n</div>",
+            "order": 5
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COCRDLIC[\"Credit card listing application that displays paginated credit card records with filtering and selection capabilities (COCRDLIC) \"]\n    COCRDLIC --> COCRDSLC\n    COCRDLIC --> COCRDUPC\n    COCRDLIC --> COMEN01C\n"
+}

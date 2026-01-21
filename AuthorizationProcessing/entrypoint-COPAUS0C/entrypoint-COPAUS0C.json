@@ -1,0 +1,201 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CPVS Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CPVS",
+    "summary": {
+        "overview": "The CPVS transaction provides a comprehensive credit card authorization management system that allows users to view, analyze, and manage pending authorization transactions. Users can search for authorizations by account ID, view detailed transaction information including merchant details and amounts, and mark or remove fraud flags on suspicious transactions.",
+        "business_functions": [
+            "User Authentication and Access Control - Validate user credentials and determine access level (admin vs regular user)",
+            "Display Main Menu Options - Present available system functions to authenticated users",
+            "Account ID Input and Validation - Accept and validate account numbers for authorization lookup",
+            "Authorization Summary Display - Show list of pending authorizations with key transaction details",
+            "Authorization Detail View - Display comprehensive transaction information including card, merchant, and amount details",
+            "Fraud Status Management - Allow users to mark or remove fraud flags on authorization transactions",
+            "Navigation and Pagination - Support browsing through multiple pages of authorization records",
+            "Transaction Selection - Enable users to select specific authorizations for detailed review",
+            "Database Record Updates - Process fraud status changes and update authorization records",
+            "Screen Navigation Control - Handle user movement between different application screens"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "DB2",
+                "VSAM",
+                "IMS DB"
+            ],
+            "integration_components": [
+                "CICS",
+                "IMS TM"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CPVS": [
+            {
+                "program_name": "COPAUS0C",
+                "program_overview": "Authorization Summary Display - Shows pending authorization transactions for a given account",
+                "called_programs": [
+                    "COMEN01C",
+                    "COPAUS1C"
+                ]
+            },
+            {
+                "program_name": "COMEN01C",
+                "program_overview": "Main Menu Interface - Displays menu options for regular users and handles navigation",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COPAUS1C",
+                "program_overview": "Authorization Detail View - Provides detailed view of authorization transactions with fraud management",
+                "called_programs": [
+                    "COPAUS0C",
+                    "COPAUS2C"
+                ]
+            },
+            {
+                "program_name": "COSGN00C",
+                "program_overview": "User Authentication - Validates user credentials and routes to appropriate menus",
+                "called_programs": [
+                    "COADM01C",
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COADM01C",
+                "program_overview": "Admin Menu Interface - Displays administrative menu options for admin users",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COPAUS2C",
+                "program_overview": "Fraud Record Processing - Handles insertion and updates of fraud records in the database",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "User security file used to authenticate user credentials by reading user ID and password information",
+            "used_by_programs": [
+                "COSGN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Pending Authorization Summary (PAUTSUM0/PENDING-AUTH-SUMMARY)",
+            "original_name": "PAUTSUM0/PENDING-AUTH-SUMMARY",
+            "business_name": "Pending Authorization Summary",
+            "type": "IMS_SEGMENT",
+            "function": "Root segment for pending authorization summary data - stores account-level authorization information including counts and amounts of approved/declined authorizations",
+            "used_by_programs": [
+                "COPAUS1C.cbl",
+                "COPAUS0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Pending Authorization Details (PAUTDTL1/PENDING-AUTH-DETAILS)",
+            "original_name": "PAUTDTL1/PENDING-AUTH-DETAILS",
+            "business_name": "Pending Authorization Details",
+            "type": "IMS_SEGMENT",
+            "function": "Child segment for pending authorization details - stores detailed transaction authorization data including fraud status, merchant information, transaction specifics, transaction ID, date, time, type, approval status, and amounts",
+            "used_by_programs": [
+                "COPAUS1C.cbl",
+                "COPAUS0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Data File (ACCTDAT)",
+            "original_name": "ACCTDAT",
+            "business_name": "Account Data File",
+            "type": "CICS_FILE",
+            "function": "Read account information by account ID to retrieve account details like credit limits",
+            "used_by_programs": [
+                "COPAUS0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Customer Data File (CUSTDAT)",
+            "original_name": "CUSTDAT",
+            "business_name": "Customer Data File",
+            "type": "CICS_FILE",
+            "function": "Read customer information by customer ID to retrieve customer details like name, address, and phone",
+            "used_by_programs": [
+                "COPAUS0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Index (CXACAIX)",
+            "original_name": "CXACAIX",
+            "business_name": "Card Cross-Reference Index",
+            "type": "CICS_FILE",
+            "function": "Read card cross-reference data by account ID to get associated customer and card information",
+            "used_by_programs": [
+                "COPAUS0C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COPAUS0C": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl",
+        "COMEN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl",
+        "COPAUS1C": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS1C.cbl",
+        "COSGN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl",
+        "COADM01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl",
+        "COPAUS2C": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS2C.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COPAU01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CPVD</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COPAUS1C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                          <span style=\"color: #FFFFFF; font-weight: bold;\">View Authorization Details</span>\n\n\n\n<span style=\"color: #00FFFF;\">Card #:</span><span style=\"color: #FF69B4;\">1234567890123456</span>    <span style=\"color: #00FFFF;\">Auth Date:</span><span style=\"color: #FF69B4;\">mm/dd/yyyy</span> <span style=\"color: #00FFFF;\">Auth Time:</span><span style=\"color: #FF69B4;\">hh:mm:ss  </span>\n\n\n<span style=\"color: #00FFFF;\">Auth Resp:</span><span style=\"color: #FF69B4;\">A</span>   <span style=\"color: #00FFFF;\">Resp Reason:</span><span style=\"color: #0000FF;\">0000-APPROVED       </span> <span style=\"color: #00FFFF;\">Auth Code:</span><span style=\"color: #0000FF;\">123456</span>\n\n\n<span style=\"color: #00FFFF;\">Amount:</span><span style=\"color: #0000FF;\">   $1,234.56</span>     <span style=\"color: #00FFFF;\">POS Entry Mode:</span><span style=\"color: #0000FF;\">0123</span>  <span style=\"color: #00FFFF;\">Source   :</span><span style=\"color: #0000FF;\">ONLINE    </span>\n\n\n<span style=\"color: #00FFFF;\">MCC Code:</span><span style=\"color: #0000FF;\">5411</span>       <span style=\"color: #00FFFF;\">Card Exp. Date:</span><span style=\"color: #0000FF;\">12/25</span>  <span style=\"color: #00FFFF;\">Auth Type:</span><span style=\"color: #0000FF;\">PURCHASE      </span>\n\n\n<span style=\"color: #00FFFF;\">Tran Id:</span><span style=\"color: #0000FF;\">TXN123456789012</span>   <span style=\"color: #00FFFF;\">Match Status:</span><span style=\"color: #FF0000;\">P</span>     <span style=\"color: #00FFFF;\">Fraud Status:</span><span style=\"color: #FF0000;\">-         </span>\n\n<span style=\"color: #FFFFFF;\">Merchant Details ----------------------------------------------------------------</span>\n\n<span style=\"color: #00FFFF;\">Name:</span><span style=\"color: #0000FF;\">ACME GROCERY STORE       </span>   <span style=\"color: #00FFFF;\">Merchant ID:</span><span style=\"color: #0000FF;\">MER123456789012</span>\n\n<span style=\"color: #00FFFF;\">City:</span><span style=\"color: #0000FF;\">NEW YORK                 </span>   <span style=\"color: #00FFFF;\">State:</span><span style=\"color: #0000FF;\">NY</span> <span style=\"color: #00FFFF;\">Zip:</span><span style=\"color: #0000FF;\">10001     </span>\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\"> F3=Back  F5=Mark/Remove Fraud  F8=Next Auth     </span>\n</div>",
+            "order": 2
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 3
+        },
+        {
+            "name": "COPAU00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CPVS</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>      <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COPAUS0C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span>      <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n                              <span style=\"color: #FFFFFF;\">View Authorizations</span>\n\n  <span style=\"color: #00FFFF;\">Search Acct Id:</span> <span style=\"color: #00FF00; text-decoration: underline;\">___________</span>\n\n  Name:  _________________________     Customer Id:  _________\n         _________________________     Acct Status:  _\n         _________________________\n  PH: _____________     Approval # :  ___     Decline #: ___\n\n     Credit Lim: ____________   Cash Lim: _________   Appr Amt: __________\n     Credit Bal: ____________   Cash Bal: _________   Decl Amt: __________\n\n <span style=\"color: #FFFFFF;\">Sel</span>     <span style=\"color: #FFFFFF;\"> Transaction ID </span>   <span style=\"color: #FFFFFF;\">  Date  </span>   <span style=\"color: #FFFFFF;\">  Time  </span>  <span style=\"color: #FFFFFF;\">Type </span> <span style=\"color: #FFFFFF;\">A/D</span> <span style=\"color: #FFFFFF;\">STS</span>    <span style=\"color: #FFFFFF;\">   Amount   </span>\n <span style=\"color: #FFFFFF;\">---</span>     <span style=\"color: #FFFFFF;\">----------------</span>   <span style=\"color: #FFFFFF;\">--------</span>   <span style=\"color: #FFFFFF;\">--------</span>  <span style=\"color: #FFFFFF;\">----</span> <span style=\"color: #FFFFFF;\">---</span> <span style=\"color: #FFFFFF;\">---</span>    <span style=\"color: #FFFFFF;\">------------</span>\n <span style=\"color: #00FF00; text-decoration: underline;\">_</span>       <span style=\"color: #0000FF;\">________________</span>   <span style=\"color: #0000FF;\">________</span>   <span style=\"color: #0000FF;\">________</span>  <span style=\"color: #0000FF;\">____</span>  <span style=\"color: #0000FF;\">_</span>   <span style=\"color: #0000FF;\">_</span>    <span style=\"color: #0000FF;\">____________</span>\n <span style=\"color: #00FF00; text-decoration: underline;\">_</span>       <span style=\"color: #0000FF;\">________________</span>   <span style=\"color: #0000FF;\">________</span>   <span style=\"color: #0000FF;\">________</span>  <span style=\"color: #0000FF;\">____</span>  <span style=\"color: #0000FF;\">_</span>   <span style=\"color: #0000FF;\">_</span>    <span style=\"color: #0000FF;\">____________</span>\n <span style=\"color: #00FF00; text-decoration: underline;\">_</span>       <span style=\"color: #0000FF;\">________________</span>   <span style=\"color: #0000FF;\">________</span>   <span style=\"color: #0000FF;\">________</span>  <span style=\"color: #0000FF;\">____</span>  <span style=\"color: #0000FF;\">_</span>   <span style=\"color: #0000FF;\">_</span>    <span style=\"color: #0000FF;\">____________</span>\n <span style=\"color: #00FF00; text-decoration: underline;\">_</span>       <span style=\"color: #0000FF;\">________________</span>   <span style=\"color: #0000FF;\">________</span>   <span style=\"color: #0000FF;\">________</span>  <span style=\"color: #0000FF;\">____</span>  <span style=\"color: #0000FF;\">_</span>   <span style=\"color: #0000FF;\">_</span>    <span style=\"color: #0000FF;\">____________</span>\n <span style=\"color: #00FF00; text-decoration: underline;\">_</span>       <span style=\"color: #0000FF;\">________________</span>   <span style=\"color: #0000FF;\">________</span>   <span style=\"color: #0000FF;\">________</span>  <span style=\"color: #0000FF;\">____</span>  <span style=\"color: #0000FF;\">_</span>   <span style=\"color: #0000FF;\">_</span>    <span style=\"color: #0000FF;\">____________</span>\n\n           <span style=\"color: #FFFFFF; font-weight: bold;\">Type 'S' to View Authorization details from the list</span>\n<span style=\"color: #FF0000; font-weight: bold;\">______________________________________________________________________________</span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Back  F7=Backward  F8=Forward</span>\n</div>",
+            "order": 4
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COPAUS0C[\"Authorization Summary Display - Shows pending authorization transactions for a given account (COPAUS0C) \"]\n    COMEN01C[\"Main Menu Interface - Displays menu options for regular users and handles navigation (COMEN01C) \"]\n    COPAUS1C[\"Authorization Detail View - Provides detailed view of authorization transactions with fraud management (COPAUS1C) \"]\n    COSGN00C[\"User Authentication - Validates user credentials and routes to appropriate menus (COSGN00C) \"]\n    COADM01C[\"Admin Menu Interface - Displays administrative menu options for admin users (COADM01C) \"]\n    COPAUS2C[\"Fraud Record Processing - Handles insertion and updates of fraud records in the database (COPAUS2C) \"]\n    COPAUS0C --> COMEN01C\n    COPAUS0C --> COPAUS1C\n    COMEN01C --> COSGN00C\n    COPAUS1C --> COPAUS0C\n    COPAUS1C --> COPAUS2C\n    COSGN00C --> COADM01C\n    COSGN00C --> COMEN01C\n    COADM01C --> COSGN00C\n"
+}

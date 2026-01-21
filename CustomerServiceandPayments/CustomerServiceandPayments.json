@@ -1,0 +1,22 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Customer Service and Payments",
+  "brief_description": "Provides customer-facing services including bill payment processing and account balance management.",
+  "business_purpose": "This function delivers essential customer service capabilities, primarily focusing on bill payment processing and account balance management. It enables customers to pay their account balances online, validates payment information, and updates account balances accordingly, supporting the customer self-service experience and reducing manual payment processing overhead.",
+  "key_capabilities": [
+    "Online bill payment processing",
+    "Account balance validation and display",
+    "Payment confirmation and transaction recording",
+    "Account balance updates and management",
+    "Customer payment history tracking"
+  ],
+  "components": [
+    {
+      "name": "CB00",
+      "type": "Transaction",
+      "business_function": "Customer bill payment processing and account balance updates",
+      "entry_point_program": "COBIL00C"
+    }
+  ]
+}

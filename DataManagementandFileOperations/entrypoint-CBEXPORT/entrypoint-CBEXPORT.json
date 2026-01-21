@@ -1,0 +1,138 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CBEXPORT.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CBEXPORT.jcl",
+    "summary": {
+        "overview": "This JCL job performs a comprehensive data export operation for the CardDemo application, consolidating customer information from multiple master files into a single export dataset for migration or reporting purposes. The process creates a new VSAM export repository and then extracts and combines customer, account, card, transaction, and cross-reference data into standardized export records.",
+        "business_functions": [
+            "Create Export Data Repository - Establish a new VSAM indexed cluster to store consolidated export data with proper key structure and storage allocation",
+            "Initialize Export Process - Set up export environment with timestamp generation and prepare all input and output files for processing",
+            "Export Customer Information - Read all customer master records and create standardized export records containing customer demographic and profile data",
+            "Export Account Data - Process all account master records and generate export records with account details and relationships",
+            "Export Card Cross-Reference Data - Extract cross-reference information that links cards to customers and accounts for proper data relationships",
+            "Export Transaction History - Read all transaction records and create export records containing complete customer transaction activity",
+            "Export Card Details - Process all card master records and generate export records with card information and attributes",
+            "Generate Export Statistics - Produce summary reports showing counts of exported records by type and total processing results"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CBEXPORT.jcl": [
+            {
+                "program_name": "CBEXPORT.cbl",
+                "program_overview": "Consolidates customer data from multiple normalized files into a single export file for migration purposes",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Customer Master Data (AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS",
+            "business_name": "Customer Master Data",
+            "type": "VSAM_KSDS",
+            "function": "Contains customer profile data including personal information, addresses, phone numbers, SSN, and credit scores for export processing",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Master Data (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Master Data",
+            "type": "VSAM_KSDS",
+            "function": "Contains account information including account status, balances, credit limits, dates, and group details for export processing",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference Data (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross-Reference Data",
+            "type": "VSAM_KSDS",
+            "function": "Contains cross-reference data linking card numbers to customer IDs and account IDs for export processing",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction History Data (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction History Data",
+            "type": "VSAM_KSDS",
+            "function": "Contains transaction records with transaction details, merchant information, amounts, and timestamps for export processing",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Master Data (AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS",
+            "business_name": "Card Master Data",
+            "type": "VSAM_KSDS",
+            "function": "Contains card information including card numbers, account associations, CVV codes, embossed names, expiration dates, and status for export processing",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Export Output Data (AWS.M2.CARDDEMO.EXPORT.DATA)",
+            "original_name": "AWS.M2.CARDDEMO.EXPORT.DATA",
+            "business_name": "Export Output Data",
+            "type": "VSAM_KSDS",
+            "function": "Stores the consolidated export records containing customer, account, cross-reference, transaction, and card data formatted for branch migration",
+            "used_by_programs": [
+                "CBEXPORT.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Program Library",
+            "type": "PDS",
+            "function": "Contains executable programs used for the card demo export processing",
+            "used_by_programs": [
+                "CBEXPORT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CBEXPORT.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/CBEXPORT.jcl",
+        "CBEXPORT.cbl": "aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBEXPORT.cbl[\"Consolidates customer data from multiple normalized files into a single export file for migration purposes (CBEXPORT.cbl) \"]\n"
+}

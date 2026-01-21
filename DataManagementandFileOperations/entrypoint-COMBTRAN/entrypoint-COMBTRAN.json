@@ -1,0 +1,101 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "COMBTRAN.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "COMBTRAN.jcl",
+    "summary": {
+        "overview": "This JCL consolidates transaction data from backup and system transaction files, sorts them by transaction ID, and loads the combined data into a VSAM file for efficient access and retrieval by downstream applications.",
+        "business_functions": [
+            "Combine transaction records from backup transaction file and system transaction file",
+            "Sort all consolidated transaction records in ascending order by Transaction ID",
+            "Create unified combined transaction dataset with all sorted records",
+            "Load combined transaction data into VSAM Key Sequenced Dataset for high-performance online access"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS",
+                "GDG"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "COMBTRAN.jcl": [
+            {
+                "program_name": "SORT",
+                "program_overview": "IBM Sort Utility - Merges and sorts transaction data from multiple sources",
+                "called_programs": []
+            },
+            {
+                "program_name": "IDCAMS",
+                "program_overview": "IBM Access Method Services - Loads transaction data into VSAM datasets",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Backup Records (AWS.M2.CARDDEMO.TRANSACT.BKUP(0))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.BKUP(0)",
+            "business_name": "Transaction Backup Records",
+            "type": "GDG",
+            "function": "Contains backup transaction records that are processed and combined with other transaction data for consolidation",
+            "used_by_programs": [
+                "COMBTRAN.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Transaction Records (AWS.M2.CARDDEMO.SYSTRAN(0))",
+            "original_name": "AWS.M2.CARDDEMO.SYSTRAN(0)",
+            "business_name": "System Transaction Records",
+            "type": "GDG",
+            "function": "Contains system transaction records that are processed and combined with backup transaction data for consolidation",
+            "used_by_programs": [
+                "COMBTRAN.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Combined Transaction Records (AWS.M2.CARDDEMO.TRANSACT.COMBINED(+1))",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.COMBINED(+1)",
+            "business_name": "Combined Transaction Records",
+            "type": "GDG",
+            "function": "Stores the combined and sorted transaction records from multiple sources, serving as consolidated transaction data for further processing",
+            "used_by_programs": [
+                "COMBTRAN.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Permanent storage for combined transaction records with indexed access capability for efficient transaction retrieval and processing",
+            "used_by_programs": [
+                "COMBTRAN.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COMBTRAN.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/COMBTRAN.jcl"
+    },
+    "flow_diagram_code": "flowchart TD\n    SORT[\"IBM Sort Utility - Merges and sorts transaction data from multiple sources (SORT) \"]\n    IDCAMS[\"IBM Access Method Services - Loads transaction data into VSAM datasets (IDCAMS) \"]\n"
+}

@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CDRD Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CDRD",
+    "summary": {
+        "overview": "CDRD is a CICS transaction that provides real-time date and time services through message queue processing. The transaction continuously monitors incoming requests and responds with current system date and time information formatted for business applications.",
+        "business_functions": [
+            "Initialize System - Initialize variables, clear queue names and message buffers",
+            "Retrieve Queue Information - Get the input queue name from CICS transaction data",
+            "Set Reply Queue Name - Set the reply queue name to CARD.DEMO.REPLY.DATE",
+            "Open Input Queue - Open the input queue for reading messages with shared access",
+            "Open Output Queue - Open the reply queue for sending response messages",
+            "Open Error Queue - Open the error queue (CARD.DEMO.ERROR) for error message handling",
+            "Get Request Message - Retrieve message from input queue with 5-second wait interval",
+            "Process Date Request - Generate system date and time response for incoming requests",
+            "Format Date Response - Create formatted response message with current system date and time",
+            "Send Reply Message - Put the formatted date/time response message to the reply queue",
+            "Handle Processing Errors - Send error messages to error queue when processing fails",
+            "Process Multiple Messages - Continue processing messages until no more messages available",
+            "Close Input Queue - Close the input queue connection when processing complete",
+            "Close Output Queue - Close the reply queue connection when processing complete",
+            "Close Error Queue - Close the error queue connection when processing complete",
+            "Terminate Program - Return control to CICS and end program execution"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "CICS",
+                "MQ"
+            ],
+            "dataset_types": [
+                "N/A"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CDRD": [
+            {
+                "program_name": "CODATE01",
+                "program_overview": "Processes date and time requests from message queues and returns formatted system date/time responses",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Date Service Request Queue (INPUT-QUEUE-NAME)",
+            "original_name": "INPUT-QUEUE-NAME",
+            "business_name": "Date Service Request Queue",
+            "type": "MQ",
+            "function": "Input queue for receiving request messages for date and time processing",
+            "used_by_programs": [
+                "CODATE01.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Date Service Response Queue (CARD.DEMO.REPLY.DATE)",
+            "original_name": "CARD.DEMO.REPLY.DATE",
+            "business_name": "Date Service Response Queue",
+            "type": "MQ",
+            "function": "Reply queue for sending response messages containing system date and time information",
+            "used_by_programs": [
+                "CODATE01.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Date Service Error Queue (CARD.DEMO.ERROR)",
+            "original_name": "CARD.DEMO.ERROR",
+            "business_name": "Date Service Error Queue",
+            "type": "MQ",
+            "function": "Error queue for sending error messages when date processing fails or encounters issues",
+            "used_by_programs": [
+                "CODATE01.cbl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CODATE01": "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/CODATE01.cbl"
+    },
+    "screen_preview": [],
+    "flow_diagram_code": "flowchart TD\n    CODATE01[\"Processes date and time requests from message queues and returns formatted system date/time responses (CODATE01) \"]\n"
+}

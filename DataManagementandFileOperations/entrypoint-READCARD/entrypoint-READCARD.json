@@ -1,0 +1,94 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "READCARD.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "READCARD.jcl",
+    "summary": {
+        "overview": "This batch job reads and processes credit card data from a VSAM file system. The job generates reports and processing results for business analysis and monitoring purposes.",
+        "business_functions": [
+            "Read card data from VSAM card database",
+            "Process and validate card information",
+            "Generate card processing reports and output messages"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "READCARD.jcl": [
+            {
+                "program_name": "CBACT02C",
+                "program_overview": "Processes card data from VSAM file and generates business reports",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Program Library",
+            "type": "PDS",
+            "function": "Program library containing executable programs for the card demonstration system",
+            "used_by_programs": [
+                "READCARD.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Customer Card Data File (AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS",
+            "business_name": "Customer Card Data File",
+            "type": "VSAM_KSDS",
+            "function": "Master file containing customer card information and account details",
+            "used_by_programs": [
+                "READCARD.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Output Messages (SYSOUT)",
+            "original_name": "SYSOUT",
+            "business_name": "System Output Messages",
+            "type": "SEQUENTIAL",
+            "function": "System output file for displaying program execution messages and processing results",
+            "used_by_programs": [
+                "READCARD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "System Print Reports (SYSPRINT)",
+            "original_name": "SYSPRINT",
+            "business_name": "System Print Reports",
+            "type": "SEQUENTIAL",
+            "function": "System print file for generating program reports and diagnostic information",
+            "used_by_programs": [
+                "READCARD.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "READCARD.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/READCARD.jcl",
+        "CBACT02C": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT02C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBACT02C[\"Processes card data from VSAM file and generates business reports (CBACT02C) \"]\n"
+}

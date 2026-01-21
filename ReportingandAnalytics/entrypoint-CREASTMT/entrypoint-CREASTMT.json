@@ -1,0 +1,176 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CREASTMT.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "CREASTMT.JCL",
+    "summary": {
+        "overview": "This batch job creates comprehensive customer account statements by processing and reorganizing transaction data from VSAM files. It generates statements in both print format for physical mailing and HTML format for online customer access.",
+        "business_functions": [
+            "Delete and recreate VSAM transaction file structure to ensure clean data environment",
+            "Sort transaction records chronologically by date and card number for optimal processing",
+            "Reorganize transaction record layout with date fields repositioned for efficient access",
+            "Load sorted transaction data into indexed VSAM structure for fast retrieval",
+            "Clean up existing statement files to prevent data contamination",
+            "Generate customer account statements in print format (80-character records) for physical mailing",
+            "Create HTML format statements (100-character records) for online customer portal access",
+            "Integrate transaction data with customer information, account details, and card cross-references",
+            "Calculate running balances and statement totals for accurate customer billing",
+            "Produce processing statistics and error reports for operational monitoring"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CREASTMT.JCL": [
+            {
+                "program_name": "CBSTM03A",
+                "program_overview": "Generates customer account statements in both print and HTML formats by integrating transaction, account, and customer data",
+                "called_programs": [
+                    "CBSTM03B"
+                ]
+            },
+            {
+                "program_name": "CBSTM03B",
+                "program_overview": "Supporting module for statement generation processing",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Transaction Work File (AWS.M2.CARDDEMO.TRXFL.SEQ)",
+            "original_name": "AWS.M2.CARDDEMO.TRXFL.SEQ",
+            "business_name": "Transaction Work File",
+            "type": "SEQUENTIAL",
+            "function": "Temporary work file used as intermediate storage for sorted transaction data during statement processing",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "WRITE",
+                "DELETE"
+            ]
+        },
+        {
+            "name": "Sorted Transaction File (AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS",
+            "business_name": "Sorted Transaction File",
+            "type": "VSAM_KSDS",
+            "function": "Indexed file storing sorted transaction data for efficient keyed access during statement generation",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Transaction Master File (AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS",
+            "business_name": "Transaction Master File",
+            "type": "VSAM_KSDS",
+            "function": "Source file containing original transaction records that need to be processed for statement generation",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross Reference File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Reference data linking credit cards to accounts and customers for statement processing",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Master File (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Master File",
+            "type": "VSAM_KSDS",
+            "function": "Master file containing account information required for customer statement creation",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Customer Master File (AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS",
+            "business_name": "Customer Master File",
+            "type": "VSAM_KSDS",
+            "function": "Master file containing customer details and information needed for statement generation",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Print Statement File (AWS.M2.CARDDEMO.STATEMNT.PS)",
+            "original_name": "AWS.M2.CARDDEMO.STATEMNT.PS",
+            "business_name": "Print Statement File",
+            "type": "SEQUENTIAL",
+            "function": "Output file containing generated customer statements in print-ready format",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "HTML Statement File (AWS.M2.CARDDEMO.STATEMNT.HTML)",
+            "original_name": "AWS.M2.CARDDEMO.STATEMNT.HTML",
+            "business_name": "HTML Statement File",
+            "type": "SEQUENTIAL",
+            "function": "Output file containing generated customer statements in HTML format for web-based viewing",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Program Library",
+            "type": "PDS",
+            "function": "Library containing executable programs used for statement generation processing",
+            "used_by_programs": [
+                "CREASTMT.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "CREASTMT.JCL": "aws-mainframe-modernization-carddemo-main/app/jcl/CREASTMT.JCL",
+        "CBSTM03A": "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL",
+        "CBSTM03B": "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBSTM03A[\"Generates customer account statements in both print and HTML formats by integrating transaction, account, and customer data (CBSTM03A) \"]\n    CBSTM03B[\"Supporting module for statement generation processing (CBSTM03B) \"]\n    CBSTM03A --> CBSTM03B\n"
+}

@@ -1,0 +1,100 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CA00 Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CA00",
+    "summary": {
+        "overview": "The CardDemo Administrative Menu (CA00) provides a secure entry point for system administrators to access various administrative functions within the card management system. It handles user authentication, displays available administrative options, and routes users to appropriate administrative programs based on their selections.",
+        "business_functions": [
+            "User Authentication Check - Validate user session and redirect to sign-on screen if no valid session exists",
+            "Display Initial Signon Screen - Show the signon screen to user when first accessing the application",
+            "Validate User Credentials - Check user ID and password entries for completeness and format",
+            "Authenticate User Credentials - Verify user exists in the system and password matches",
+            "Determine User Access Level - Check if authenticated user is an administrator or regular user",
+            "Route Administrator Users - Transfer control to admin menu for users with administrator privileges",
+            "Route Regular Users - Transfer control to main menu for users with regular privileges",
+            "Menu Screen Display - Display the admin menu screen with available options for administrators",
+            "Menu Option Validation - Validate user-entered option number against available admin menu options",
+            "Program Transfer Control - Transfer control to selected admin function program based on user choice",
+            "User Access Control - Enforce access restrictions and prevent unauthorized access to admin functions",
+            "Error Message Display - Display appropriate error messages for invalid inputs or authentication failures",
+            "Return to Sign-on - Handle user request to return to sign-on screen via function keys"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CA00": [
+            {
+                "program_name": "COADM01C",
+                "program_overview": "Administrative menu interface that displays admin options and routes to appropriate programs",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COSGN00C",
+                "program_overview": "User authentication and sign-on screen that validates credentials and routes users",
+                "called_programs": [
+                    "COADM01C",
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COMEN01C",
+                "program_overview": "Main menu interface for regular users with access control and program routing",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "User security file used to authenticate user credentials by reading user ID and password information",
+            "used_by_programs": [
+                "COSGN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COADM01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl",
+        "COSGN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl",
+        "COMEN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 2
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COADM01C[\"Administrative menu interface that displays admin options and routes to appropriate programs (COADM01C) \"]\n    COSGN00C[\"User authentication and sign-on screen that validates credentials and routes users (COSGN00C) \"]\n    COMEN01C[\"Main menu interface for regular users with access control and program routing (COMEN01C) \"]\n    COADM01C --> COSGN00C\n    COSGN00C --> COADM01C\n    COSGN00C --> COMEN01C\n    COMEN01C --> COSGN00C\n"
+}

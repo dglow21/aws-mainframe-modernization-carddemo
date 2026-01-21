@@ -1,0 +1,148 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CU00 Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CU00",
+    "summary": {
+        "overview": "The CU00 transaction provides comprehensive user management functionality for the CardDemo application, allowing administrators to view, update, and delete user accounts. It serves as the central hub for user administration tasks, integrating with the authentication system and providing a complete user lifecycle management interface.",
+        "business_functions": [
+            "User Authentication Check - Validate user session and redirect to sign-on screen if no valid session exists",
+            "User List Display - Display paginated list of users with navigation capabilities",
+            "User Search Processing - Process user ID input for filtering user records",
+            "Page Navigation - Navigate forward and backward through user record pages",
+            "User Selection Processing - Handle user selection for update or delete operations",
+            "User Record Update - Modify existing user information including name, password, and user type",
+            "User Record Deletion - Remove user accounts from the system with confirmation",
+            "Change Detection - Compare current values with existing data to detect modifications",
+            "Update Confirmation - Display success messages for completed operations",
+            "Navigation Control - Handle navigation between screens and return to previous menus",
+            "Error Message Display - Show appropriate error messages for validation failures",
+            "Screen Management - Clear input fields and manage screen display states"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CU00": [
+            {
+                "program_name": "COUSR00C",
+                "program_overview": "Displays paginated user list and handles user selection for update/delete operations",
+                "called_programs": [
+                    "COADM01C",
+                    "COSGN00C",
+                    "COUSR02C",
+                    "COUSR03C"
+                ]
+            },
+            {
+                "program_name": "COADM01C",
+                "program_overview": "Administrative menu interface for admin users with navigation to various admin functions",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COSGN00C",
+                "program_overview": "User authentication and sign-on screen with credential validation",
+                "called_programs": [
+                    "COADM01C",
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COMEN01C",
+                "program_overview": "Main menu interface for regular users with access control enforcement",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COUSR02C",
+                "program_overview": "User information update functionality with field validation and change detection",
+                "called_programs": [
+                    "COADM01C",
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COUSR03C",
+                "program_overview": "User deletion functionality with confirmation and record removal",
+                "called_programs": [
+                    "COADM01C",
+                    "COSGN00C"
+                ]
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "Stores and manages user security information including user credentials (ID and password), personal information (first name, last name), and user type classifications. Supports user authentication, profile management, and administrative functions such as browsing user lists, updating user details, and removing user accounts.",
+            "used_by_programs": [
+                "COSGN00C.cbl",
+                "COUSR03C.cbl",
+                "COUSR02C.cbl",
+                "COUSR00C.cbl"
+            ],
+            "accessType": [
+                "READ",
+                "UPDATE",
+                "DELETE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COUSR00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl",
+        "COADM01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl",
+        "COSGN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl",
+        "COMEN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl",
+        "COUSR02C": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl",
+        "COUSR03C": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 2
+        },
+        {
+            "name": "COUSR03",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CU03</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>     <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COUSR03C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span>     <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   Delete User\n\n\n      <span style=\"color: #00FF00;\">Enter User ID:</span> <span style=\"color: #00FF00; text-decoration: underline;\">________</span>\n\n        <span style=\"color: #FFFF00;\">**********************************************************************</span>\n\n\n\n      <span style=\"color: #00FFFF;\">First Name:</span> <span style=\"color: #0000FF; text-decoration: underline;\">____________________</span>\n\n\n      <span style=\"color: #00FFFF;\">Last Name:</span> <span style=\"color: #0000FF; text-decoration: underline;\">____________________</span>\n\n\n      <span style=\"color: #00FFFF;\">User Type: </span><span style=\"color: #0000FF; text-decoration: underline;\">_</span> <span style=\"color: #0000FF;\">(A=Admin, U=User)</span>\n\n\n\n\n<span style=\"color: #FF0000;\">______________________________________________________________________________</span>\n<span style=\"color: #FFFF00;\">ENTER=Fetch  F3=Back  F4=Clear  F5=Delete</span>\n</div>",
+            "order": 3
+        },
+        {
+            "name": "COUSR02",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CU02</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>     <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COUSR02C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span>     <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Update User</span>\n\n\n      <span style=\"color: #00FF00;\">Enter User ID:</span> <span style=\"color: #00FF00; text-decoration: underline;\">________</span>\n\n\n      <span style=\"color: #FFFF00;\">**********************************************************************</span>\n\n\n\n      <span style=\"color: #00FFFF;\">First Name:</span> <span style=\"color: #00FF00; text-decoration: underline;\">____________________</span>     <span style=\"color: #00FFFF;\">Last Name:</span> <span style=\"color: #00FF00; text-decoration: underline;\">____________________</span>\n\n\n      <span style=\"color: #00FFFF;\">Password:</span> <span style=\"color: #00FF00; text-decoration: underline;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n      <span style=\"color: #00FFFF;\">User Type: </span><span style=\"color: #00FF00; text-decoration: underline;\">_</span> <span style=\"color: #0000FF;\">(A=Admin, U=User)</span>\n\n\n\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Fetch  F3=Save&Exit  F4=Clear  F5=Save  F12=Cancel</span>\n</div>",
+            "order": 4
+        },
+        {
+            "name": "COUSR00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CU00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>         <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COUSR00C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span>         <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">List Users</span>                             <span style=\"color: #00FFFF; font-weight: bold;\">Page:</span><span style=\"color: #0000FF;\">        </span>\n\n    <span style=\"color: #00FFFF;\">Search User ID:</span><span style=\"color: #00FF00; text-decoration: underline;\">        </span>\n\n<span style=\"color: #FFFFFF;\">Sel</span>       <span style=\"color: #FFFFFF;\">User ID </span>      <span style=\"color: #FFFFFF;\">     First Name     </span>      <span style=\"color: #FFFFFF;\">     Last Name      </span>      <span style=\"color: #FFFFFF;\">Type</span>\n<span style=\"color: #FFFFFF;\">---</span>       <span style=\"color: #FFFFFF;\">--------</span>      <span style=\"color: #FFFFFF;\">--------------------</span>      <span style=\"color: #FFFFFF;\">--------------------</span>      <span style=\"color: #FFFFFF;\">----</span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n<span style=\"color: #00FF00; text-decoration: underline;\"> </span>     <span style=\"color: #0000FF;\">        </span>      <span style=\"color: #0000FF;\">                    </span>      <span style=\"color: #0000FF;\">                    </span>       <span style=\"color: #0000FF;\"> </span>\n\n           <span style=\"color: #FFFFFF; font-weight: bold;\">Type 'U' to Update or 'D' to Delete a User from the list</span>\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Back  F7=Backward  F8=Forward</span>\n</div>",
+            "order": 5
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COUSR00C[\"Displays paginated user list and handles user selection for update/delete operations (COUSR00C) \"]\n    COADM01C[\"Administrative menu interface for admin users with navigation to various admin functions (COADM01C) \"]\n    COSGN00C[\"User authentication and sign-on screen with credential validation (COSGN00C) \"]\n    COMEN01C[\"Main menu interface for regular users with access control enforcement (COMEN01C) \"]\n    COUSR02C[\"User information update functionality with field validation and change detection (COUSR02C) \"]\n    COUSR03C[\"User deletion functionality with confirmation and record removal (COUSR03C) \"]\n    COUSR00C --> COADM01C\n    COUSR00C --> COSGN00C\n    COUSR00C --> COUSR02C\n    COUSR00C --> COUSR03C\n    COADM01C --> COSGN00C\n    COSGN00C --> COADM01C\n    COSGN00C --> COMEN01C\n    COMEN01C --> COSGN00C\n    COUSR02C --> COADM01C\n    COUSR02C --> COSGN00C\n    COUSR03C --> COADM01C\n    COUSR03C --> COSGN00C\n"
+}

@@ -1,0 +1,119 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "READACCT.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "READACCT.jcl",
+    "summary": {
+        "overview": "This batch job processes account master data from a VSAM file and transforms it into three different sequential file formats to support various downstream processing and reporting requirements in the CardDemo application.",
+        "business_functions": [
+            "Clean up existing output files to ensure fresh data processing",
+            "Read account master data from VSAM account file",
+            "Transform account data into compressed format for efficient processing",
+            "Generate array-structured account data for organized data access",
+            "Create variable-length account records for flexible data storage",
+            "Catalog processed account files for downstream business applications"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS",
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "READACCT.jcl": [
+            {
+                "program_name": "CBACT01C.cbl",
+                "program_overview": "Processes account data and creates multiple output formats",
+                "called_programs": [
+                    "COBDATFT.asm"
+                ]
+            },
+            {
+                "program_name": "COBDATFT.asm",
+                "program_overview": "Assembly utility for data formatting operations",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Account Data - Physical Sequential Compressed (AWS.M2.CARDDEMO.ACCTDATA.PSCOMP)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.PSCOMP",
+            "business_name": "Account Data - Physical Sequential Compressed",
+            "type": "SEQUENTIAL",
+            "function": "Stores processed account data in compressed format for reporting and analysis purposes",
+            "used_by_programs": [
+                "READACCT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data - Array Physical Sequential (AWS.M2.CARDDEMO.ACCTDATA.ARRYPS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.ARRYPS",
+            "business_name": "Account Data - Array Physical Sequential",
+            "type": "SEQUENTIAL",
+            "function": "Contains account data organized in array format for batch processing and data transfer operations",
+            "used_by_programs": [
+                "READACCT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Account Data - Variable Block Physical Sequential (AWS.M2.CARDDEMO.ACCTDATA.VBPS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VBPS",
+            "business_name": "Account Data - Variable Block Physical Sequential",
+            "type": "SEQUENTIAL",
+            "function": "Stores account data in variable-length format optimized for space efficiency and flexible record structures",
+            "used_by_programs": [
+                "READACCT.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Card Demo Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Program Library",
+            "type": "PDS",
+            "function": "Contains executable programs and modules required for card demo application processing",
+            "used_by_programs": [
+                "READACCT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Account Master Data (AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS",
+            "business_name": "Account Master Data",
+            "type": "VSAM_KSDS",
+            "function": "Master repository of customer account information including account details, balances, and customer data",
+            "used_by_programs": [
+                "READACCT.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "READACCT.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/READACCT.jcl",
+        "CBACT01C.cbl": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl",
+        "COBDATFT.asm": "aws-mainframe-modernization-carddemo-main/app/asm/COBDATFT.asm"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBACT01C.cbl[\"Processes account data and creates multiple output formats (CBACT01C.cbl) \"]\n    COBDATFT.asm[\"Assembly utility for data formatting operations (COBDATFT.asm) \"]\n    CBACT01C.cbl --> COBDATFT.asm\n"
+}

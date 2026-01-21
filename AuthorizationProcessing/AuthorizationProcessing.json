@@ -1,0 +1,34 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Authorization Processing",
+  "brief_description": "Manages credit card authorization requests including real-time processing, fraud detection, and authorization management.",
+  "business_purpose": "This function handles the critical business process of credit card authorization, processing real-time authorization requests, making approval or decline decisions based on account status and credit limits, and managing fraud detection and prevention. It ensures secure and efficient authorization processing while maintaining proper audit trails and fraud monitoring capabilities.",
+  "key_capabilities": [
+    "Real-time credit card authorization processing",
+    "Credit limit validation and balance checking",
+    "Fraud detection and flag management",
+    "Authorization inquiry and management",
+    "Authorization record maintenance and tracking"
+  ],
+  "components": [
+    {
+      "name": "CP00",
+      "type": "Transaction",
+      "business_function": "Real-time authorization processing and decision making",
+      "entry_point_program": "COPAUA0C"
+    },
+    {
+      "name": "CPVS",
+      "type": "Transaction",
+      "business_function": "Authorization inquiry and fraud flag management",
+      "entry_point_program": "COPAUS0C"
+    },
+    {
+      "name": "CPVD",
+      "type": "Transaction",
+      "business_function": "Authorization detail viewing and management",
+      "entry_point_program": "COPAUS1C"
+    }
+  ]
+}

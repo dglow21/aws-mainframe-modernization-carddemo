@@ -1,0 +1,141 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "CT01 Transaction Documentation",
+    "type": "entry_point",
+    "document_name": "CT01",
+    "summary": {
+        "overview": "The CT01 transaction provides comprehensive transaction inquiry capabilities for the CardDemo application. Users can view detailed transaction information including card numbers, amounts, merchant details, and processing timestamps, with navigation options to browse transaction lists and return to previous screens.",
+        "business_functions": [
+            "User Authentication Check - Validate user session and redirect to sign-on screen if no valid session exists",
+            "Transaction ID Input and Validation - Accept and validate transaction ID from user input",
+            "Transaction Record Retrieval - Read and display detailed transaction information from the transaction database",
+            "Transaction Data Display - Show comprehensive transaction details including card number, type, category, amount, and merchant information",
+            "Transaction Amount Formatting - Format and display transaction amounts in proper currency format",
+            "Navigation to Transaction List - Allow users to navigate back to transaction list view",
+            "Screen Clearing Functionality - Clear all input fields and reset screen for new transaction inquiry",
+            "Return to Previous Screen - Handle navigation back to calling program or main menu",
+            "Error Handling for Invalid Transactions - Display appropriate messages when transaction ID is not found",
+            "Invalid Key Handling - Process and display error messages for unsupported function key presses"
+        ],
+        "environment_summary": {
+            "workload_type": "Transaction",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "CICS"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "CT01": [
+            {
+                "program_name": "COTRN01C",
+                "program_overview": "Displays detailed transaction information and handles transaction inquiry functionality",
+                "called_programs": [
+                    "COMEN01C",
+                    "COSGN00C",
+                    "COTRN00C"
+                ]
+            },
+            {
+                "program_name": "COMEN01C",
+                "program_overview": "Main menu interface for regular users with navigation to various application functions",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            },
+            {
+                "program_name": "COSGN00C",
+                "program_overview": "User authentication and sign-on screen for credential validation",
+                "called_programs": [
+                    "COADM01C",
+                    "COMEN01C"
+                ]
+            },
+            {
+                "program_name": "COTRN00C",
+                "program_overview": "Transaction listing module that displays paginated list of transactions with selection capabilities",
+                "called_programs": [
+                    "COMEN01C",
+                    "COSGN00C",
+                    "COTRN01C"
+                ]
+            },
+            {
+                "program_name": "COADM01C",
+                "program_overview": "Administrative menu interface for admin users with access to administrative functions",
+                "called_programs": [
+                    "COSGN00C"
+                ]
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "User Security File (USRSEC)",
+            "original_name": "USRSEC",
+            "business_name": "User Security File",
+            "type": "CICS_FILE",
+            "function": "User security file used to authenticate user credentials by reading user ID and password information",
+            "used_by_programs": [
+                "COSGN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Transaction File (TRANSACT)",
+            "original_name": "TRANSACT",
+            "business_name": "Transaction File",
+            "type": "CICS_FILE",
+            "function": "Transaction records file used to read and display transaction information including transaction details, card numbers, transaction types, categories, amounts, descriptions, timestamps, and merchant information with pagination support",
+            "used_by_programs": [
+                "COTRN01C.cbl",
+                "COTRN00C.cbl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        }
+    ],
+    "program_paths": {
+        "COTRN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl",
+        "COMEN01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl",
+        "COSGN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl",
+        "COTRN00C": "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl",
+        "COADM01C": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl"
+    },
+    "screen_preview": [
+        {
+            "name": "COADM01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CA00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COADM01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                   <span style=\"color: #FFFFFF; font-weight: bold;\">Admin Menu</span>\n\n\n                    1. User List (Security)               \n                    2. User Add (Security)                \n                    3. User Update (Security)             \n                    4. User Delete (Security)             \n                    5. Transaction Type List/Update (Db2) \n                    6. Transaction Type Maintenance (Db2) \n                     \n                     \n                     \n                     \n                     \n                     \n\n\n               <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 0
+        },
+        {
+            "name": "COSGN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran :</span><span style=\"color: #0000FF;\">CC00</span>     <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date :</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog :</span><span style=\"color: #0000FF;\">COSGN00C</span> <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time :</span><span style=\"color: #0000FF;\">Ahh:mm:ss</span>\n<span style=\"color: #0000FF;\">AppID:</span><span style=\"color: #0000FF;\">        </span> <span style=\"color: #0000FF;\">SysID:</span><span style=\"color: #0000FF;\">        </span>\n\n     <span style=\"color: #C0C0C0;\">This is a Credit Card Demo Application for Mainframe Modernization</span>\n\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n                     <span style=\"color: #0000FF;\">|%%%%%%%  NATIONAL RESERVE NOTE  %%%%%%%%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)  THE UNITED STATES OF KICSLAND (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%$$              ___       ********  $$%|</span>\n                     <span style=\"color: #0000FF;\">|%$    {x}       (o o)                 $%|</span>\n                     <span style=\"color: #0000FF;\">|%$     ******  (  V  )      O N E     $%|</span>\n                     <span style=\"color: #0000FF;\">|%(1)          ---m-m---             (1)%|</span>\n                     <span style=\"color: #0000FF;\">|%%~~~~~~~~~~~ ONE DOLLAR ~~~~~~~~~~~~~%%|</span>\n                     <span style=\"color: #0000FF;\">+========================================+</span>\n\n                <span style=\"color: #00FFFF;\">Type your User ID and Password, then press ENTER:</span>\n\n                            <span style=\"color: #00FFFF;\">User ID     :</span><span style=\"color: #00FF00;\">        </span> <span style=\"color: #0000FF;\">(8 Char)</span>\n                            <span style=\"color: #00FFFF;\">Password    :</span><span style=\"color: #00FF00;\">________</span> <span style=\"color: #0000FF;\">(8 Char)</span>\n\n\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Sign-on  F3=Exit</span>\n</div>",
+            "order": 1
+        },
+        {
+            "name": "COMEN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CM00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span> <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COMEN01C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span> <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                                  <span style=\"color: #FFFFFF; font-weight: bold;\">Main Menu</span>\n\n\n                   <span style=\"color: #0000FF;\">1. Account View                       </span>\n                   <span style=\"color: #0000FF;\">2. Account Update                     </span>\n                   <span style=\"color: #0000FF;\">3. Credit Card List                   </span>\n                   <span style=\"color: #0000FF;\">4. Credit Card View                   </span>\n                   <span style=\"color: #0000FF;\">5. Credit Card Update                 </span>\n                   <span style=\"color: #0000FF;\">6. Transaction List                   </span>\n                   <span style=\"color: #0000FF;\">7. Transaction View                   </span>\n                   <span style=\"color: #0000FF;\">8. Transaction Add                    </span>\n                   <span style=\"color: #0000FF;\">9. Transaction Reports                </span>\n                   <span style=\"color: #0000FF;\">10. Bill Payment                       </span>\n                   <span style=\"color: #0000FF;\">11. Pending Authorization View         </span>\n                   <span style=\"color: #0000FF;\"> </span>\n\n\n\n\n              <span style=\"color: #00FFFF; font-weight: bold;\">Please select an option :</span><span style=\"text-decoration: underline;\">  </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Exit</span>\n</div>",
+            "order": 2
+        },
+        {
+            "name": "COTRN01",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CT01</span>         <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>         <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COTRN01C</span>     <span style=\"color: #FFFF00;\">              CardDemo                  </span>         <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                              <span style=\"color: #FFFFFF; font-weight: bold;\">View Transaction</span>\n\n\n      <span style=\"color: #00FFFF;\">Enter Tran ID:</span> <span style=\"color: #00FF00; text-decoration: underline;\">                </span>\n\n\n----------------------------------------------------------------------\n\n          <span style=\"color: #00FFFF;\">Transaction ID:</span> <span style=\"color: #0000FF;\">                </span>     <span style=\"color: #00FFFF;\">Card Number:</span> <span style=\"color: #0000FF;\">                </span>\n\n\n      <span style=\"color: #00FFFF;\">Type CD:</span> <span style=\"color: #0000FF;\">  </span>     <span style=\"color: #00FFFF;\">Category CD:</span> <span style=\"color: #0000FF;\">    </span>     <span style=\"color: #00FFFF;\">Source:</span> <span style=\"color: #0000FF;\">          </span>\n\n\n      <span style=\"color: #00FFFF;\">Description:</span> <span style=\"color: #0000FF;\">                                                            </span>\n\n\n      <span style=\"color: #00FFFF;\">Amount:</span> <span style=\"color: #0000FF;\">            </span>     <span style=\"color: #00FFFF;\">Orig Date:</span> <span style=\"color: #0000FF;\">          </span>     <span style=\"color: #00FFFF;\">Proc Date:</span> <span style=\"color: #0000FF;\">          </span>\n\n\n      <span style=\"color: #00FFFF;\">Merchant ID:</span> <span style=\"color: #0000FF;\">         </span>     <span style=\"color: #00FFFF;\">Merchant Name:</span> <span style=\"color: #0000FF;\">                              </span>\n\n\n      <span style=\"color: #00FFFF;\">Merchant City:</span> <span style=\"color: #0000FF;\">                         </span>      <span style=\"color: #00FFFF;\">Merchant Zip:</span> <span style=\"color: #0000FF;\">          </span>\n\n\n\n<span style=\"color: #FF0000; font-weight: bold;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Fetch  F3=Back  F4=Clear  F5=Browse Tran.</span>\n</div>",
+            "order": 3
+        },
+        {
+            "name": "COTRN00",
+            "content": "<div style=\"font-family: 'Courier New', monospace; background-color: #000000; color: #FFFFFF; white-space: pre;\">\n<span style=\"color: #0000FF;\">Tran:</span><span style=\"color: #0000FF;\">CT00</span>      <span style=\"color: #FFFF00;\">      AWS Mainframe Modernization       </span>     <span style=\"color: #0000FF;\">Date:</span><span style=\"color: #0000FF;\">mm/dd/yy</span>\n<span style=\"color: #0000FF;\">Prog:</span><span style=\"color: #0000FF;\">COTRN00C</span>  <span style=\"color: #FFFF00;\">              CardDemo                  </span>     <span style=\"color: #0000FF;\">Time:</span><span style=\"color: #0000FF;\">hh:mm:ss</span>\n\n\n                              <span style=\"color: #FFFFFF;\">List Transactions</span>                         <span style=\"color: #00FFFF;\">Page:</span><span style=\"color: #0000FF;\">        </span>\n\n\n     <span style=\"color: #00FFFF;\">Search Tran ID:</span><span style=\"color: #00FF00; text-decoration: underline;\">                </span>\n\n\n <span style=\"color: #FFFFFF;\">Sel</span>     <span style=\"color: #FFFFFF;\"> Transaction ID </span>  <span style=\"color: #FFFFFF;\">  Date  </span>     <span style=\"color: #FFFFFF;\">     Description          </span>   <span style=\"color: #FFFFFF;\">   Amount   </span>\n <span style=\"color: #FFFFFF;\">---</span>     <span style=\"color: #FFFFFF;\">----------------</span>  <span style=\"color: #FFFFFF;\">--------</span>     <span style=\"color: #FFFFFF;\">--------------------------</span>   <span style=\"color: #FFFFFF;\">------------</span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n  <span style=\"color: #00FF00; text-decoration: underline;\"> </span>      <span style=\"color: #0000FF;\">                </span>  <span style=\"color: #0000FF;\">        </span>     <span style=\"color: #0000FF;\">                          </span>   <span style=\"color: #0000FF;\">            </span>\n\n\n\n           <span style=\"color: #FFFFFF;\">Type 'S' to View Transaction details from the list</span>\n\n<span style=\"color: #FF0000;\">                                                                              </span>\n<span style=\"color: #FFFF00;\">ENTER=Continue  F3=Back  F7=Backward  F8=Forward</span>\n</div>",
+            "order": 4
+        }
+    ],
+    "flow_diagram_code": "flowchart TD\n    COTRN01C[\"Displays detailed transaction information and handles transaction inquiry functionality (COTRN01C) \"]\n    COMEN01C[\"Main menu interface for regular users with navigation to various application functions (COMEN01C) \"]\n    COSGN00C[\"User authentication and sign-on screen for credential validation (COSGN00C) \"]\n    COTRN00C[\"Transaction listing module that displays paginated list of transactions with selection capabilities (COTRN00C) \"]\n    COADM01C[\"Administrative menu interface for admin users with access to administrative functions (COADM01C) \"]\n    COTRN01C --> COMEN01C\n    COTRN01C --> COSGN00C\n    COTRN01C --> COTRN00C\n    COMEN01C --> COSGN00C\n    COSGN00C --> COADM01C\n    COSGN00C --> COMEN01C\n    COTRN00C --> COMEN01C\n    COTRN00C --> COSGN00C\n    COTRN00C --> COTRN01C\n    COADM01C --> COSGN00C\n"
+}

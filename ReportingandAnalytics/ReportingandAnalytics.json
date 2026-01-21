@@ -1,0 +1,40 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Reporting and Analytics",
+  "brief_description": "Generates business reports, statements, and analytical outputs for management and customer communication.",
+  "business_purpose": "This function provides comprehensive reporting and analytics capabilities, generating various business reports including customer statements, transaction reports, and analytical outputs. It supports both customer communication needs and management reporting requirements, enabling data-driven decision making and regulatory compliance through systematic report generation and distribution.",
+  "key_capabilities": [
+    "Customer statement generation and formatting",
+    "Transaction report creation and scheduling",
+    "Multi-format report output (print, HTML, PDF)",
+    "Report data extraction and processing",
+    "Business analytics and data analysis"
+  ],
+  "components": [
+    {
+      "name": "CR00",
+      "type": "Transaction",
+      "business_function": "Online report generation and job submission",
+      "entry_point_program": "CORPT00C"
+    },
+    {
+      "name": "CREASTMT",
+      "type": "Batch",
+      "business_function": "Customer statement creation and formatting",
+      "entry_point_program": "CREASTMT"
+    },
+    {
+      "name": "TXT2PDF1",
+      "type": "Batch",
+      "business_function": "Statement format conversion to PDF",
+      "entry_point_program": "TXT2PDF1"
+    },
+    {
+      "name": "PRTCATBL",
+      "type": "Batch",
+      "business_function": "Transaction category balance reporting",
+      "entry_point_program": "PRTCATBL"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "created_on": "2026-01-21",
+  "type": "business_function",
+  "document_name": "Account Management",
+  "brief_description": "Handles customer account operations including account inquiry, updates, and balance management.",
+  "business_purpose": "This function provides comprehensive account management capabilities for credit card accounts, enabling users to view account details, update account information, and manage account balances. It supports both customer service operations and account maintenance activities, ensuring accurate account data and proper account lifecycle management.",
+  "key_capabilities": [
+    "Account inquiry and detailed information viewing",
+    "Account and customer data updates",
+    "Account balance management and tracking",
+    "Customer information maintenance",
+    "Account status monitoring and management"
+  ],
+  "components": [
+    {
+      "name": "CAVW",
+      "type": "Transaction",
+      "business_function": "Account inquiry and balance viewing",
+      "entry_point_program": "COACTVWC"
+    },
+    {
+      "name": "CAUP",
+      "type": "Transaction",
+      "business_function": "Account and customer data updates",
+      "entry_point_program": "COACTUPC"
+    },
+    {
+      "name": "CDRA",
+      "type": "Transaction",
+      "business_function": "Real-time account inquiry via message queue",
+      "entry_point_program": "COACCT01"
+    }
+  ]
+}

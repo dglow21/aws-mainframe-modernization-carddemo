@@ -1,0 +1,153 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "UNLDPADB.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "UNLDPADB.JCL",
+    "summary": {
+        "overview": "This JCL performs a complete data extraction from the Card Demo authorization database, converting hierarchical IMS database records into sequential flat files. The process creates separate output files for authorization summary records and detailed authorization records for backup, reporting, or data migration purposes.",
+        "business_functions": [
+            "Delete existing authorization database output files to ensure clean data extraction",
+            "Extract authorization summary records from IMS database root segments",
+            "Extract authorization detail records from IMS database child segments",
+            "Create sequential flat files containing authorization summary data with 100-byte records",
+            "Create sequential flat files containing authorization detail data with 206-byte records",
+            "Validate account IDs in summary records before processing",
+            "Maintain record counters for processing statistics and reporting",
+            "Generate backup copies of authorization data in sequential format for analysis and integration"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "IMS DB"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "UNLDPADB.JCL": [
+            {
+                "program_name": "PAUDBUNL.CBL",
+                "program_overview": "Extracts pending authorization data from IMS database hierarchical structure into sequential output files",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Pending Authorization Summary Data (PAUTSUM0)",
+            "original_name": "PAUTSUM0",
+            "business_name": "Pending Authorization Summary Data",
+            "type": "IMS_SEGMENT",
+            "function": "Root segment containing pending authorization summary records retrieved for processing and extraction",
+            "used_by_programs": [
+                "PAUDBUNL.CBL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Pending Authorization Detail Data (PAUTDTL1)",
+            "original_name": "PAUTDTL1",
+            "business_name": "Pending Authorization Detail Data",
+            "type": "IMS_SEGMENT",
+            "function": "Child segment containing detailed authorization information associated with each summary record",
+            "used_by_programs": [
+                "PAUDBUNL.CBL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Authorization Summary Extract File (OPFILE1)",
+            "original_name": "OPFILE1",
+            "business_name": "Authorization Summary Extract File",
+            "type": "SEQUENTIAL",
+            "function": "Output file containing extracted pending authorization summary records from IMS database",
+            "used_by_programs": [
+                "PAUDBUNL.CBL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Authorization Detail Extract File (OPFILE2)",
+            "original_name": "OPFILE2",
+            "business_name": "Authorization Detail Extract File",
+            "type": "SEQUENTIAL",
+            "function": "Output file containing extracted pending authorization detail records with associated root segment keys",
+            "used_by_programs": [
+                "PAUDBUNL.CBL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Payment Authorization Root Data Unload File (AWS.M2.CARDDEMO.PAUTDB.ROOT.FILEO)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.ROOT.FILEO",
+            "business_name": "Payment Authorization Root Data Unload File",
+            "type": "SEQUENTIAL",
+            "function": "Fixed-length output file containing unloaded root database records from payment authorization system",
+            "used_by_programs": [
+                "UNLDPADB.JCL"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Payment Authorization Child Data Unload File (AWS.M2.CARDDEMO.PAUTDB.CHILD.FILEO)",
+            "original_name": "AWS.M2.CARDDEMO.PAUTDB.CHILD.FILEO",
+            "business_name": "Payment Authorization Child Data Unload File",
+            "type": "SEQUENTIAL",
+            "function": "Fixed-length output file containing unloaded child database records from payment authorization system",
+            "used_by_programs": [
+                "UNLDPADB.JCL"
+            ],
+            "accessType": [
+                "DELETE",
+                "WRITE"
+            ]
+        },
+        {
+            "name": "Payment Authorization Database (OEM.IMS.IMSP.PAUTHDB)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDB",
+            "business_name": "Payment Authorization Database",
+            "type": "IMS_SEGMENTS",
+            "function": "IMS database containing payment authorization data to be extracted and unloaded for processing",
+            "used_by_programs": [
+                "UNLDPADB.JCL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        },
+        {
+            "name": "Payment Authorization Database Index (OEM.IMS.IMSP.PAUTHDBX)",
+            "original_name": "OEM.IMS.IMSP.PAUTHDBX",
+            "business_name": "Payment Authorization Database Index",
+            "type": "IMS_SEGMENTS",
+            "function": "IMS database index file providing efficient access to payment authorization data records",
+            "used_by_programs": [
+                "UNLDPADB.JCL"
+            ],
+            "accessType": [
+                "SELECT"
+            ]
+        }
+    ],
+    "program_paths": {
+        "UNLDPADB.JCL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDPADB.JCL",
+        "PAUDBUNL.CBL": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBUNL.CBL"
+    },
+    "flow_diagram_code": "flowchart TD\n    PAUDBUNL.CBL[\"Extracts pending authorization data from IMS database hierarchical structure into sequential output files (PAUDBUNL.CBL) \"]\n"
+}

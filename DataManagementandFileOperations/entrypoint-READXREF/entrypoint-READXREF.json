@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "READXREF.jcl Batch Documentation",
+    "type": "entry_point",
+    "document_name": "READXREF.jcl",
+    "summary": {
+        "overview": "This batch job processes card cross-reference data by reading and validating relationships between card accounts and related entities. It generates business reports and analysis output for monitoring card system data integrity and cross-reference consistency.",
+        "business_functions": [
+            "Read card cross-reference data from the card demo system",
+            "Process and validate cross-reference relationships between card accounts",
+            "Generate business reports and analysis output for system monitoring",
+            "Validate data integrity and consistency within card cross-reference structures"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "VSAM"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "VSAM KSDS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "READXREF.jcl": [
+            {
+                "program_name": "CBACT03C",
+                "program_overview": "Processes card cross-reference data validation and reporting",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "Card Demo Program Library (AWS.M2.CARDDEMO.LOADLIB)",
+            "original_name": "AWS.M2.CARDDEMO.LOADLIB",
+            "business_name": "Card Demo Program Library",
+            "type": "PDS",
+            "function": "Program library containing executable programs for the card demonstration system",
+            "used_by_programs": [
+                "READXREF.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Cross-Reference File (AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS)",
+            "original_name": "AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS",
+            "business_name": "Card Cross-Reference File",
+            "type": "VSAM_KSDS",
+            "function": "Card cross-reference file containing card-related reference data for lookup and validation purposes",
+            "used_by_programs": [
+                "READXREF.jcl"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "System Output File (SYSOUT)",
+            "original_name": "SYSOUT",
+            "business_name": "System Output File",
+            "type": "SEQUENTIAL",
+            "function": "System output file for general program messages and processing results",
+            "used_by_programs": [
+                "READXREF.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        },
+        {
+            "name": "System Print File (SYSPRINT)",
+            "original_name": "SYSPRINT",
+            "business_name": "System Print File",
+            "type": "SEQUENTIAL",
+            "function": "System print file for program reports and formatted output for business users",
+            "used_by_programs": [
+                "READXREF.jcl"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "READXREF.jcl": "aws-mainframe-modernization-carddemo-main/app/jcl/READXREF.jcl",
+        "CBACT03C": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT03C.cbl"
+    },
+    "flow_diagram_code": "flowchart TD\n    CBACT03C[\"Processes card cross-reference data validation and reporting (CBACT03C) \"]\n"
+}

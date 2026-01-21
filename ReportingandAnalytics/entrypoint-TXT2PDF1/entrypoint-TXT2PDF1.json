@@ -1,0 +1,95 @@
+{
+    "created_on": "2026-01-21",
+    "document_title": "TXT2PDF1.JCL Batch Documentation",
+    "type": "entry_point",
+    "document_name": "TXT2PDF1.JCL",
+    "summary": {
+        "overview": "This JCL job converts text-based card demo statement files into PDF format for enhanced presentation and distribution. The conversion process transforms traditional statement data into modern PDF documents while maintaining data integrity and enabling improved accessibility for business users.",
+        "business_functions": [
+            "Read card demo statement data from input text file",
+            "Convert text-based statement format to PDF document",
+            "Generate PDF output file for enhanced presentation",
+            "Enable browse functionality for converted PDF verification",
+            "Process statement information for improved document formatting"
+        ],
+        "environment_summary": {
+            "workload_type": "Batch",
+            "database_types": [
+                "N/A"
+            ],
+            "integration_components": [
+                "N/A"
+            ],
+            "dataset_types": [
+                "PS"
+            ]
+        }
+    },
+    "functionality_flow": {
+        "TXT2PDF1.JCL": [
+            {
+                "program_name": "TXT2PDF",
+                "program_overview": "Converts text files to PDF format with browse capability",
+                "called_programs": []
+            }
+        ]
+    },
+    "datasource_summary": [
+        {
+            "name": "TXT2PDF Program Load Library (AWS.M2.LBD.TXT2PDF.LOAD)",
+            "original_name": "AWS.M2.LBD.TXT2PDF.LOAD",
+            "business_name": "TXT2PDF Program Load Library",
+            "type": "PDS",
+            "function": "Contains executable load modules for the TXT2PDF conversion program",
+            "used_by_programs": [
+                "TXT2PDF1.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "TXT2PDF Executable Procedures Library (AWS.M2.LBD.TXT2PDF.EXEC)",
+            "original_name": "AWS.M2.LBD.TXT2PDF.EXEC",
+            "business_name": "TXT2PDF Executable Procedures Library",
+            "type": "PDS",
+            "function": "Contains REXX or CLIST executable procedures used in TXT2PDF processing",
+            "used_by_programs": [
+                "TXT2PDF1.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Statement Input File (AWS.M2.CARDDEMO.STATEMNT.PS)",
+            "original_name": "AWS.M2.CARDDEMO.STATEMNT.PS",
+            "business_name": "Card Demo Statement Input File",
+            "type": "SEQUENTIAL",
+            "function": "Contains card demo statement data in text format that serves as input for PDF conversion",
+            "used_by_programs": [
+                "TXT2PDF1.JCL"
+            ],
+            "accessType": [
+                "READ"
+            ]
+        },
+        {
+            "name": "Card Demo Statement PDF Output File (AWS.M2.CARDDEMO.STATEMNT.PS.PDF)",
+            "original_name": "AWS.M2.CARDDEMO.STATEMNT.PS.PDF",
+            "business_name": "Card Demo Statement PDF Output File",
+            "type": "SEQUENTIAL",
+            "function": "Contains the PDF version of the converted statement data produced by the TXT2PDF process",
+            "used_by_programs": [
+                "TXT2PDF1.JCL"
+            ],
+            "accessType": [
+                "WRITE"
+            ]
+        }
+    ],
+    "program_paths": {
+        "TXT2PDF1.JCL": "aws-mainframe-modernization-carddemo-main/app/jcl/TXT2PDF1.JCL"
+    },
+    "flow_diagram_code": "flowchart TD\n    TXT2PDF[\"Converts text files to PDF format with browse capability (TXT2PDF) \"]\n"
+}
