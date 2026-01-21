@@ -1,241 +1,1834 @@
-{
-  "domains": [
-    {
-      "name": "Transaction Processing and Management",
-      "description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, interest calculation, and reporting.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl|COTRN00C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl|COTRN01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl|COTRN02C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl|CBACT04C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN01C.cbl|CBTRN01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl|CBTRN02C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/POSTTRAN.jcl|POSTTRAN.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANREPT.jcl|TRANREPT.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/INTCALC.jcl|INTCALC.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN00.bms|COTRN00.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN01.bms|COTRN01.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN02.bms|COTRN02.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA01Y.cpy|CVTRA01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA02Y.cpy|CVTRA02Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA03Y.cpy|CVTRA03Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA04Y.cpy|CVTRA04Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy|CVTRA05Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA06Y.cpy|CVTRA06Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy|CVTRA07Y.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Credit Card Management",
-      "description": "Provides comprehensive credit card lifecycle management including card inquiry, selection, updates, and maintenance operations.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl|COCRDLIC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl|COCRDSLC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDUPC.cbl|COCRDUPC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDLI.bms|COCRDLI.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDSL.bms|COCRDSL.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDUP.bms|COCRDUP.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVCRD01Y.cpy|CVCRD01Y.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Account Management",
-      "description": "Handles customer account operations including account inquiry, updates, balance management, and account-card relationship management.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl|COACTVWC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl|COACTUPC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl|COACCT01.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COACTVW.bms|COACTVW.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COACTUP.bms|COACTUP.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy|CVACT01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT02Y.cpy|CVACT02Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy|CVACT03Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVCUS01Y.cpy|CVCUS01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CUSTREC.cpy|CUSTREC.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Authorization Processing",
-      "description": "Manages credit card authorization requests including real-time processing, fraud detection, pending authorization management, and IMS/DB2 integration.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl|COPAUA0C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl|COPAUS0C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS1C.cbl|COPAUS1C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS2C.cbl|COPAUS2C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/CBPAUP0C.cbl|CBPAUP0C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/CBPAUP0J.jcl|CBPAUP0J.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU00.bms|COPAU00.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU01.bms|COPAU01.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAUERY.cpy|CCPAUERY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURLY.cpy|CCPAURLY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURQY.cpy|CCPAURQY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUDTY.cpy|CIPAUDTY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUSMY.cpy|CIPAUSMY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU00.cpy|COPAU00.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU01.cpy|COPAU01.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/IMSFUNCS.cpy|IMSFUNCS.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Customer Service and Payments",
-      "description": "Provides customer-facing services including bill payment processing and account balance management.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl|COBIL00C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COBIL00.bms|COBIL00.bms|BMS"
-      ]
-    },
-    {
-      "name": "User Administration and Security",
-      "description": "Manages user accounts, authentication, role-based access control, and security for the card management system.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl|COSGN00C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl|COUSR00C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR01C.cbl|COUSR01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl|COUSR02C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl|COUSR03C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/ESDSRRDS.jcl|ESDSRRDS.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DUSRSECJ.jcl|DUSRSECJ.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COSGN00.bms|COSGN00.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR00.bms|COUSR00.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR01.bms|COUSR01.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR02.bms|COUSR02.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR03.bms|COUSR03.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUSR01Y.cpy|CSUSR01Y.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Reporting and Analytics",
-      "description": "Generates business reports, customer statements, and analytical outputs in multiple formats for management and customer communication.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CORPT00C.cbl|CORPT00C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl|CBTRN03C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL|CBSTM03A.CBL|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL|CBSTM03B.CBL|COB",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CREASTMT.JCL|CREASTMT.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TXT2PDF1.JCL|TXT2PDF1.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/PRTCATBL.jcl|PRTCATBL.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/bms/CORPT00.bms|CORPT00.bms|BMS"
-      ]
-    },
-    {
-      "name": "System Navigation and Interface",
-      "description": "Provides main menu systems, navigation interfaces, and date/time services for user access to application functions.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl|COMEN01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl|COADM01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/CODATE01.cbl|CODATE01.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COMEN01.bms|COMEN01.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/bms/COADM01.bms|COADM01.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/COADM02Y.cpy|COADM02Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/COCOM01Y.cpy|COCOM01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/COMEN02Y.cpy|COMEN02Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/COTTL01Y.cpy|COTTL01Y.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Data Management and File Operations",
-      "description": "Manages data files, performs data extraction, loading, export/import operations, and maintains data integrity across the system.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl|CBEXPORT.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl|CBIMPORT.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl|CBACT01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT02C.cbl|CBACT02C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT03C.cbl|CBACT03C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CBCUS01C.cbl|CBCUS01C.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBLOD.CBL|PAUDBLOD.CBL|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBUNL.CBL|PAUDBUNL.CBL|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/DBUNLDGS.CBL|DBUNLDGS.CBL|COB",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/READACCT.jcl|READACCT.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/READCARD.jcl|READCARD.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/READCUST.jcl|READCUST.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/READXREF.jcl|READXREF.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CBEXPORT.jcl|CBEXPORT.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CBIMPORT.jcl|CBIMPORT.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/COMBTRAN.jcl|COMBTRAN.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/LOADPADB.JCL|LOADPADB.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDPADB.JCL|UNLDPADB.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDGSAM.JCL|UNLDGSAM.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CVEXPORT.cpy|CVEXPORT.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Reference Data Management",
-      "description": "Maintains master reference data including transaction types, categories, disclosure groups, and lookup tables used throughout the system.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTLIC.cbl|COTRTLIC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTUPC.cbl|COTRTUPC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COBTUPDT.cbl|COBTUPDT.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/TRANEXTR.jcl|TRANEXTR.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DISCGRP.jcl|DISCGRP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TCATBALF.jcl|TCATBALF.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANCATG.jcl|TRANCATG.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANTYPE.jcl|TRANTYPE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTLI.bms|COTRTLI.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTUP.bms|COTRTUP.bms|BMS",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTLI.cpy|COTRTLI.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTUP.cpy|COTRTUP.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSLKPCDY.cpy|CSLKPCDY.cpy|CPY"
-      ]
-    },
-    {
-      "name": "System Administration and Infrastructure",
-      "description": "Provides system administration, database management, file infrastructure, CICS operations, build procedures, and technical support operations.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/CREADB21.jcl|CREADB21.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/MNTTRDB2.jcl|MNTTRDB2.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/DBPAUTP0.jcl|DBPAUTP0.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/ACCTFILE.jcl|ACCTFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CARDFILE.jcl|CARDFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CUSTFILE.jcl|CUSTFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANFILE.jcl|TRANFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/XREFFILE.jcl|XREFFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANIDX.jcl|TRANIDX.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANBKP.jcl|TRANBKP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CBADMCDJ.jcl|CBADMCDJ.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/CLOSEFIL.jcl|CLOSEFIL.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/OPENFIL.jcl|OPENFIL.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGB.jcl|DEFGDGB.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGD.jcl|DEFGDGD.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/REPTFILE.jcl|REPTFILE.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DALYREJS.jcl|DALYREJS.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFCUST.jcl|DEFCUST.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/WAITSTEP.jcl|WAITSTEP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/FTPJCL.JCL|FTPJCL.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ1.JCL|INTRDRJ1.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ2.JCL|INTRDRJ2.JCL|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/BATCMP.jcl|BATCMP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/BMSCMP.jcl|BMSCMP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/CICCMP.jcl|CICCMP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/CICDBCMP.jcl|CICDBCMP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/IMSMQCMP.jcl|IMSMQCMP.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/LISTCAT.jcl|LISTCAT.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/RACFCMDS.jcl|RACFCMDS.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/REPRTEST.jcl|REPRTEST.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/jcl/SORTTEST.jcl|SORTTEST.jcl|JCL",
-        "aws-mainframe-modernization-carddemo-main/samples/proc/BLDCIDB2.prc|BLDCIDB2.prc|PROC",
-        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBAT.prc|BUILDBAT.prc|PROC",
-        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBMS.prc|BUILDBMS.prc|PROC",
-        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDONL.prc|BUILDONL.prc|PROC",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RPY.cpy|CSDB2RPY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RWY.cpy|CSDB2RWY.cpy|CPY"
-      ]
-    },
-    {
-      "name": "Shared Services",
-      "description": "Provides common utility functions, date handling, DB2 communication wrappers, messaging, and reusable components used across multiple business domains.",
-      "files": [
-        "aws-mainframe-modernization-carddemo-main/app/cbl/CSUTLDTC.cbl|CSUTLDTC.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cbl/COBSWAIT.cbl|COBSWAIT.cbl|COB",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSDAT01Y.cpy|CSDAT01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDPY.cpy|CSUTLDPY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDWY.cpy|CSUTLDWY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CODATECN.cpy|CODATECN.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG01Y.cpy|CSMSG01Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG02Y.cpy|CSMSG02Y.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSSETATY.cpy|CSSETATY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/CSSTRPFY.cpy|CSSTRPFY.cpy|CPY",
-        "aws-mainframe-modernization-carddemo-main/app/cpy/UNUSED1Y.cpy|UNUSED1Y.cpy|CPY"
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "Transaction Processing and Management",
+    "description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, interest calculation, and reporting.",
+    "commonDomain": false,
+    "numberOfSeeds": 5,
+    "numberOfFiles": 47,
+    "totalLines": 5859,
+    "configThreshold": 50,
+    "filePercentage": 7,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl|COTRN00C.cbl|COB",
+        "name": "COTRN00C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 88,
+        "totalLinesOfCode": 700,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl|COTRN01C.cbl|COB",
+        "name": "COTRN01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 25,
+        "totalLinesOfCode": 331,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl|COTRN02C.cbl|COB",
+        "name": "COTRN02C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 87,
+        "totalLinesOfCode": 784,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl|CBACT04C.cbl|COB",
+        "name": "CBACT04C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 78,
+        "totalLinesOfCode": 653,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN01C.cbl|CBTRN01C.cbl|COB",
+        "name": "CBTRN01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 64,
+        "totalLinesOfCode": 495,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl|CBTRN02C.cbl|COB",
+        "name": "CBTRN02C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 89,
+        "totalLinesOfCode": 732,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/POSTTRAN.jcl|POSTTRAN.jcl|JCL",
+        "name": "POSTTRAN.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 46,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANREPT.jcl|TRANREPT.jcl|JCL",
+        "name": "TRANREPT.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 85,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/INTCALC.jcl|INTCALC.jcl|JCL",
+        "name": "INTCALC.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 45,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COTRN00.bms|COTRN00.bms|BMS",
+        "name": "COTRN00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 465,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COTRN01.bms|COTRN01.bms|BMS",
+        "name": "COTRN01.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 274,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COTRN02.bms|COTRN02.bms|BMS",
+        "name": "COTRN02.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 308,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA01Y.cpy|CVTRA01Y.cpy|CPY",
+        "name": "CVTRA01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 14,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA02Y.cpy|CVTRA02Y.cpy|CPY",
+        "name": "CVTRA02Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 14,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA03Y.cpy|CVTRA03Y.cpy|CPY",
+        "name": "CVTRA03Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 11,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA04Y.cpy|CVTRA04Y.cpy|CPY",
+        "name": "CVTRA04Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 13,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy|CVTRA05Y.cpy|CPY",
+        "name": "CVTRA05Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 22,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA06Y.cpy|CVTRA06Y.cpy|CPY",
+        "name": "CVTRA06Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 22,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy|CVTRA07Y.cpy|CPY",
+        "name": "CVTRA07Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 74,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COTRN00.CPY|COTRN00.CPY|CPY",
+        "name": "COTRN00.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 729,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COTRN01.CPY|COTRN01.CPY|CPY",
+        "name": "COTRN01.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 273,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COTRN02.CPY|COTRN02.CPY|CPY",
+        "name": "COTRN02.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 273,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CT00|CT00|TRANSACTION",
+        "name": "CT00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CT01|CT01|TRANSACTION",
+        "name": "CT01",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CT02|CT02|TRANSACTION",
+        "name": "CT02",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Credit Card Management",
+    "description": "Provides comprehensive credit card lifecycle management including card inquiry, selection, updates, and maintenance operations.",
+    "commonDomain": false,
+    "numberOfSeeds": 3,
+    "numberOfFiles": 15,
+    "totalLines": 5572,
+    "configThreshold": 50,
+    "filePercentage": 2,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl|COCRDLIC.cbl|COB",
+        "name": "COCRDLIC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 136,
+        "totalLinesOfCode": 1460,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl|COCRDSLC.cbl|COB",
+        "name": "COCRDSLC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 80,
+        "totalLinesOfCode": 888,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDUPC.cbl|COCRDUPC.cbl|COB",
+        "name": "COCRDUPC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 170,
+        "totalLinesOfCode": 1561,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COCRDLI.bms|COCRDLI.bms|BMS",
+        "name": "COCRDLI.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 345,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COCRDSL.bms|COCRDSL.bms|BMS",
+        "name": "COCRDSL.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 158,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COCRDUP.bms|COCRDUP.bms|BMS",
+        "name": "COCRDUP.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 173,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVCRD01Y.cpy|CVCRD01Y.cpy|CPY",
+        "name": "CVCRD01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 47,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COCRDLI.CPY|COCRDLI.CPY|CPY",
+        "name": "COCRDLI.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 561,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COCRDSL.CPY|COCRDSL.CPY|CPY",
+        "name": "COCRDSL.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 201,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COCRDUP.CPY|COCRDUP.CPY|CPY",
+        "name": "COCRDUP.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 225,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CCDL|CCDL|TRANSACTION",
+        "name": "CCDL",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CCLI|CCLI|TRANSACTION",
+        "name": "CCLI",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CCUP|CCUP|TRANSACTION",
+        "name": "CCUP",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:CICS_FILE:CARDDAT|CARDDAT|CICS_FILE",
+        "name": "CARDDAT",
+        "fileType": "CICS_FILE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:CICS_FILE:CARDAIX|CARDAIX|CICS_FILE",
+        "name": "CARDAIX",
+        "fileType": "CICS_FILE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Account Management",
+    "description": "Handles customer account operations including account inquiry, updates, balance management, and account-card relationship management.",
+    "commonDomain": false,
+    "numberOfSeeds": 3,
+    "numberOfFiles": 13,
+    "totalLines": 9642,
+    "configThreshold": 50,
+    "filePercentage": 2,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl|COACTVWC.cbl|COB",
+        "name": "COACTVWC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 75,
+        "totalLinesOfCode": 942,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl|COACTUPC.cbl|COB",
+        "name": "COACTUPC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 373,
+        "totalLinesOfCode": 4237,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl|COACCT01.cbl|COB",
+        "name": "COACCT01.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 32,
+        "totalLinesOfCode": 621,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COACTVW.bms|COACTVW.bms|BMS",
+        "name": "COACTVW.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 379,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COACTUP.bms|COACTUP.bms|BMS",
+        "name": "COACTUP.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 513,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy|CVACT01Y.cpy|CPY",
+        "name": "CVACT01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 21,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT02Y.cpy|CVACT02Y.cpy|CPY",
+        "name": "CVACT02Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 15,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy|CVACT03Y.cpy|CPY",
+        "name": "CVACT03Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 12,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVCUS01Y.cpy|CVCUS01Y.cpy|CPY",
+        "name": "CVCUS01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 27,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COACTVW.CPY|COACTVW.CPY|CPY",
+        "name": "COACTVW.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 465,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COACTUP.CPY|COACTUP.CPY|CPY",
+        "name": "COACTUP.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 669,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CAUP|CAUP|TRANSACTION",
+        "name": "CAUP",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CAVW|CAVW|TRANSACTION",
+        "name": "CAVW",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Authorization Processing",
+    "description": "Manages credit card authorization requests including real-time processing, fraud detection, pending authorization management, and IMS/DB2 integration.",
+    "commonDomain": false,
+    "numberOfSeeds": 2,
+    "numberOfFiles": 22,
+    "totalLines": 5500,
+    "configThreshold": 50,
+    "filePercentage": 3,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl|COPAUA0C.cbl|COB",
+        "name": "COPAUA0C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 86,
+        "totalLinesOfCode": 1027,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl|COPAUS0C.cbl|COB",
+        "name": "COPAUS0C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 82,
+        "totalLinesOfCode": 1033,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS1C.cbl|COPAUS1C.cbl|COB",
+        "name": "COPAUS1C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 47,
+        "totalLinesOfCode": 605,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS2C.cbl|COPAUS2C.cbl|COB",
+        "name": "COPAUS2C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 5,
+        "totalLinesOfCode": 245,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/CBPAUP0C.cbl|CBPAUP0C.cbl|COB",
+        "name": "CBPAUP0C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 42,
+        "totalLinesOfCode": 387,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/CBPAUP0J.jcl|CBPAUP0J.jcl|JCL",
+        "name": "CBPAUP0J.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 47,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU00.bms|COPAU00.bms|BMS",
+        "name": "COPAU00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 516,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU01.bms|COPAU01.bms|BMS",
+        "name": "COPAU01.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 295,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAUERY.cpy|CCPAUERY.cpy|CPY",
+        "name": "CCPAUERY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 41,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURLY.cpy|CCPAURLY.cpy|CPY",
+        "name": "CCPAURLY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 25,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURQY.cpy|CCPAURQY.cpy|CPY",
+        "name": "CCPAURQY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 37,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUDTY.cpy|CIPAUDTY.cpy|CPY",
+        "name": "CIPAUDTY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 55,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUSMY.cpy|CIPAUSMY.cpy|CPY",
+        "name": "CIPAUSMY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 32,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU00.cpy|COPAU00.cpy|CPY",
+        "name": "COPAU00.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 765,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU01.cpy|COPAU01.cpy|CPY",
+        "name": "COPAU01.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 345,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/IMSFUNCS.cpy|IMSFUNCS.cpy|CPY",
+        "name": "IMSFUNCS.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 27,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CP00|CP00|TRANSACTION",
+        "name": "CP00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CPVS|CPVS|TRANSACTION",
+        "name": "CPVS",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CPVD|CPVD|TRANSACTION",
+        "name": "CPVD",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TABLE:CARDDEMO.AUTHFRDS|CARDDEMO.AUTHFRDS|[SQL]TABLE",
+        "name": "CARDDEMO.AUTHFRDS",
+        "fileType": "[SQL]TABLE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/dcl/AUTHFRDS.dcl|AUTHFRDS.dcl|DCL",
+        "name": "AUTHFRDS.dcl",
+        "fileType": "DCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 89,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/ddl/AUTHFRDS.ddl|AUTHFRDS.ddl|DDL",
+        "name": "AUTHFRDS.ddl",
+        "fileType": "DDL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 28,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Customer Service and Payments",
+    "description": "Provides customer-facing services including bill payment processing and account balance management.",
+    "commonDomain": false,
+    "numberOfSeeds": 1,
+    "numberOfFiles": 4,
+    "totalLines": 856,
+    "configThreshold": 50,
+    "filePercentage": 0,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl|COBIL00C.cbl|COB",
+        "name": "COBIL00C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 50,
+        "totalLinesOfCode": 573,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COBIL00.bms|COBIL00.bms|BMS",
+        "name": "COBIL00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 142,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COBIL00.CPY|COBIL00.CPY|CPY",
+        "name": "COBIL00.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 141,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CB00|CB00|TRANSACTION",
+        "name": "CB00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "User Administration and Security",
+    "description": "Manages user accounts, authentication, role-based access control, and security for the card management system.",
+    "commonDomain": false,
+    "numberOfSeeds": 5,
+    "numberOfFiles": 18,
+    "totalLines": 4200,
+    "configThreshold": 50,
+    "filePercentage": 2,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl|COSGN00C.cbl|COB",
+        "name": "COSGN00C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 16,
+        "totalLinesOfCode": 261,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl|COUSR00C.cbl|COB",
+        "name": "COUSR00C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 89,
+        "totalLinesOfCode": 696,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR01C.cbl|COUSR01C.cbl|COB",
+        "name": "COUSR01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 26,
+        "totalLinesOfCode": 300,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl|COUSR02C.cbl|COB",
+        "name": "COUSR02C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 41,
+        "totalLinesOfCode": 415,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl|COUSR03C.cbl|COB",
+        "name": "COUSR03C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 32,
+        "totalLinesOfCode": 360,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/ESDSRRDS.jcl|ESDSRRDS.jcl|JCL",
+        "name": "ESDSRRDS.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 125,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DUSRSECJ.jcl|DUSRSECJ.jcl|JCL",
+        "name": "DUSRSECJ.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 93,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COSGN00.bms|COSGN00.bms|BMS",
+        "name": "COSGN00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 211,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COUSR00.bms|COUSR00.bms|BMS",
+        "name": "COUSR00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 464,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COUSR01.bms|COUSR01.bms|BMS",
+        "name": "COUSR01.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 165,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COUSR02.bms|COUSR02.bms|BMS",
+        "name": "COUSR02.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 170,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COUSR03.bms|COUSR03.bms|BMS",
+        "name": "COUSR03.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 154,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSUSR01Y.cpy|CSUSR01Y.cpy|CPY",
+        "name": "CSUSR01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 27,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CU00|CU00|TRANSACTION",
+        "name": "CU00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CU01|CU01|TRANSACTION",
+        "name": "CU01",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CU02|CU02|TRANSACTION",
+        "name": "CU02",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CU03|CU03|TRANSACTION",
+        "name": "CU03",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:CICS_FILE:USRSEC|USRSEC|CICS_FILE",
+        "name": "USRSEC",
+        "fileType": "CICS_FILE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Reporting and Analytics",
+    "description": "Generates business reports, customer statements, and analytical outputs in multiple formats for management and customer communication.",
+    "commonDomain": false,
+    "numberOfSeeds": 4,
+    "numberOfFiles": 12,
+    "totalLines": 2536,
+    "configThreshold": 50,
+    "filePercentage": 3,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CORPT00C.cbl|CORPT00C.cbl|COB",
+        "name": "CORPT00C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 45,
+        "totalLinesOfCode": 650,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl|CBTRN03C.cbl|COB",
+        "name": "CBTRN03C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 83,
+        "totalLinesOfCode": 650,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL|CBSTM03A.CBL|COB",
+        "name": "CBSTM03A.CBL",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 60,
+        "totalLinesOfCode": 925,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL|CBSTM03B.CBL|COB",
+        "name": "CBSTM03B.CBL",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 30,
+        "totalLinesOfCode": 231,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CREASTMT.JCL|CREASTMT.JCL|JCL",
+        "name": "CREASTMT.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 3,
+        "totalLinesOfCode": 98,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TXT2PDF1.JCL|TXT2PDF1.JCL|JCL",
+        "name": "TXT2PDF1.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 42,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/PRTCATBL.jcl|PRTCATBL.jcl|JCL",
+        "name": "PRTCATBL.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 67,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/CORPT00.bms|CORPT00.bms|BMS",
+        "name": "CORPT00.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 232,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/CORPT00.CPY|CORPT00.CPY|CPY",
+        "name": "CORPT00.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 225,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CUSTREC.cpy|CUSTREC.cpy|CPY",
+        "name": "CUSTREC.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 27,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/COSTM01.CPY|COSTM01.CPY|CPY",
+        "name": "COSTM01.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 39,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CR00|CR00|TRANSACTION",
+        "name": "CR00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "System Navigation and Interface",
+    "description": "Provides main menu systems, navigation interfaces, and date/time services for user access to application functions.",
+    "commonDomain": false,
+    "numberOfSeeds": 3,
+    "numberOfFiles": 11,
+    "totalLines": 2146,
+    "configThreshold": 50,
+    "filePercentage": 1,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl|COMEN01C.cbl|COB",
+        "name": "COMEN01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 32,
+        "totalLinesOfCode": 309,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl|COADM01C.cbl|COB",
+        "name": "COADM01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 28,
+        "totalLinesOfCode": 289,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/CODATE01.cbl|CODATE01.cbl|COB",
+        "name": "CODATE01.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 29,
+        "totalLinesOfCode": 525,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COMEN01.bms|COMEN01.bms|BMS",
+        "name": "COMEN01.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 168,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/bms/COADM01.bms|COADM01.bms|BMS",
+        "name": "COADM01.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 168,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/COADM02Y.cpy|COADM02Y.cpy|CPY",
+        "name": "COADM02Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 63,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/COMEN02Y.cpy|COMEN02Y.cpy|CPY",
+        "name": "COMEN02Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 102,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COADM01.CPY|COADM01.CPY|CPY",
+        "name": "COADM01.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 261,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COMEN01.CPY|COMEN01.CPY|CPY",
+        "name": "COMEN01.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 261,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CA00|CA00|TRANSACTION",
+        "name": "CA00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CM00|CM00|TRANSACTION",
+        "name": "CM00",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Data Management and File Operations",
+    "description": "Manages data files, performs data extraction, loading, export/import operations, and maintains data integrity across the system.",
+    "commonDomain": false,
+    "numberOfSeeds": 5,
+    "numberOfFiles": 30,
+    "totalLines": 2800,
+    "configThreshold": 50,
+    "filePercentage": 4,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl|CBEXPORT.cbl|COB",
+        "name": "CBEXPORT.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 42,
+        "totalLinesOfCode": 583,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl|CBIMPORT.cbl|COB",
+        "name": "CBIMPORT.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 37,
+        "totalLinesOfCode": 488,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl|CBACT01C.cbl|COB",
+        "name": "CBACT01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 45,
+        "totalLinesOfCode": 431,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT02C.cbl|CBACT02C.cbl|COB",
+        "name": "CBACT02C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 20,
+        "totalLinesOfCode": 179,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT03C.cbl|CBACT03C.cbl|COB",
+        "name": "CBACT03C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 20,
+        "totalLinesOfCode": 179,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CBCUS01C.cbl|CBCUS01C.cbl|COB",
+        "name": "CBCUS01C.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 20,
+        "totalLinesOfCode": 179,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBLOD.CBL|PAUDBLOD.CBL|COB",
+        "name": "PAUDBLOD.CBL",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 35,
+        "totalLinesOfCode": 370,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBUNL.CBL|PAUDBUNL.CBL|COB",
+        "name": "PAUDBUNL.CBL",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 22,
+        "totalLinesOfCode": 318,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/DBUNLDGS.CBL|DBUNLDGS.CBL|COB",
+        "name": "DBUNLDGS.CBL",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 25,
+        "totalLinesOfCode": 367,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/READACCT.jcl|READACCT.jcl|JCL",
+        "name": "READACCT.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 51,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/READCARD.jcl|READCARD.jcl|JCL",
+        "name": "READCARD.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 32,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/READCUST.jcl|READCUST.jcl|JCL",
+        "name": "READCUST.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 31,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/READXREF.jcl|READXREF.jcl|JCL",
+        "name": "READXREF.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 32,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CBEXPORT.jcl|CBEXPORT.jcl|JCL",
+        "name": "CBEXPORT.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 73,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CBIMPORT.jcl|CBIMPORT.jcl|JCL",
+        "name": "CBIMPORT.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 69,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/COMBTRAN.jcl|COMBTRAN.jcl|JCL",
+        "name": "COMBTRAN.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 53,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/LOADPADB.JCL|LOADPADB.JCL|JCL",
+        "name": "LOADPADB.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 52,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDPADB.JCL|UNLDPADB.JCL|JCL",
+        "name": "UNLDPADB.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 70,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDGSAM.JCL|UNLDGSAM.JCL|JCL",
+        "name": "UNLDGSAM.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 54,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CVEXPORT.cpy|CVEXPORT.cpy|CPY",
+        "name": "CVEXPORT.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 104,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CODATECN.cpy|CODATECN.cpy|CPY",
+        "name": "CODATECN.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 53,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Reference Data Management",
+    "description": "Maintains master reference data including transaction types, categories, disclosure groups, and lookup tables used throughout the system.",
+    "commonDomain": false,
+    "numberOfSeeds": 3,
+    "numberOfFiles": 18,
+    "totalLines": 3500,
+    "configThreshold": 50,
+    "filePercentage": 1,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTLIC.cbl|COTRTLIC.cbl|COB",
+        "name": "COTRTLIC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 221,
+        "totalLinesOfCode": 2099,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTUPC.cbl|COTRTUPC.cbl|COB",
+        "name": "COTRTUPC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 208,
+        "totalLinesOfCode": 1703,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COBTUPDT.cbl|COBTUPDT.cbl|COB",
+        "name": "COBTUPDT.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 25,
+        "totalLinesOfCode": 238,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/TRANEXTR.jcl|TRANEXTR.jcl|JCL",
+        "name": "TRANEXTR.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 4,
+        "totalLinesOfCode": 123,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DISCGRP.jcl|DISCGRP.jcl|JCL",
+        "name": "DISCGRP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 66,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TCATBALF.jcl|TCATBALF.jcl|JCL",
+        "name": "TCATBALF.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 66,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANCATG.jcl|TRANCATG.jcl|JCL",
+        "name": "TRANCATG.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 66,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANTYPE.jcl|TRANTYPE.jcl|JCL",
+        "name": "TRANTYPE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 66,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTLI.bms|COTRTLI.bms|BMS",
+        "name": "COTRTLI.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 339,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTUP.bms|COTRTUP.bms|BMS",
+        "name": "COTRTUP.bms",
+        "fileType": "BMS",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 138,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTLI.cpy|COTRTLI.cpy|CPY",
+        "name": "COTRTLI.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 501,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTUP.cpy|COTRTUP.cpy|CPY",
+        "name": "COTRTUP.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 201,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSLKPCDY.cpy|CSLKPCDY.cpy|CPY",
+        "name": "CSLKPCDY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 1319,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CTLI|CTLI|TRANSACTION",
+        "name": "CTLI",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TRANSACTION:CTTU|CTTU|TRANSACTION",
+        "name": "CTTU",
+        "fileType": "TRANSACTION",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TABLE:CARDDEMO.TRANSACTION_TYPE|CARDDEMO.TRANSACTION_TYPE|[SQL]TABLE",
+        "name": "CARDDEMO.TRANSACTION_TYPE",
+        "fileType": "[SQL]TABLE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:TABLE:CARDDEMO.TRANSACTION_TYPE_CATEGORY|CARDDEMO.TRANSACTION_TYPE_CATEGORY|[SQL]TABLE",
+        "name": "CARDDEMO.TRANSACTION_TYPE_CATEGORY",
+        "fileType": "[SQL]TABLE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "Global:DATASET:AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS|AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS|VSAM KSDS DATASET",
+        "name": "AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS",
+        "fileType": "VSAM KSDS DATASET",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "System Administration and Infrastructure",
+    "description": "Provides system administration, database management, file infrastructure, CICS operations, build procedures, and technical support operations.",
+    "commonDomain": false,
+    "numberOfSeeds": 5,
+    "numberOfFiles": 40,
+    "totalLines": 2500,
+    "configThreshold": 50,
+    "filePercentage": 4,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/CREADB21.jcl|CREADB21.jcl|JCL",
+        "name": "CREADB21.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 2,
+        "totalLinesOfCode": 85,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/MNTTRDB2.jcl|MNTTRDB2.jcl|JCL",
+        "name": "MNTTRDB2.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 30,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/DBPAUTP0.jcl|DBPAUTP0.jcl|JCL",
+        "name": "DBPAUTP0.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 48,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/ACCTFILE.jcl|ACCTFILE.jcl|JCL",
+        "name": "ACCTFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 66,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CARDFILE.jcl|CARDFILE.jcl|JCL",
+        "name": "CARDFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 2,
+        "totalLinesOfCode": 129,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CUSTFILE.jcl|CUSTFILE.jcl|JCL",
+        "name": "CUSTFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 85,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANFILE.jcl|TRANFILE.jcl|JCL",
+        "name": "TRANFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 2,
+        "totalLinesOfCode": 126,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/XREFFILE.jcl|XREFFILE.jcl|JCL",
+        "name": "XREFFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 2,
+        "totalLinesOfCode": 107,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANIDX.jcl|TRANIDX.jcl|JCL",
+        "name": "TRANIDX.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 59,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/TRANBKP.jcl|TRANBKP.jcl|JCL",
+        "name": "TRANBKP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 3,
+        "totalLinesOfCode": 72,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CBADMCDJ.jcl|CBADMCDJ.jcl|JCL",
+        "name": "CBADMCDJ.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 168,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/CLOSEFIL.jcl|CLOSEFIL.jcl|JCL",
+        "name": "CLOSEFIL.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 35,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/OPENFIL.jcl|OPENFIL.jcl|JCL",
+        "name": "OPENFIL.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 35,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGB.jcl|DEFGDGB.jcl|JCL",
+        "name": "DEFGDGB.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 6,
+        "totalLinesOfCode": 64,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGD.jcl|DEFGDGD.jcl|JCL",
+        "name": "DEFGDGD.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 4,
+        "totalLinesOfCode": 95,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/REPTFILE.jcl|REPTFILE.jcl|JCL",
+        "name": "REPTFILE.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 33,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DALYREJS.jcl|DALYREJS.jcl|JCL",
+        "name": "DALYREJS.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 33,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/DEFCUST.jcl|DEFCUST.jcl|JCL",
+        "name": "DEFCUST.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 48,
+        "seeds": true
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/WAITSTEP.jcl|WAITSTEP.jcl|JCL",
+        "name": "WAITSTEP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 28,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/FTPJCL.JCL|FTPJCL.JCL|JCL",
+        "name": "FTPJCL.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 43,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ1.JCL|INTRDRJ1.JCL|JCL",
+        "name": "INTRDRJ1.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 20,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ2.JCL|INTRDRJ2.JCL|JCL",
+        "name": "INTRDRJ2.JCL",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 15,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/BATCMP.jcl|BATCMP.jcl|JCL",
+        "name": "BATCMP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 43,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/BMSCMP.jcl|BMSCMP.jcl|JCL",
+        "name": "BMSCMP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 48,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/CICCMP.jcl|CICCMP.jcl|JCL",
+        "name": "CICCMP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 51,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/CICDBCMP.jcl|CICDBCMP.jcl|JCL",
+        "name": "CICDBCMP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 57,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/IMSMQCMP.jcl|IMSMQCMP.jcl|JCL",
+        "name": "IMSMQCMP.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 5,
+        "totalLinesOfCode": 114,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/LISTCAT.jcl|LISTCAT.jcl|JCL",
+        "name": "LISTCAT.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 40,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/RACFCMDS.jcl|RACFCMDS.jcl|JCL",
+        "name": "RACFCMDS.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 35,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/REPRTEST.jcl|REPRTEST.jcl|JCL",
+        "name": "REPRTEST.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 37,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/jcl/SORTTEST.jcl|SORTTEST.jcl|JCL",
+        "name": "SORTTEST.jcl",
+        "fileType": "JCL",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 39,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/proc/BLDCIDB2.prc|BLDCIDB2.prc|PROC",
+        "name": "BLDCIDB2.prc",
+        "fileType": "PRC",
+        "cyclomaticComplexity": 6,
+        "totalLinesOfCode": 177,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBAT.prc|BUILDBAT.prc|PROC",
+        "name": "BUILDBAT.prc",
+        "fileType": "PRC",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 83,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBMS.prc|BUILDBMS.prc|PROC",
+        "name": "BUILDBMS.prc",
+        "fileType": "PRC",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 105,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDONL.prc|BUILDONL.prc|PROC",
+        "name": "BUILDONL.prc",
+        "fileType": "PRC",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 109,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RPY.cpy|CSDB2RPY.cpy|CPY",
+        "name": "CSDB2RPY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 6,
+        "totalLinesOfCode": 90,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RWY.cpy|CSDB2RWY.cpy|CPY",
+        "name": "CSDB2RWY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 47,
+        "seeds": false
+      },
+      {
+        "id": "Global:DATABASE:CARDDEMO|CARDDEMO|[SQL]DATABASE",
+        "name": "CARDDEMO",
+        "fileType": "[SQL]DATABASE",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 0,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/csd/CARDDEMO.CSD|CARDDEMO.CSD|CSDCOMMAND",
+        "name": "CARDDEMO.CSD",
+        "fileType": "CSDCOMMAND",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 505,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/proc/REPROC.prc|REPROC.prc|PROC",
+        "name": "REPROC.prc",
+        "fileType": "PRC",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 32,
+        "seeds": false
+      }
+    ]
+  },
+  {
+    "name": "Shared Services",
+    "description": "Provides common utility functions, date handling, DB2 communication wrappers, messaging, and reusable components used across multiple business domains.",
+    "commonDomain": true,
+    "numberOfSeeds": 0,
+    "numberOfFiles": 12,
+    "totalLines": 800,
+    "configThreshold": 20,
+    "filePercentage": 1,
+    "files": [
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/CSUTLDTC.cbl|CSUTLDTC.cbl|COB",
+        "name": "CSUTLDTC.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 12,
+        "totalLinesOfCode": 158,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cbl/COBSWAIT.cbl|COBSWAIT.cbl|COB",
+        "name": "COBSWAIT.cbl",
+        "fileType": "CBL",
+        "cyclomaticComplexity": 1,
+        "totalLinesOfCode": 42,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSDAT01Y.cpy|CSDAT01Y.cpy|CPY",
+        "name": "CSDAT01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 59,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDPY.cpy|CSUTLDPY.cpy|CPY",
+        "name": "CSUTLDPY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 46,
+        "totalLinesOfCode": 376,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDWY.cpy|CSUTLDWY.cpy|CPY",
+        "name": "CSUTLDWY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 90,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG01Y.cpy|CSMSG01Y.cpy|CPY",
+        "name": "CSMSG01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 25,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG02Y.cpy|CSMSG02Y.cpy|CPY",
+        "name": "CSMSG02Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 36,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSSETATY.cpy|CSSETATY.cpy|CPY",
+        "name": "CSSETATY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 2,
+        "totalLinesOfCode": 31,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/CSSTRPFY.cpy|CSSTRPFY.cpy|CPY",
+        "name": "CSSTRPFY.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 30,
+        "totalLinesOfCode": 86,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/COCOM01Y.cpy|COCOM01Y.cpy|CPY",
+        "name": "COCOM01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 48,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy/COTTL01Y.cpy|COTTL01Y.cpy|CPY",
+        "name": "COTTL01Y.cpy",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 28,
+        "seeds": false
+      },
+      {
+        "id": "aws-mainframe-modernization-carddemo-main/app/cpy-bms/COSGN00.CPY|COSGN00.CPY|CPY",
+        "name": "COSGN00.CPY",
+        "fileType": "CPY",
+        "cyclomaticComplexity": 0,
+        "totalLinesOfCode": 153,
+        "seeds": false
+      }
+    ]
+  }
+]
