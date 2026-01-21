@@ -1,0 +1,8 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+UNUSED1Y,UNUSED-DATA,RECORD,N/A,GROUP,1,80,Group item containing unused data fields for user or account information,UNUSED-DATA,N/A,0,0,NO,DISPLAY,,,,,UNUSED-DATA,1,NO,,NO,,,
+UNUSED1Y,UNUSED-ID,FIELD,X(08),ALPHANUMERIC,5,8,Unique identifier field (PIC X(08)),UNUSED-DATA,X(8),8,0,NO,DISPLAY,,,,,UNUSED-DATA,1,NO,,NO,,,
+UNUSED1Y,UNUSED-FNAME,FIELD,X(20),ALPHANUMERIC,5,20,First name field (PIC X(20)),UNUSED-DATA,X(20),20,0,NO,DISPLAY,,,,,UNUSED-DATA,9,NO,,NO,,,
+UNUSED1Y,UNUSED-LNAME,FIELD,X(20),ALPHANUMERIC,5,20,Last name field (PIC X(20)),UNUSED-DATA,X(20),20,0,NO,DISPLAY,,,,,UNUSED-DATA,29,NO,,NO,,,
+UNUSED1Y,UNUSED-PWD,FIELD,X(08),ALPHANUMERIC,5,8,Password field (PIC X(08)),UNUSED-DATA,X(8),8,0,NO,DISPLAY,,,,,UNUSED-DATA,49,NO,,NO,,,
+UNUSED1Y,UNUSED-TYPE,FIELD,X(01),ALPHANUMERIC,5,1,Type or category indicator field (PIC X(01)),UNUSED-DATA,X,1,0,NO,DISPLAY,,,,,UNUSED-DATA,57,NO,,NO,,,
+UNUSED1Y,UNUSED-FILLER,FIELD,X(23),ALPHANUMERIC,5,23,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",UNUSED-DATA,X(23),23,0,NO,DISPLAY,,,,,UNUSED-DATA,58,NO,,NO,,,

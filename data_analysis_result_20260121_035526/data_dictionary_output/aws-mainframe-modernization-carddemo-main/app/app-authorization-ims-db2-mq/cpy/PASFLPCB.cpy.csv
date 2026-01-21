@@ -1,0 +1,11 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+PASFLPCB,PASFLPCB,RECORD,N/A,GROUP,1,136,"Program Communication Block (PCB) for PASFL database access, containing database control information and status fields",PASFLPCB,N/A,0,0,NO,DISPLAY,,,,,PASFLPCB,1,NO,,NO,,,
+PASFLPCB,PASFL-DBDNAME,FIELD,X(08),ALPHANUMERIC,5,8,Database descriptor name identifying the PASFL database being accessed,PASFLPCB,X(8),8,0,NO,DISPLAY,,,,,PASFLPCB,1,NO,,NO,,,
+PASFLPCB,PASFL-SEG-LEVEL,FIELD,X(02),ALPHANUMERIC,5,2,Segment level indicator showing the hierarchical level of the current segment in the database,PASFLPCB,X(2),2,0,NO,DISPLAY,,,,,PASFLPCB,9,NO,,NO,,,
+PASFLPCB,PASFL-PCB-STATUS,FIELD,X(02),ALPHANUMERIC,5,2,PCB status code indicating the result of the last database operation,PASFLPCB,X(2),2,0,NO,DISPLAY,,,,,PASFLPCB,11,NO,,NO,,,
+PASFLPCB,PASFL-PCB-PROCOPT,FIELD,X(04),ALPHANUMERIC,5,4,"Processing options defining the allowed operations (Get, Insert, Replace, Delete) for this PCB",PASFLPCB,X(4),4,0,NO,DISPLAY,,,,,PASFLPCB,13,NO,,NO,,,
+PASFLPCB,FILLER-1,FIELD,S9(05) COMP,BINARY,5,4,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",PASFLPCB,'+/-99999,6,0,YES,COMP,,,,,PASFLPCB,17,NO,,NO,,,
+PASFLPCB,PASFL-SEG-NAME,FIELD,X(08),ALPHANUMERIC,5,8,Name of the database segment currently being processed,PASFLPCB,X(8),8,0,NO,DISPLAY,,,,,PASFLPCB,21,NO,,NO,,,
+PASFLPCB,PASFL-KEYFB-NAME,FIELD,S9(05) COMP,BINARY,5,4,Key feedback name length indicator (USAGE COMP),PASFLPCB,'+/-99999,6,0,YES,COMP,,,,,PASFLPCB,29,NO,,NO,,,
+PASFLPCB,PASFL-NUM-SENSEGS,FIELD,S9(05) COMP,BINARY,5,4,Number of sensitive segments defined for this PCB (USAGE COMP),PASFLPCB,'+/-99999,6,0,YES,COMP,,,,,PASFLPCB,33,NO,,NO,,,
+PASFLPCB,PASFL-KEYFB,FIELD,X(100),ALPHANUMERIC,5,100,Key feedback area containing the concatenated key of the current segment position in the database,PASFLPCB,X(100),100,0,NO,DISPLAY,,,,,PASFLPCB,37,NO,,NO,,,

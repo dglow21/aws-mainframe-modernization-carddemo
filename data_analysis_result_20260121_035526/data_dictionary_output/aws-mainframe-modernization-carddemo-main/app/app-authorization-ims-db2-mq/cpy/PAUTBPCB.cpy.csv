@@ -1,0 +1,11 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+PAUTBPCB,PAUTBPCB,RECORD,N/A,GROUP,1,291,"Program Communication Block (PCB) for PAUT database access, containing database control information and status fields",PAUTBPCB,N/A,0,0,NO,DISPLAY,,,,,PAUTBPCB,1,NO,,NO,,,
+PAUTBPCB,PAUT-DBDNAME,FIELD,X(08),ALPHANUMERIC,5,8,Database descriptor name identifying the IMS database being accessed,PAUTBPCB,X(8),8,0,NO,DISPLAY,,,,,PAUTBPCB,1,NO,,NO,,,
+PAUTBPCB,PAUT-SEG-LEVEL,FIELD,X(02),ALPHANUMERIC,5,2,Hierarchical segment level in the database structure,PAUTBPCB,X(2),2,0,NO,DISPLAY,,,,,PAUTBPCB,9,NO,,NO,,,
+PAUTBPCB,PAUT-PCB-STATUS,FIELD,X(02),ALPHANUMERIC,5,2,Status code returned after database operation indicating success or error condition,PAUTBPCB,X(2),2,0,NO,DISPLAY,,,,,PAUTBPCB,11,NO,,NO,,,
+PAUTBPCB,PAUT-PCB-PROCOPT,FIELD,X(04),ALPHANUMERIC,5,4,"Processing options defining allowed operations (Get, Insert, Replace, Delete) for the PCB",PAUTBPCB,X(4),4,0,NO,DISPLAY,,,,,PAUTBPCB,13,NO,,NO,,,
+PAUTBPCB,FILLER-1,FIELD,S9(05) COMP,BINARY,5,4,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",PAUTBPCB,'+/-99999,6,0,YES,COMP,,,,,PAUTBPCB,17,NO,,NO,,,
+PAUTBPCB,PAUT-SEG-NAME,FIELD,X(08),ALPHANUMERIC,5,8,Name of the current database segment being processed,PAUTBPCB,X(8),8,0,NO,DISPLAY,,,,,PAUTBPCB,21,NO,,NO,,,
+PAUTBPCB,PAUT-KEYFB-NAME,FIELD,S9(05) COMP,BINARY,5,4,Length of the key feedback area (USAGE COMP),PAUTBPCB,'+/-99999,6,0,YES,COMP,,,,,PAUTBPCB,29,NO,,NO,,,
+PAUTBPCB,PAUT-NUM-SENSEGS,FIELD,S9(05) COMP,BINARY,5,4,Number of sensitive segments defined for this PCB (USAGE COMP),PAUTBPCB,'+/-99999,6,0,YES,COMP,,,,,PAUTBPCB,33,NO,,NO,,,
+PAUTBPCB,PAUT-KEYFB,FIELD,X(255),ALPHANUMERIC,5,255,Key feedback area containing concatenated key values from the database hierarchy,PAUTBPCB,X(255),255,0,NO,DISPLAY,,,,,PAUTBPCB,37,NO,,NO,,,

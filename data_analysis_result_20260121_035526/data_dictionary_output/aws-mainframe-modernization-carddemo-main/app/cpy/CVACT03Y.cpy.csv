@@ -1,0 +1,6 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+CVACT03Y,CARD-XREF-RECORD,RECORD,N/A,GROUP,1,50,Main data structure for card cross-reference information with a record length of 50 bytes,CARD-XREF-RECORD,N/A,0,0,NO,DISPLAY,,,,,CARD-XREF-RECORD,1,NO,,NO,,,
+CVACT03Y,XREF-CARD-NUM,FIELD,X(16),ALPHANUMERIC,5,16,Card number used as a cross-reference identifier,CARD-XREF-RECORD,X(16),16,0,NO,DISPLAY,,,,,CARD-XREF-RECORD,1,NO,,NO,,,
+CVACT03Y,XREF-CUST-ID,FIELD,9(09),NUMERIC,5,9,Customer identification number associated with the card,CARD-XREF-RECORD,999999999,9,0,NO,DISPLAY,,,,,CARD-XREF-RECORD,17,NO,,NO,,,
+CVACT03Y,XREF-ACCT-ID,FIELD,9(11),NUMERIC,5,11,Account identification number linked to the card and customer,CARD-XREF-RECORD,99999999999,11,0,NO,DISPLAY,,,,,CARD-XREF-RECORD,26,NO,,NO,,,
+CVACT03Y,FILLER-1,FIELD,X(14),ALPHANUMERIC,5,14,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",CARD-XREF-RECORD,X(14),14,0,NO,DISPLAY,,,,,CARD-XREF-RECORD,37,NO,,NO,,,

@@ -1,0 +1,84 @@
+File Name,File Path,Data Source Name,DD Name,Logical Name,Copybook Record Name,Copybook File Path,Data Source Type,Access Type
+CBACT01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl,AWS.M2.CARDDEMO.ACCTDATA.ARRYPS,ARRYFILE,ARRY-FILE,,,Dataset,WRITE
+CBACT01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl,AWS.M2.CARDDEMO.ACCTDATA.PSCOMP,OUTFILE,OUT-FILE,,,Dataset,WRITE
+CBACT01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VBPS,VBRCFILE,VBRC-FILE,,,Dataset,WRITE
+CBACT01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,ACCTFILE,ACCTFILE-FILE,ACCOUNT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy,VSAM-KSDS,READ
+CBACT02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT02C.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS,CARDFILE,CARDFILE-FILE,CARD-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT02Y.cpy,VSAM-KSDS,READ
+CBACT03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT03C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,XREFFILE,XREFFILE-FILE,CARD-XREF-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy,VSAM-KSDS,READ
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,ACCTFILE,ACCOUNT-FILE,ACCOUNT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy,VSAM-KSDS,READ; UPDATE; WRITE
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,XREFFIL1,,,,VSAM-PATH,
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,XREFFILE,XREF-FILE,CARD-XREF-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy,VSAM-KSDS,READ
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS,DISCGRP,DISCGRP-FILE,DIS-GROUP-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA02Y.cpy,VSAM-KSDS,READ
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.SYSTRAN,TRANSACT,TRANSACT-FILE,TRAN-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy,GDG Base,WRITE
+CBACT04C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl,AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS,TCATBALF,TCATBAL-FILE,TRAN-CAT-BAL-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA01Y.cpy,VSAM-KSDS,READ
+CBCUS01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBCUS01C.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,CUSTFILE,CUSTFILE-FILE,CUSTOMER-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVCUS01Y.cpy,VSAM-KSDS,READ
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,ACCTFILE,ACCOUNT-INPUT,,,VSAM-KSDS,READ
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS,CARDFILE,CARD-INPUT,,,VSAM-KSDS,READ
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,XREFFILE,XREF-INPUT,,,VSAM-KSDS,READ
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,CUSTFILE,CUSTOMER-INPUT,,,VSAM-KSDS,READ
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.EXPORT.DATA,EXPFILE,EXPORT-OUTPUT,EXPORT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVEXPORT.cpy,VSAM KSDS,WRITE
+CBEXPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,TRANSACT,TRANSACTION-INPUT,,,VSAM-KSDS,READ
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.ACCTDATA.IMPORT,ACCTOUT,ACCOUNT-OUTPUT,,,Dataset,WRITE
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.CARDXREF.IMPORT,XREFOUT,XREF-OUTPUT,,,Dataset,WRITE
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.CUSTDATA.IMPORT,CUSTOUT,CUSTOMER-OUTPUT,,,Dataset,WRITE
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.EXPORT.DATA,EXPFILE,EXPORT-INPUT,EXPORT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVEXPORT.cpy,VSAM KSDS,READ
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.IMPORT.ERRORS,ERROUT,ERROR-OUTPUT,,,Dataset,WRITE
+CBIMPORT.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl,AWS.M2.CARDDEMO.TRANSACT.IMPORT,TRNXOUT,TRANSACTION-OUTPUT,,,Dataset,WRITE
+CBSTM03A.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL,AWS.M2.CARDDEMO.STATEMNT.HTML,HTMLFILE,HTML-FILE,,,Dataset,WRITE
+CBSTM03A.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL,AWS.M2.CARDDEMO.STATEMNT.PS,STMTFILE,STMT-FILE,,,Dataset,WRITE
+CBSTM03B.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,ACCTFILE,ACCT-FILE,,,VSAM-KSDS,READ
+CBSTM03B.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,XREFFILE,XREF-FILE,,,VSAM-KSDS,READ
+CBSTM03B.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,CUSTFILE,CUST-FILE,,,VSAM-KSDS,READ
+CBSTM03B.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL,AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS,TRNXFILE,TRNX-FILE,,,VSAM KSDS,READ
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,ACCTFILE,ACCOUNT-FILE,ACCOUNT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy,VSAM-KSDS,READ; UPDATE; WRITE
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,XREFFILE,XREF-FILE,CARD-XREF-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy,VSAM-KSDS,READ
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.DALYREJS,DALYREJS,DALYREJS-FILE,,,GDG Base,WRITE
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.DALYTRAN.PS,DALYTRAN,DALYTRAN-FILE,DALYTRAN-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA06Y.cpy,Non-VSAM,READ
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS,TCATBALF,TCATBAL-FILE,TRAN-CAT-BAL-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA01Y.cpy,VSAM-KSDS,READ; UPDATE; WRITE
+CBTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,TRANFILE,TRANSACT-FILE,TRAN-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy,VSAM-KSDS,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,CARDXREF,XREF-FILE,CARD-XREF-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy,VSAM-KSDS,READ
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.DATEPARM,DATEPARM,DATE-PARMS-FILE,,,Non-VSAM,READ
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS,TRANCATG,TRANCATG-FILE,TRAN-CAT-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA04Y.cpy,VSAM-KSDS,READ
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,REPORT-PAGE-TOTALS,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,TRANSACTION-HEADER-2,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,REPORT-ACCOUNT-TOTALS,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,REPORT-GRAND-TOTALS,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,REPORT-NAME-HEADER,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,TRANSACTION-HEADER-1,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANREPT,TRANREPT,REPORT-FILE,TRANSACTION-DETAIL-REPORT,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy,GDG Base,WRITE
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANSACT.DALY,TRANFILE,TRANSACT-FILE,TRAN-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy,GDG Base,READ
+CBTRN03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl,AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS,TRANTYPE,TRANTYPE-FILE,TRAN-TYPE-RECORD,aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA03Y.cpy,VSAM-KSDS,READ
+COACCT01.cbl,aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ
+COACTUPC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ; UPDATE; WRITE
+COACTUPC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,,CXACAIX,,,VSAM-PATH,READ
+COACTUPC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,,CUSTDAT,,,VSAM-KSDS,READ; UPDATE; WRITE
+COACTVWC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ
+COACTVWC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,,CXACAIX,,,VSAM-PATH,READ
+COACTVWC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,,CUSTDAT,,,VSAM-KSDS,READ
+COBIL00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ; UPDATE; WRITE
+COBIL00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,,CXACAIX,,,VSAM-PATH,READ
+COBIL00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,,TRANSACT,,,VSAM-KSDS,READ; WRITE
+COBTUPDT.cbl,aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COBTUPDT.cbl,CARDDEMO.TRANSACTION_TYPE,,CARDDEMO.TRANSACTION_TYPE,,,Database,DELETE; INSERT; UPDATE
+COCRDLIC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS,,CARDDAT,,,VSAM-KSDS,READ
+COCRDSLC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.AIX.PATH,,CARDAIX,,,VSAM-PATH,READ
+COCRDSLC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS,,CARDDAT,,,VSAM-KSDS,READ
+COCRDUPC.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COCRDUPC.cbl,AWS.M2.CARDDEMO.CARDDATA.VSAM.KSDS,,CARDDAT,,,VSAM-KSDS,READ; UPDATE; WRITE
+COPAUA0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ
+COPAUA0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,,CCXREF,,,VSAM-KSDS,READ
+COPAUA0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,,CUSTDAT,,,VSAM-KSDS,READ
+COPAUS0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl,AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS,,ACCTDAT,,,VSAM-KSDS,READ
+COPAUS0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,,CXACAIX,,,VSAM-PATH,READ
+COPAUS0C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl,AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS,,CUSTDAT,,,VSAM-KSDS,READ
+COPAUS2C.cbl,aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS2C.cbl,CARDDEMO.AUTHFRDS,,CARDDEMO.AUTHFRDS,,,Database,INSERT; UPDATE
+COSGN00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl,AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS,,USRSEC,,,VSAM-KSDS,READ
+COTRN00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,,TRANSACT,,,VSAM-KSDS,READ
+COTRN01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,,TRANSACT,,,VSAM-KSDS,READ
+COTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH,,CXACAIX,,,VSAM-PATH,READ
+COTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl,AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS,,CCXREF,,,VSAM-KSDS,READ
+COTRN02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl,AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS,,TRANSACT,,,VSAM-KSDS,READ; WRITE
+COTRTLIC.cbl,aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTLIC.cbl,CARDDEMO.TRANSACTION_TYPE,,CARDDEMO.TRANSACTION_TYPE,,,Database,DELETE; SELECT; UPDATE
+COTRTUPC.cbl,aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTUPC.cbl,CARDDEMO.TRANSACTION_TYPE,,CARDDEMO.TRANSACTION_TYPE,,,Database,DELETE; INSERT; SELECT; UPDATE
+COUSR00C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl,AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS,,USRSEC,,,VSAM-KSDS,READ
+COUSR01C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COUSR01C.cbl,AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS,,USRSEC,,,VSAM-KSDS,WRITE
+COUSR02C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl,AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS,,USRSEC,,,VSAM-KSDS,READ; UPDATE; WRITE
+COUSR03C.cbl,aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl,AWS.M2.CARDDEMO.USRSEC.VSAM.KSDS,,USRSEC,,,VSAM-KSDS,DELETE; READ

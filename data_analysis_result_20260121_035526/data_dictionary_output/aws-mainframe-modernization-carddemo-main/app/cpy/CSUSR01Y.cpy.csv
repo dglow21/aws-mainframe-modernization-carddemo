@@ -1,0 +1,8 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+CSUSR01Y,SEC-USER-DATA,RECORD,N/A,GROUP,1,80,Group item containing security and user authentication data for the card demo application,SEC-USER-DATA,N/A,0,0,NO,DISPLAY,,,,,SEC-USER-DATA,1,NO,,NO,,,
+CSUSR01Y,SEC-USR-ID,FIELD,X(08),ALPHANUMERIC,5,8,User identification code or login ID (PIC X(08)),SEC-USER-DATA,X(8),8,0,NO,DISPLAY,,,,,SEC-USER-DATA,1,NO,,NO,,,
+CSUSR01Y,SEC-USR-FNAME,FIELD,X(20),ALPHANUMERIC,5,20,User's first name (PIC X(20)),SEC-USER-DATA,X(20),20,0,NO,DISPLAY,,,,,SEC-USER-DATA,9,NO,,NO,,,
+CSUSR01Y,SEC-USR-LNAME,FIELD,X(20),ALPHANUMERIC,5,20,User's last name (PIC X(20)),SEC-USER-DATA,X(20),20,0,NO,DISPLAY,,,,,SEC-USER-DATA,29,NO,,NO,,,
+CSUSR01Y,SEC-USR-PWD,FIELD,X(08),ALPHANUMERIC,5,8,User's password for authentication (PIC X(08)),SEC-USER-DATA,X(8),8,0,NO,DISPLAY,,,,,SEC-USER-DATA,49,NO,,NO,,,
+CSUSR01Y,SEC-USR-TYPE,FIELD,X(01),ALPHANUMERIC,5,1,User type or role classification code (PIC X(01)),SEC-USER-DATA,X,1,0,NO,DISPLAY,,,,,SEC-USER-DATA,57,NO,,NO,,,
+CSUSR01Y,SEC-USR-FILLER,FIELD,X(23),ALPHANUMERIC,5,23,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",SEC-USER-DATA,X(23),23,0,NO,DISPLAY,,,,,SEC-USER-DATA,58,NO,,NO,,,

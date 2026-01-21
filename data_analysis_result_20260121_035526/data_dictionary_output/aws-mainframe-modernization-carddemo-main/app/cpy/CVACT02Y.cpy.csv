@@ -1,0 +1,9 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+CVACT02Y,CARD-RECORD,RECORD,N/A,GROUP,1,150,Group item containing all card-related information for a credit or debit card entity (Record length 150 bytes),CARD-RECORD,N/A,0,0,NO,DISPLAY,,,,,CARD-RECORD,1,NO,,NO,,,
+CVACT02Y,CARD-NUM,FIELD,X(16),ALPHANUMERIC,5,16,16-character card number uniquely identifying the payment card,CARD-RECORD,X(16),16,0,NO,DISPLAY,,,,,CARD-RECORD,1,NO,,NO,,,
+CVACT02Y,CARD-ACCT-ID,FIELD,9(11),NUMERIC,5,11,11-digit account identifier linking the card to a customer account,CARD-RECORD,99999999999,11,0,NO,DISPLAY,,,,,CARD-RECORD,17,NO,,NO,,,
+CVACT02Y,CARD-CVV-CD,FIELD,9(03),NUMERIC,5,3,3-digit Card Verification Value code used for security validation,CARD-RECORD,999,3,0,NO,DISPLAY,,,,,CARD-RECORD,28,NO,,NO,,,
+CVACT02Y,CARD-EMBOSSED-NAME,FIELD,X(50),ALPHANUMERIC,5,50,"Cardholder name as embossed on the physical card, up to 50 characters",CARD-RECORD,X(50),50,0,NO,DISPLAY,,,,,CARD-RECORD,31,NO,,NO,,,
+CVACT02Y,CARD-EXPIRAION-DATE,FIELD,X(10),ALPHANUMERIC,5,10,Card expiration date in 10-character format,CARD-RECORD,X(10),10,0,NO,DISPLAY,,,,,CARD-RECORD,81,NO,,NO,,,
+CVACT02Y,CARD-ACTIVE-STATUS,FIELD,X(01),ALPHANUMERIC,5,1,Single character flag indicating whether the card is currently active or inactive,CARD-RECORD,X,1,0,NO,DISPLAY,,,,,CARD-RECORD,91,NO,,NO,,,
+CVACT02Y,FILLER-1,FIELD,X(59),ALPHANUMERIC,5,59,"Reserved placeholder field used for data structure alignment, padding, or holding constant values",CARD-RECORD,X(59),59,0,NO,DISPLAY,,,,,CARD-RECORD,92,NO,,NO,,,

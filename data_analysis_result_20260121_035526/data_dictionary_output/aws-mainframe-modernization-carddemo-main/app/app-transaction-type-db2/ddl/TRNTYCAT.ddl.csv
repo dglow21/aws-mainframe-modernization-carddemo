@@ -1,0 +1,4 @@
+table_name,field_name,db2_data_type,generic_data_type,schema_name,column_position,data_length,decimal_precision,decimal_scale,nullable,default_value,primary_key,foreign_key_schema,foreign_key_table,foreign_key_column,check_constraint,type,business_definition
+TRANSACTION_TYPE_CATEGORY,TRC_TYPE_CODE,CHAR,ALPHANUMERIC,CARDDEMO,1,2,,,NO,,YES,CARDDEMO,TRANSACTION_TYPE,TR_TYPE,,TABLE,Two-character code that uniquely identifies the transaction type and serves as a foreign key reference to the TRANSACTION_TYPE table
+TRANSACTION_TYPE_CATEGORY,TRC_TYPE_CATEGORY,CHAR,ALPHANUMERIC,CARDDEMO,3,4,,,NO,,YES,,,,,TABLE,Four-character code that defines the specific category classification within a transaction type
+TRANSACTION_TYPE_CATEGORY,TRC_CAT_DATA,VARCHAR,ALPHANUMERIC,CARDDEMO,7,50,,,NO,,NO,,,,,TABLE,Variable-length text field containing descriptive or supplementary data associated with the transaction type category with a maximum length of 50 characters

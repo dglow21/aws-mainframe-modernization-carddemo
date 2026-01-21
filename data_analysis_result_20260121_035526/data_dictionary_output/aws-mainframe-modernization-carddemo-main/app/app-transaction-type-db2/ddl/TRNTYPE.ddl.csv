@@ -1,0 +1,3 @@
+table_name,field_name,db2_data_type,generic_data_type,schema_name,column_position,data_length,decimal_precision,decimal_scale,nullable,default_value,primary_key,foreign_key_schema,foreign_key_table,foreign_key_column,check_constraint,type,business_definition
+TRANSACTION_TYPE,TR_TYPE,CHAR,ALPHANUMERIC,CARDDEMO,1,2,,,NO,,YES,,,,,TABLE,Two-character code that uniquely identifies the type of transaction being performed in the card system
+TRANSACTION_TYPE,TR_DESCRIPTION,VARCHAR,ALPHANUMERIC,CARDDEMO,3,50,,,NO,,NO,,,,,TABLE,Human-readable description of the transaction type providing detailed information about what the transaction code represents

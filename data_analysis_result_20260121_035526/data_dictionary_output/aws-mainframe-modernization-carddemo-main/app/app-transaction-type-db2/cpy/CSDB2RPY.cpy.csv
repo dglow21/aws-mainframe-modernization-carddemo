@@ -1,0 +1,5 @@
+data_source_name,field_name,field_type,mainframe_data_type,generic_data_type,level,data_length,business_definition,logical_group,display_format,display_length,decimal_positions,signed_indicator,usage_clause,occurs_min,occurs_max,occurs_depending,redefines_field,root_record,field_position,synchronized,justified,blank_when_zero,value_clause,condition_values,condition_ranges
+CSDB2RPY,PRIMING-QUERY,GROUP,N/A,GROUP,9998,0,,PRIMING-QUERY,N/A,0,0,NO,DISPLAY,,,,,CSDB2RPY,1,NO,,NO,,,
+CSDB2RPY,INTO,RECORD,N/A,GROUP,1,0,,INTO,N/A,0,0,NO,DISPLAY,,,,,INTO,1,NO,,NO,,,
+CSDB2RPY,ROW,RECORD,N/A,GROUP,1,0,,ROW,N/A,0,0,NO,DISPLAY,,,,,ROW,1,NO,,NO,,,
+CSDB2RPY,PRIMING-QUERY-EXIT,GROUP,N/A,GROUP,9998,0,,ROW,N/A,0,0,NO,DISPLAY,,,,,ROW,1,NO,,NO,,,
