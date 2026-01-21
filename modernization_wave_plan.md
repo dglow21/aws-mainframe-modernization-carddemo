@@ -453,11 +453,201 @@ Wave 2         Wave 3         Wave 4                 │
 
 ---
 
-## 8. Recommendations
+## 8. Domain Complexity vs. Business Value Matrix
+
+Based on in-depth analysis of `dependencies_20260121105446.json`, this matrix provides strategic guidance for modernization prioritization by evaluating each domain's technical complexity against its business value.
+
+### 8.1 Matrix Overview
+
+```
+                              BUSINESS VALUE
+                    Low         Medium        High         Critical
+              ┌─────────────┬─────────────┬─────────────┬─────────────┐
+    Critical  │             │             │             │ Account     │
+              │             │             │             │ Management  │
+              │             │             │             │ (Wave 3)    │
+              ├─────────────┼─────────────┼─────────────┼─────────────┤
+    High      │             │             │ Credit Card │ Transaction │
+              │             │             │ Management  │ Processing  │
+              │             │             │ (Wave 4)    │ (Wave 5)    │
+              │             │             │             │ Auth Proc.  │
+              │             │             │             │ (Wave 6)    │
+ COMPLEXITY   ├─────────────┼─────────────┼─────────────┼─────────────┤
+    Medium    │ Data Mgmt   │ Reference   │ Customer    │             │
+              │ & File Ops  │ Data Mgmt   │ Svc/Payments│             │
+              │ (Wave N/A)  │ (Wave 2)    │ (Wave 5)    │             │
+              │             │ Reporting   │             │             │
+              │             │ (Wave 6)    │             │             │
+              ├─────────────┼─────────────┼─────────────┼─────────────┤
+    Low       │ System      │ Navigation  │ Shared      │ User Admin  │
+              │ Admin/Infra │ & Interface │ Services    │ & Security  │
+              │ (Wave 0)    │ (Wave 1)    │ (Wave 1)    │ (Wave 1)    │
+              └─────────────┴─────────────┴─────────────┴─────────────┘
+```
+
+### 8.2 Detailed Domain Analysis
+
+| Domain | Complexity Score | Value Score | Key Programs | Data Dependencies | Technology Mix | Recommendation |
+|--------|-----------------|-------------|--------------|-------------------|----------------|----------------|
+| **Account Management** | CRITICAL (9/10) | CRITICAL (10/10) | COACTUPC (CC=373), COACTVWC | ACCTDAT (R/W), CUSTDAT (R/W), CXACAIX | CICS, VSAM-KSDS, VSAM-PATH | Decompose carefully; highest risk |
+| **Transaction Processing** | HIGH (8/10) | CRITICAL (10/10) | COTRN00C-02C, CBTRN01C-03C | TRANSACT (R/W), CCXREF, CXACAIX | CICS, VSAM-KSDS, GDG | Requires Account/Card first |
+| **Authorization Processing** | HIGH (8/10) | CRITICAL (9/10) | COPAUS0C-2C, COPAUA0C | ACCTDAT, CUSTDAT, AUTHFRDS (DB2) | CICS, VSAM, DB2, IMS, MQ | Complex tech mix; performance-critical |
+| **Credit Card Management** | HIGH (7/10) | HIGH (8/10) | COCRDLIC (CC=136), COCRDUPC (CC=170) | CARDDAT, CARDAIX, CXACAIX | CICS, VSAM-KSDS, VSAM-PATH | PCI considerations |
+| **Customer Service/Payments** | MEDIUM (5/10) | HIGH (8/10) | COBIL00C | ACCTDAT (R/W), TRANSACT (W) | CICS, VSAM-KSDS | Well-bounded; customer-facing |
+| **Reference Data Mgmt** | MEDIUM (5/10) | MEDIUM (5/10) | COTRTLIC (CC=221), COTRTUPC (CC=208) | TRANSACTION_TYPE (DB2) | CICS, DB2 | DB2 migration straightforward |
+| **Reporting & Analytics** | MEDIUM (5/10) | MEDIUM (6/10) | CORPT00C, CBSTM03A/B | All master files (R) | CICS, VSAM, Batch | Read-only; batch replacement |
+| **User Admin & Security** | LOW (3/10) | CRITICAL (9/10) | COSGN00C, COUSR01C-03C | USRSEC | CICS, VSAM-KSDS/ESDS/RRDS | Gateway; modernize first |
+| **Shared Services** | LOW (2/10) | HIGH (7/10) | CSUTLDTC, COBSWAIT | None | Utilities | Foundation; enable reuse |
+| **Navigation/Interface** | LOW (3/10) | MEDIUM (5/10) | COMEN01C, COADM01C | None (routing only) | CICS, BMS | Replace with SPA |
+| **Data Mgmt & File Ops** | MEDIUM (4/10) | LOW (3/10) | CBEXPORT, CBIMPORT | All master files | Batch, VSAM | Operational; deferred |
+| **System Admin/Infra** | LOW (2/10) | LOW (2/10) | JCL, PROCs, markers | Operational | JCL, System | CI/CD replacement |
+
+### 8.3 Dependency Analysis Insights
+
+#### Data Coupling Analysis (from dependencies_20260121105446.json)
+
+| Data Source | Programs with Read | Programs with Write | Coupling Level |
+|-------------|-------------------|---------------------|----------------|
+| **ACCTDAT** (Account Master) | COACTVWC, COBIL00C, COPAUS0C, CBSTM03B, CBEXPORT, CBTRN01C | COACTUPC, COBIL00C, CBACT04C, CBTRN02C | **CRITICAL** |
+| **CUSTDAT** (Customer Master) | COACTVWC, COPAUS0C, CBSTM03B, CBEXPORT | COACTUPC | **CRITICAL** |
+| **TRANSACT** (Transactions) | COTRN00C, COTRN01C, CBSTM03B | COTRN02C, COBIL00C, CBTRN02C | **HIGH** |
+| **CARDDAT** (Card Master) | COCRDLIC, COCRDSLC, CBSTM03B | COCRDUPC | **HIGH** |
+| **CCXREF/CXACAIX** (Cross-Ref) | 12+ programs | None (read-only) | **HIGH** |
+| **USRSEC** (User Security) | COSGN00C, COUSR01C-03C | COUSR01C-03C | **HIGH** |
+| **AUTHFRDS** (Fraud - DB2) | None | COPAUS2C | **MEDIUM** |
+| **TRANSACTION_TYPE** (DB2) | COTRTLIC | COTRTUPC, COBTUPDT | **LOW** |
+
+#### Program Call Chain Analysis
+
+```
+Entry Points and Call Chains:
+
+1. AUTHENTICATION FLOW (Gateway - Must modernize first)
+   COSGN00C ──┬──> COMEN01C (regular users)
+              └──> COADM01C (admin users)
+
+   Dependencies: USRSEC file, all downstream programs
+
+2. ACCOUNT/CUSTOMER FLOW (Highest complexity)
+   COACTVWC ──> ACCTDAT, CUSTDAT (read-only view)
+   COACTUPC ──> ACCTDAT (R/W), CUSTDAT (R/W), CXACAIX, COMEN01C
+
+   Dependency chain: COSGN00C → COMEN01C → COACTVWC/COACTUPC
+
+3. CREDIT CARD FLOW
+   COCRDLIC ──> CARDDAT, COCRDSLC, COCRDUPC, COMEN01C
+   COCRDSLC ──> CARDDAT, CARDAIX, COCRDLIC
+   COCRDUPC ──> CARDDAT, CXACAIX, COCRDLIC, COMEN01C
+
+   Dependencies: Account must exist for card operations
+
+4. TRANSACTION FLOW
+   COTRN00C ──> TRANSACT (browse), COTRN01C, COMEN01C, COSGN00C
+   COTRN01C ──> TRANSACT (read), COTRN00C, COMEN01C, COSGN00C
+   COTRN02C ──> TRANSACT (write), CCXREF, CXACAIX, CSUTLDTC
+
+   Dependencies: Account + Card services required
+
+5. AUTHORIZATION FLOW (Complex tech mix: CICS + IMS + DB2 + MQ)
+   COPAUA0C ──> ACCTDAT, CUSTDAT, MQGET/MQPUT (async via MQ)
+   COPAUS0C ──> ACCTDAT, CUSTDAT, CXACAIX, COPAUS1C, COSGN00C
+   COPAUS1C ──> COPAUS0C, COPAUS2C
+   COPAUS2C ──> AUTHFRDS (DB2 fraud table)
+
+   Technology bridge: MQ to Amazon MQ; IMS to DynamoDB
+
+6. BILL PAYMENT FLOW
+   COBIL00C ──> ACCTDAT (R/W), TRANSACT (write), CXACAIX
+
+   Dependencies: Account + Transaction services
+```
+
+### 8.4 Strategic Quadrant Analysis
+
+Based on the complexity vs. value matrix, we derive four strategic quadrants:
+
+#### Quadrant 1: HIGH VALUE, LOW COMPLEXITY (Quick Wins)
+**Recommendation: Modernize Early**
+
+| Domain | Rationale | Wave |
+|--------|-----------|------|
+| User Admin & Security | Gateway dependency, enables all subsequent work | 1 |
+| Shared Services | Foundation utilities, high reuse | 1 |
+| Navigation/Interface | UI replacement, React SPA | 1 |
+
+**Dependencies resolved by completing Quadrant 1:**
+- Authentication for all online programs
+- Date/time utilities
+- Application shell and routing
+
+#### Quadrant 2: HIGH VALUE, HIGH COMPLEXITY (Strategic Investments)
+**Recommendation: Invest Carefully with Risk Mitigation**
+
+| Domain | Rationale | Risk Mitigation | Wave |
+|--------|-----------|-----------------|------|
+| Account Management | Highest complexity (CC=373), core entity | Decompose into Account + Customer services; extensive parallel testing | 3 |
+| Transaction Processing | Highest volume, revenue | Event-driven architecture; Step Functions for batch | 5 |
+| Authorization Processing | Performance-critical, complex tech mix | Cache layer; MQ bridge; gradual traffic shift | 6 |
+| Credit Card Management | PCI compliance, moderate complexity | Security review; card tokenization | 4 |
+| Customer Payments | Direct customer impact | Well-bounded; test extensively | 5 |
+
+#### Quadrant 3: LOW VALUE, LOW COMPLEXITY (Fill-ins)
+**Recommendation: Modernize Opportunistically**
+
+| Domain | Rationale | Wave |
+|--------|-----------|------|
+| System Admin/Infrastructure | Replace JCL with CI/CD | 0 (Foundation) |
+
+#### Quadrant 4: LOW VALUE, HIGH COMPLEXITY (Reconsider)
+**Recommendation: Evaluate Rebuild vs. Maintain**
+
+| Domain | Rationale | Decision |
+|--------|-----------|----------|
+| Data Mgmt & File Ops | Operational utilities, not customer-facing | Defer; replace with cloud-native tools |
+
+### 8.5 Modernization Value Scores
+
+| Domain | Complexity Penalty | Business Value | Net Score | Priority Rank |
+|--------|-------------------|----------------|-----------|---------------|
+| User Admin & Security | -3 | 90 | **87** | 1 |
+| Shared Services | -2 | 70 | **68** | 2 |
+| Reference Data Mgmt | -5 | 50 | **45** | 3 |
+| Account Management | -9 | 100 | **91** (but HIGH RISK) | 4 |
+| Credit Card Management | -7 | 80 | **73** | 5 |
+| Transaction Processing | -8 | 100 | **92** (but HIGH RISK) | 6 |
+| Customer Payments | -5 | 80 | **75** | 7 |
+| Authorization Processing | -8 | 90 | **82** (but HIGH RISK) | 8 |
+| Reporting & Analytics | -5 | 60 | **55** | 9 |
+| Navigation/Interface | -3 | 50 | **47** | 10 |
+
+### 8.6 Key Insights from Dependency Data
+
+1. **COACTUPC is the Achilles' Heel**: With CC=373 and writes to both ACCTDAT and CUSTDAT, this single program represents the highest modernization risk. Recommend:
+   - Split into separate Account Service and Customer Service
+   - Implement saga pattern for cross-entity updates
+   - Parallel running for minimum 3 cycles
+
+2. **COSGN00C is the Gateway**: All online paths flow through sign-on. Modernizing authentication first with Amazon Cognito:
+   - Unlocks parallel development for all other domains
+   - Enables feature flags for gradual rollout
+   - Reduces blast radius of subsequent changes
+
+3. **Cross-Reference Tables (CXACAIX, CCXREF) are Read-Only**: These can be migrated early and accessed via APIs without write-contention concerns.
+
+4. **Authorization has Unique Tech Mix**: COPAUS* programs use CICS + IMS + DB2 + MQ. Requires:
+   - Amazon MQ for message bridging
+   - DynamoDB for IMS data (high throughput)
+   - Aurora PostgreSQL for fraud data
+
+5. **Batch Programs Have Lower Coupling**: CBACT*, CBTRN*, CBSTM* programs have well-defined inputs/outputs, making them ideal for Step Functions migration.
+
+---
+
+## 9. Updated Recommendations
 
 ### Immediate Actions
 
-1. **Validate dependencies file**: Ensure `dependencies_20260121105446.json` is available for detailed program-level dependency mapping
+1. ~~**Validate dependencies file**~~: ✓ Completed - `dependencies_20260121105446.json` analysis integrated
 2. **Engage AWS Transform**: Use AWS Transform for automated code analysis and refactoring
 3. **Establish test baseline**: Generate automated tests from existing COBOL behavior
 4. **Begin Wave 0**: Start cloud foundation setup immediately
@@ -505,4 +695,5 @@ Wave 2         Wave 3         Wave 4                 │
 ---
 
 *Document generated: 2026-01-21*
-*Based on: Domain decomposition analysis, program_to_dsn.json, entrypoint JSON files, AWS re:Invent 2025 best practices*
+*Last updated: 2026-01-21 (Added Complexity vs. Value Matrix based on dependencies_20260121105446.json analysis)*
+*Based on: Domain decomposition analysis, program_to_dsn.json, entrypoint JSON files, dependencies_20260121105446.json, AWS re:Invent 2025 best practices*
