@@ -1,0 +1,241 @@
+{
+  "domains": [
+    {
+      "name": "Transaction Processing and Management",
+      "description": "Manages the complete lifecycle of credit card transactions including inquiry, creation, posting, interest calculation, and reporting.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN00C.cbl|COTRN00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN01C.cbl|COTRN01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COTRN02C.cbl|COTRN02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT04C.cbl|CBACT04C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN01C.cbl|CBTRN01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN02C.cbl|CBTRN02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/POSTTRAN.jcl|POSTTRAN.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANREPT.jcl|TRANREPT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/INTCALC.jcl|INTCALC.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN00.bms|COTRN00.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN01.bms|COTRN01.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COTRN02.bms|COTRN02.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA01Y.cpy|CVTRA01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA02Y.cpy|CVTRA02Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA03Y.cpy|CVTRA03Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA04Y.cpy|CVTRA04Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA05Y.cpy|CVTRA05Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA06Y.cpy|CVTRA06Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVTRA07Y.cpy|CVTRA07Y.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Credit Card Management",
+      "description": "Provides comprehensive credit card lifecycle management including card inquiry, selection, updates, and maintenance operations.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDLIC.cbl|COCRDLIC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDSLC.cbl|COCRDSLC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COCRDUPC.cbl|COCRDUPC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDLI.bms|COCRDLI.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDSL.bms|COCRDSL.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COCRDUP.bms|COCRDUP.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVCRD01Y.cpy|CVCRD01Y.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Account Management",
+      "description": "Handles customer account operations including account inquiry, updates, balance management, and account-card relationship management.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTVWC.cbl|COACTVWC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COACTUPC.cbl|COACTUPC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/COACCT01.cbl|COACCT01.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COACTVW.bms|COACTVW.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COACTUP.bms|COACTUP.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT01Y.cpy|CVACT01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT02Y.cpy|CVACT02Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVACT03Y.cpy|CVACT03Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVCUS01Y.cpy|CVCUS01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CUSTREC.cpy|CUSTREC.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Authorization Processing",
+      "description": "Manages credit card authorization requests including real-time processing, fraud detection, pending authorization management, and IMS/DB2 integration.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUA0C.cbl|COPAUA0C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS0C.cbl|COPAUS0C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS1C.cbl|COPAUS1C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/COPAUS2C.cbl|COPAUS2C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/CBPAUP0C.cbl|CBPAUP0C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/CBPAUP0J.jcl|CBPAUP0J.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU00.bms|COPAU00.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/bms/COPAU01.bms|COPAU01.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAUERY.cpy|CCPAUERY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURLY.cpy|CCPAURLY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CCPAURQY.cpy|CCPAURQY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUDTY.cpy|CIPAUDTY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/CIPAUSMY.cpy|CIPAUSMY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU00.cpy|COPAU00.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy-bms/COPAU01.cpy|COPAU01.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cpy/IMSFUNCS.cpy|IMSFUNCS.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Customer Service and Payments",
+      "description": "Provides customer-facing services including bill payment processing and account balance management.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COBIL00C.cbl|COBIL00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COBIL00.bms|COBIL00.bms|BMS"
+      ]
+    },
+    {
+      "name": "User Administration and Security",
+      "description": "Manages user accounts, authentication, role-based access control, and security for the card management system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COSGN00C.cbl|COSGN00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR00C.cbl|COUSR00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR01C.cbl|COUSR01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR02C.cbl|COUSR02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COUSR03C.cbl|COUSR03C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/ESDSRRDS.jcl|ESDSRRDS.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DUSRSECJ.jcl|DUSRSECJ.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COSGN00.bms|COSGN00.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR00.bms|COUSR00.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR01.bms|COUSR01.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR02.bms|COUSR02.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COUSR03.bms|COUSR03.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUSR01Y.cpy|CSUSR01Y.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Reporting and Analytics",
+      "description": "Generates business reports, customer statements, and analytical outputs in multiple formats for management and customer communication.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CORPT00C.cbl|CORPT00C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBTRN03C.cbl|CBTRN03C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03A.CBL|CBSTM03A.CBL|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBSTM03B.CBL|CBSTM03B.CBL|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CREASTMT.JCL|CREASTMT.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TXT2PDF1.JCL|TXT2PDF1.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/PRTCATBL.jcl|PRTCATBL.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/bms/CORPT00.bms|CORPT00.bms|BMS"
+      ]
+    },
+    {
+      "name": "System Navigation and Interface",
+      "description": "Provides main menu systems, navigation interfaces, and date/time services for user access to application functions.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COMEN01C.cbl|COMEN01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COADM01C.cbl|COADM01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-vsam-mq/cbl/CODATE01.cbl|CODATE01.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COMEN01.bms|COMEN01.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/bms/COADM01.bms|COADM01.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/COADM02Y.cpy|COADM02Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/COCOM01Y.cpy|COCOM01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/COMEN02Y.cpy|COMEN02Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/COTTL01Y.cpy|COTTL01Y.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Data Management and File Operations",
+      "description": "Manages data files, performs data extraction, loading, export/import operations, and maintains data integrity across the system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBEXPORT.cbl|CBEXPORT.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBIMPORT.cbl|CBIMPORT.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT01C.cbl|CBACT01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT02C.cbl|CBACT02C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBACT03C.cbl|CBACT03C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CBCUS01C.cbl|CBCUS01C.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBLOD.CBL|PAUDBLOD.CBL|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/PAUDBUNL.CBL|PAUDBUNL.CBL|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/cbl/DBUNLDGS.CBL|DBUNLDGS.CBL|COB",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READACCT.jcl|READACCT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READCARD.jcl|READCARD.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READCUST.jcl|READCUST.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/READXREF.jcl|READXREF.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CBEXPORT.jcl|CBEXPORT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CBIMPORT.jcl|CBIMPORT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/COMBTRAN.jcl|COMBTRAN.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/LOADPADB.JCL|LOADPADB.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDPADB.JCL|UNLDPADB.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/UNLDGSAM.JCL|UNLDGSAM.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CVEXPORT.cpy|CVEXPORT.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Reference Data Management",
+      "description": "Maintains master reference data including transaction types, categories, disclosure groups, and lookup tables used throughout the system.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTLIC.cbl|COTRTLIC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COTRTUPC.cbl|COTRTUPC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cbl/COBTUPDT.cbl|COBTUPDT.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/TRANEXTR.jcl|TRANEXTR.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DISCGRP.jcl|DISCGRP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TCATBALF.jcl|TCATBALF.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANCATG.jcl|TRANCATG.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANTYPE.jcl|TRANTYPE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTLI.bms|COTRTLI.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/bms/COTRTUP.bms|COTRTUP.bms|BMS",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTLI.cpy|COTRTLI.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy-bms/COTRTUP.cpy|COTRTUP.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSLKPCDY.cpy|CSLKPCDY.cpy|CPY"
+      ]
+    },
+    {
+      "name": "System Administration and Infrastructure",
+      "description": "Provides system administration, database management, file infrastructure, CICS operations, build procedures, and technical support operations.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/CREADB21.jcl|CREADB21.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/jcl/MNTTRDB2.jcl|MNTTRDB2.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/app-authorization-ims-db2-mq/jcl/DBPAUTP0.jcl|DBPAUTP0.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/ACCTFILE.jcl|ACCTFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CARDFILE.jcl|CARDFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CUSTFILE.jcl|CUSTFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANFILE.jcl|TRANFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/XREFFILE.jcl|XREFFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANIDX.jcl|TRANIDX.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/TRANBKP.jcl|TRANBKP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CBADMCDJ.jcl|CBADMCDJ.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/CLOSEFIL.jcl|CLOSEFIL.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/OPENFIL.jcl|OPENFIL.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGB.jcl|DEFGDGB.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFGDGD.jcl|DEFGDGD.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/REPTFILE.jcl|REPTFILE.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DALYREJS.jcl|DALYREJS.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/DEFCUST.jcl|DEFCUST.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/WAITSTEP.jcl|WAITSTEP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/FTPJCL.JCL|FTPJCL.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ1.JCL|INTRDRJ1.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/app/jcl/INTRDRJ2.JCL|INTRDRJ2.JCL|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/BATCMP.jcl|BATCMP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/BMSCMP.jcl|BMSCMP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/CICCMP.jcl|CICCMP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/CICDBCMP.jcl|CICDBCMP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/IMSMQCMP.jcl|IMSMQCMP.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/LISTCAT.jcl|LISTCAT.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/RACFCMDS.jcl|RACFCMDS.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/REPRTEST.jcl|REPRTEST.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/jcl/SORTTEST.jcl|SORTTEST.jcl|JCL",
+        "aws-mainframe-modernization-carddemo-main/samples/proc/BLDCIDB2.prc|BLDCIDB2.prc|PROC",
+        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBAT.prc|BUILDBAT.prc|PROC",
+        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDBMS.prc|BUILDBMS.prc|PROC",
+        "aws-mainframe-modernization-carddemo-main/samples/proc/BUILDONL.prc|BUILDONL.prc|PROC",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RPY.cpy|CSDB2RPY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/app-transaction-type-db2/cpy/CSDB2RWY.cpy|CSDB2RWY.cpy|CPY"
+      ]
+    },
+    {
+      "name": "Shared Services",
+      "description": "Provides common utility functions, date handling, DB2 communication wrappers, messaging, and reusable components used across multiple business domains.",
+      "files": [
+        "aws-mainframe-modernization-carddemo-main/app/cbl/CSUTLDTC.cbl|CSUTLDTC.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cbl/COBSWAIT.cbl|COBSWAIT.cbl|COB",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSDAT01Y.cpy|CSDAT01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDPY.cpy|CSUTLDPY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSUTLDWY.cpy|CSUTLDWY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CODATECN.cpy|CODATECN.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG01Y.cpy|CSMSG01Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSMSG02Y.cpy|CSMSG02Y.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSSETATY.cpy|CSSETATY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/CSSTRPFY.cpy|CSSTRPFY.cpy|CPY",
+        "aws-mainframe-modernization-carddemo-main/app/cpy/UNUSED1Y.cpy|UNUSED1Y.cpy|CPY"
+      ]
+    }
+  ]
+}
